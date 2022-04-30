@@ -31,3 +31,5 @@ template update* (window: glfw.GLFWWindow, body: untyped) =
     window.swapBuffers()
   window.destroyWindow()
   glfwTerminate()
+
+export glfw
