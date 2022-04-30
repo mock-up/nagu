@@ -76,3 +76,5 @@ template update* (context: NaguContext, body: untyped) =
     body
     context.pollEventsAndSwapBuffers()
   context.destroyWindow()
+
+export isWindowOpen, pollEventsAndSwapBuffers, destroyWindow
