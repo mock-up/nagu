@@ -97,8 +97,8 @@ suite "=~":
 
 suite "map":
   setup:
-    proc cube (n: float32): float32 = n * n * n
-    proc min (n, m: float32): float32 =
+    proc cube (n: float32): float32 {.used.} = n * n * n
+    proc min (n, m: float32): float32 {.used.} =
       result = if n <= m: n
                else: m
   test "apply cube to (1, 2, 3)":
