@@ -8,13 +8,17 @@ type
     id: opengl.GLuint
     data: array[I, T]
   
-  vboRef [I: static[int]; T] = ref vboObj[I, T]
+  vboRef* [I: static[int]; T] = ref vboObj[I, T]
   
   VBO* = object
 
-proc init [I, T] (_: typedesc[vboRef[I, T]]): vboRef[I, T] =
+proc init* [I, T] (_: typedesc[vboRef[I, T]]): vboRef[I, T] =
+  ## Initializes vbo.
   result = vboRef[I, T]()
   opengl.glGenBuffers(1, result.id.addr)
+
+func id* [I, T] (vbo: vboRef[I, T]): opengl.GLuint =
+  result = vbo.id
 
 proc bindArrayBuffer[I, T] (vbo: vboRef[I, T]): vboRef[I, T] =
   result = vbo
