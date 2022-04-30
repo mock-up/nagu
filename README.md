@@ -1,4 +1,8 @@
 # nagu - **N**im **A**bstract Open**G**L **U**tility
+
+![](https://github.com/mock-up/nagu/workflows/build/badge.svg)
+![](https://github.com/mock-up/nagu/workflows/docs/badge.svg)
+
 nagu is Nimble Package for handling OpenGL statelessly. It provides utility procedures and object types for creating Program, VAO, VBO and compiling and linking shader files. Also you can reduce enough tasks you must consider because manages the state in OpenGL automatically behind the scenes.  
 It is the library that [mock up](https://www.github.com/mock-up/mock-up) depends on, so as long as this continues to be developed, nagu will also be developed. On the other hand, we won't implement spontaneously functions this don't need. We welcome casual issues and pull requests.
 
