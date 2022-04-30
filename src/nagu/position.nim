@@ -1,7 +1,7 @@
 ## src/nagu/position.nim defines the Position type and procedures related to its.
 
-from sugar import `->`, `=>`
-from strformat import `&`
+from std/sugar import `->`, `=>`
+from std/strformat import `&`
 
 type
   PositionObj = object
