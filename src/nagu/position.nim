@@ -2,6 +2,7 @@
 
 from std/sugar import `->`, `=>`
 from std/strformat import `&`
+from std/math import almostEqual
 
 type
   PositionObj = object
@@ -60,6 +61,14 @@ func `==`* (pos1, pos2: Position): bool =
   runnableExamples:
     doAssert Position.init(1, 2, 3) == Position.init(5, 4, 3) - Position.init(4, 2, 0)
   result = pos1.coord == pos2.coord
+
+func `=~`* (pos1, pos2: Position): bool =
+  ## Almost checks each element of `pos1` against each element of `pos2`.
+  runnableExamples:
+    doAssert Position.init(0.1, 0.2, 0.3) =~ Position.init(1.5, 1.3, 1.1) - Position.init(1.4, 1.1, 0.8)
+  result = almostEqual(pos1.x, pos2.x) and
+           almostEqual(pos1.y, pos2.y) and
+           almostEqual(pos1.z, pos2.z)
 
 func `+`* (pos: Position, value: float32): Position =
   ## Adds `value` to each element of `pos`.
