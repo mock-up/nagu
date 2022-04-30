@@ -18,3 +18,19 @@ requires "Palette == 0.2.1"
 ## https://qiita.com/SFITB/items/dceb1537e4086fa696d2
 task test, "run all tests":
   exec "testament cat /"
+
+## https://github.com/jiro4989/maze/blob/master/maze.nimble
+task docs, "Generate documents":
+  rmDir "docs"
+  exec "nimble doc --project --index:on -o:docs src/nagu.nim"
+
+task ci, "Run CI":
+  exec "nim -v"
+  exec "nimble -v"
+  exec "nimble check"
+  exec "nimble install -Y"
+  exec "nimble test -Y"
+  exec "nimble docs -Y"
+  exec "nimble build -d:release -Y"
+  exec "./bin/maze -h"
+  exec "./bin/maze -v"
