@@ -1,2 +1,8 @@
-setup	nagu/glfw.html#setup,int32,int32,string	glfw: setup(width, height: int32; title: string): glfw.GLFWWindow	
-update	nagu/glfw.html#update.t,,untyped	glfw: update(window: glfw.GLFWWindow; body: untyped)	
+NaguContextObj	nagu/glfw.html#NaguContextObj	glfw: NaguContextObj	
+NaguContext	nagu/glfw.html#NaguContext	glfw: NaguContext	
+GLFWDefect	nagu/glfw.html#GLFWDefect	glfw: GLFWDefect	
+GLFWInitializeDefect	nagu/glfw.html#GLFWInitializeDefect	glfw: GLFWInitializeDefect	
+WindowCreationDefect	nagu/glfw.html#WindowCreationDefect	glfw: WindowCreationDefect	
+OpenGLInitializeDefect	nagu/glfw.html#OpenGLInitializeDefect	glfw: OpenGLInitializeDefect	
+setup	nagu/glfw.html#setup,int32,int32,string	glfw: setup(width: int32 = 500; height: int32 = 500; title: string = &quot;window&quot;): NaguContext	
+update	nagu/glfw.html#update.t,NaguContext,untyped	glfw: update(context: NaguContext; body: untyped)	
