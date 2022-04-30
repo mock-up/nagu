@@ -49,6 +49,18 @@ proc init* (_: typedesc[ProgramObject]): ProgramObject =
     nameToIndex: initTable[string, int]()
   )
 
+func id* (program: ProgramObject): opengl.GLuint =
+  ## Gets id of `program`.
+  result = program.id
+
+func linked* (program: ProgramObject): bool =
+  ## Gets `program` linked or not.
+  result = program.linked
+
+func index* (program: ProgramObject, name: string): int =
+  ## Queries `program` for `name` and corresponding index.
+  result = program.nameToIndex[name]
+
 proc attach* (program: ProgramObject, shader: ShaderObject): ProgramObject =
   ## Attach `shader` to `program`.
   result = program
