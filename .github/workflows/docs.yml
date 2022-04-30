@@ -19,7 +19,7 @@ jobs:
         path: ~/.choosenim
         key: ${{ runner.os }}-choosenim-${{ env.NIM_VERSION }}
     - uses: jiro4989/setup-nim-action@v1.1.4
-    - run: nimble docs -Y
+    - run: nimble docsCi
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v2.4.0
       env:
