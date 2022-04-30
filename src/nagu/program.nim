@@ -66,7 +66,7 @@ proc attach* (program: ProgramObject, shader: ShaderObject): ProgramObject =
   result = program
   opengl.glAttachShader(program.id, opengl.GLuint(shader.id))
 
-proc successLink* (program: ProgramObject): bool =
+proc successLink (program: ProgramObject): bool =
   var status: opengl.GLint
   opengl.glGetProgramiv(program.id, opengl.GL_LINK_STATUS, status.addr)
   result = status == opengl.GLint(opengl.GL_TRUE)
