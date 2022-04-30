@@ -2,10 +2,9 @@
 
 version       = "0.1.0"
 author        = "momeemt"
-description   = "Nim OpenGL Helper"
+description   = "Nim Abstract OpenGL Utility"
 license       = "MIT"
 srcDir        = "src"
-
 
 # Dependencies
 
