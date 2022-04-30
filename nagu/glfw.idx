@@ -6,3 +6,6 @@ WindowCreationDefect	nagu/glfw.html#WindowCreationDefect	glfw: WindowCreationDef
 OpenGLInitializeDefect	nagu/glfw.html#OpenGLInitializeDefect	glfw: OpenGLInitializeDefect	
 setup	nagu/glfw.html#setup,int32,int32,string	glfw: setup(width: int32 = 500; height: int32 = 500; title: string = &quot;window&quot;): NaguContext	
 update	nagu/glfw.html#update.t,NaguContext,untyped	glfw: update(context: NaguContext; body: untyped)	
+isWindowOpen	nagu/glfw.html#isWindowOpen,NaguContext	glfw: isWindowOpen(context: NaguContext): bool	
+pollEventsAndSwapBuffers	nagu/glfw.html#pollEventsAndSwapBuffers,NaguContext	glfw: pollEventsAndSwapBuffers(context: NaguContext)	
+destroyWindow	nagu/glfw.html#destroyWindow,NaguContext	glfw: destroyWindow(context: NaguContext)	
