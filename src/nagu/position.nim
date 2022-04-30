@@ -91,25 +91,25 @@ func `-`* (pos1, pos2: Position): Position =
     doAssert Position.init(10, 20, 30) - Position.init(1, 2, 3) == Position.init(9, 18, 27)
   map(pos1, pos2, (v1, v2) => v1 - v2)
 
-proc `*`* (pos: Position, value: float32): Position =
+func `*`* (pos: Position, value: float32): Position =
   ## Multiplies each element of `pos` by `value`.
   runnableExamples:
     doAssert Position.init(1, 2, 3) * 2.0 == Position.init(2, 4, 6)
   pos.map(v => v * value)
 
-proc `*`* (pos1, pos2: Position): Position =
+func `*`* (pos1, pos2: Position): Position =
   ## Multiplies each element of `pos1` by each element of `pos2`.
   runnableExamples:
     doAssert Position.init(5, 6, 7) * Position.init(4, 3, 2) == Position.init(20, 18, 14)
   map(pos1, pos2, (v1, v2) => v1 * v2)
 
-proc `/`* (pos: Position, value: float32): Position =
+func `/`* (pos: Position, value: float32): Position =
   ## Divides each element of `pos` by `value`
   runnableExamples:
     doAssert Position.init(14, 12, 10) / 2.0 == Position.init(7, 6, 5)
   pos.map(v => v / value)
 
-proc `/`* (pos1, pos2: Position): Position =
+func `/`* (pos1, pos2: Position): Position =
   ## Divides each element of `pos1` by each element of `pos2`
   runnableExamples:
     doAssert Position.init(21, 18, 15) / Position.init(7, 6, 5) == Position.init(3, 3, 3)
