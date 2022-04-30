@@ -31,6 +31,4 @@ task ci, "Run CI":
   exec "nimble install -Y"
   exec "nimble test -Y"
   exec "nimble docs -Y"
-  exec "nimble build -d:release -Y"
-  exec "./bin/maze -h"
-  exec "./bin/maze -v"
+
