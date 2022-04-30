@@ -1,0 +1,16 @@
+ShaderObject	nagu/shader.html#ShaderObject	shader: ShaderObject	
+soVertex	nagu/shader.html#soVertex	ShaderObjectKind.soVertex	
+soFragment	nagu/shader.html#soFragment	ShaderObjectKind.soFragment	
+soGeometry	nagu/shader.html#soGeometry	ShaderObjectKind.soGeometry	
+soTessEvaluation	nagu/shader.html#soTessEvaluation	ShaderObjectKind.soTessEvaluation	
+soTessControl	nagu/shader.html#soTessControl	ShaderObjectKind.soTessControl	
+ShaderObjectKind	nagu/shader.html#ShaderObjectKind	shader: ShaderObjectKind	
+ShaderDefect	nagu/shader.html#ShaderDefect	shader: ShaderDefect	
+ShaderCreationDefect	nagu/shader.html#ShaderCreationDefect	shader: ShaderCreationDefect	
+ShaderFailedCompilationDefect	nagu/shader.html#ShaderFailedCompilationDefect	shader: ShaderFailedCompilationDefect	
+init	nagu/shader.html#init,typedesc[ShaderObject],ShaderObjectKind	shader: init(_: typedesc[ShaderObject]; kind: ShaderObjectKind): ShaderObject	
+id	nagu/shader.html#id,ShaderObject	shader: id(shader: ShaderObject): uint	
+log	nagu/shader.html#log,ShaderObject	shader: log(shader: ShaderObject): string	
+load	nagu/shader.html#load,ShaderObject,string	shader: load(shader: ShaderObject; path: string): ShaderObject	
+compile	nagu/shader.html#compile,ShaderObject	shader: compile(shader: ShaderObject): ShaderObject	
+make	nagu/shader.html#make,typedesc[ShaderObject],ShaderObjectKind,string	shader: make(_: typedesc[ShaderObject]; kind: ShaderObjectKind; path: string): ShaderObject	

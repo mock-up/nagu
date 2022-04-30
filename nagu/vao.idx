@@ -1,0 +1,3 @@
+VAO	nagu/vao.html#VAO	vao: VAO	
+make	nagu/vao.html#make,typedesc[VAO]	vao: make(_: typedesc[VAO]): VAO	
+draw	nagu/vao.html#draw,VAO	vao: draw(vao: VAO)	

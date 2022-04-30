@@ -1,0 +1,7 @@
+vboRef	nagu/vbo.html#vboRef	vbo: vboRef	
+VBO	nagu/vbo.html#VBO	vbo: VBO	
+init	nagu/vbo.html#init,typedesc[vboRef[I,T]]	vbo: init[I, T](_: typedesc[vboRef[I, T]]): vboRef[I, T]	
+id	nagu/vbo.html#id,vboRef[I,T]	vbo: id[I, T](vbo: vboRef[I, T]): opengl.GLuint	
+`:=`	nagu/vbo.html#:=,vboRef[I,T],array[I,T]	vbo: `:=`[I, T](vbo: var vboRef[I, T]; data: array[I, T])	
+make	nagu/vbo.html#make,typedesc[VBO],array[I,T]	vbo: make[I: static[int]; T](_: typedesc[VBO]; data: array[I, T]): vboRef[I, T]	
+correspond	nagu/vbo.html#correspond,ProgramObject,vboRef[I,float32],string,int	vbo: correspond[I](program: ProgramObject; vbo: vboRef[I, float32]; name: string;\n              size: int)	

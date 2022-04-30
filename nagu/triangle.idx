@@ -1,0 +1,13 @@
+Triangle	nagu/triangle.html#Triangle	triangle: Triangle	
+init	nagu/triangle.html#init,typedesc[Triangle],Position,Color,Position,Color,Position,Color,float32,float32,float32	triangle: init(_: typedesc[Triangle]; p1: Position; c1: Color; p2: Position; c2: Color;\n     p3: Position; c3: Color; x_axis_rotation: float32 = 0.0;\n     y_axis_rotation: float32 = 0.0; z_axis_rotation: float32 = 0.0): Triangle	
+init	nagu/triangle.html#init,typedesc[Triangle],Position,Position,Position,Color	triangle: init(_: typedesc[Triangle]; p1, p2, p3: Position; color: Color): Triangle	
+positionArray	nagu/triangle.html#positionArray,Triangle	triangle: positionArray(t: Triangle): triangleArray	
+make	nagu/triangle.html#make,typedesc[Triangle],Position,Position,Position,Color	triangle: make(_: typedesc[Triangle]; p1, p2, p3: Position; color: Color): Triangle	
+make	nagu/triangle.html#make,typedesc[Triangle],Position,Color,Position,Color,Position,Color	triangle: make(_: typedesc[Triangle]; p1: Position; c1: Color; p2: Position; c2: Color;\n     p3: Position; c3: Color): Triangle	
+pMap	nagu/triangle.html#pMap,Triangle,	triangle: pMap(t: Triangle; fn: Position -&gt; Position): Triangle	
+cMap	nagu/triangle.html#cMap,Triangle,	triangle: cMap(t: Triangle; fn: Color -&gt; Color): Triangle	
+`+=`	nagu/triangle.html#+=,Triangle,float32	triangle: `+=`(t: var Triangle; value: float32)	
+`-=`	nagu/triangle.html#-=,Triangle,float32	triangle: `-=`(t: var Triangle; value: float32)	
+`*=`	nagu/triangle.html#*=,Triangle,float32	triangle: `*=`(t: var Triangle; value: float32)	
+`/=`	nagu/triangle.html#/=,Triangle,float32	triangle: `/=`(t: var Triangle; value: float32)	
+correspond	nagu/triangle.html#correspond,ProgramObject,Triangle,string,string,int	triangle: correspond(program: ProgramObject; t: Triangle;\n           position_name, color_name: string; size: int)	

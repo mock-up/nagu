@@ -1,0 +1,17 @@
+Position	nagu/position.html#Position	position: Position	
+init	nagu/position.html#init,typedesc[Position],float32,float32,float32	position: init(_: typedesc[Position]; x, y, z: float32): Position	
+coord	nagu/position.html#coord,Position	position: coord(pos: Position): tuple[x, y, z: float32]	
+`$`	nagu/position.html#$,Position	position: `$`(pos: Position): string	
+map	nagu/position.html#map,Position,	position: map(pos: Position; fn: float32 -&gt; float32): Position	
+map	nagu/position.html#map,Position,Position,	position: map(pos1, pos2: Position; fn: (float32, float32) -&gt; float32): Position	
+`==`	nagu/position.html#==,Position,Position	position: `==`(pos1, pos2: Position): bool	
+`=~`	nagu/position.html#=~,Position,Position	position: `=~`(pos1, pos2: Position): bool	
+`+`	nagu/position.html#+,Position,float32	position: `+`(pos: Position; value: float32): Position	
+`+`	nagu/position.html#+,Position,Position	position: `+`(pos1, pos2: Position): Position	
+`-`	nagu/position.html#-,Position	position: `-`(pos: Position): Position	
+`-`	nagu/position.html#-,Position,float32	position: `-`(pos: Position; value: float32): Position	
+`-`	nagu/position.html#-,Position,Position	position: `-`(pos1, pos2: Position): Position	
+`*`	nagu/position.html#*,Position,float32	position: `*`(pos: Position; value: float32): Position	
+`*`	nagu/position.html#*,Position,Position	position: `*`(pos1, pos2: Position): Position	
+`/`	nagu/position.html#/,Position,float32	position: `/`(pos: Position; value: float32): Position	
+`/`	nagu/position.html#/,Position,Position	position: `/`(pos1, pos2: Position): Position	
