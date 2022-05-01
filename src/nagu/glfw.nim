@@ -26,7 +26,11 @@ type
 proc init (_: typedesc[NaguContext]): NaguContext =
   if not glfw.glfwInit():
     raise newException(GLFWInitializeDefect, "Failed initializing GLFW")
-  result.glfw_initialized = true
+  result = NaguContext(
+    glfw_initialized: true,
+    gl_initialized: false,
+    window: nil
+  )
   glfw.glfwWindowHint(glfw.GLFWContextVersionMajor, 3)
   glfw.glfwWindowHint(glfw.GLFWContextVersionMinor, 3)
   glfw.glfwWindowHint(glfw.GLFWOpenglForwardCompat, glfw.GLFW_TRUE)
