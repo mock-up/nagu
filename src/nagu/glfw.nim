@@ -1,12 +1,14 @@
 import nimgl/glfw
 from nimgl/opengl import glInit, glEnable, GL_TEXTURE_2D
 from opengl as naguOpengl import OpenGLDefect
+from color import Color, rgb
 
 type
   NaguContextObj* = object
     glfw_initialized: bool
     gl_initialized: bool
     window: glfw.GLFWWindow
+    clearColor*: Color
 
   NaguContext* = ref NaguContextObj
     ## Represents GLFW context
@@ -80,5 +82,12 @@ template update* (context: NaguContext, body: untyped) =
     body
     context.pollEventsAndSwapBuffers()
   context.destroyWindow()
+
+proc clear* (context: var NaguContext, color: Color, alpha: float32 = 0f) =
+  ## Fills a window with (`color`, `alpha`)
+  if not (context.clearColor == color):
+    let (r, g, b) = color.rgb
+    opengl.glClearColor(r, g, b, alpha)
+  opengl.glClear(opengl.GL_COLOR_BUFFER_BIT)
 
 export isWindowOpen, pollEventsAndSwapBuffers, destroyWindow
