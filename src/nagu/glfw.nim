@@ -2,6 +2,7 @@ import nimgl/glfw
 from nimgl/opengl import glInit, glEnable, GL_TEXTURE_2D
 from opengl as naguOpengl import OpenGLDefect
 from color import Color, rgb
+from std/exitprocs import addExitProc
 
 type
   NaguContextObj* = object
@@ -59,6 +60,7 @@ proc keyProc(window: glfw.GLFWWindow, key: int32, scancode: int32, action: int32
 proc setup* (width: int32 = 500, height: int32 = 500, title: string = "window"): NaguContext =
   ## Initializes OpenGL context and gets GLFW Window.
   result = NaguContext.init()
+  addExitProc(proc () {.closure.} = glfw.glfwTerminate())
   result.window = initWindow(width, height, title, nil, nil, false)
   result.window.attention()
   discard result.window.setKeyCallback(keyProc)
@@ -70,7 +72,6 @@ proc isWindowOpen (context: NaguContext): bool =
 
 proc destroyWindow (context: NaguContext) =
   context.window.destroyWindow()
-  glfw.glfwTerminate()
 
 proc pollEventsAndSwapBuffers (context: NaguContext) =
   glfw.glfwPollEvents()
