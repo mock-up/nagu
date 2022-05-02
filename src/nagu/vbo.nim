@@ -20,6 +20,9 @@ proc init* [I, T] (_: typedesc[vboRef[I, T]]): vboRef[I, T] =
 func id* [I, T] (vbo: vboRef[I, T]): opengl.GLuint =
   result = vbo.id
 
+func data* [I, T] (vbo: vboRef[I, T]): array[I, T] =
+  result = vbo.data
+
 proc bindArrayBuffer[I, T] (vbo: vboRef[I, T]): vboRef[I, T] =
   result = vbo
   opengl.glBindBuffer(opengl.GL_ARRAY_BUFFER, vbo.id)
