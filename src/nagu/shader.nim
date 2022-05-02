@@ -31,7 +31,7 @@ func convertGLExpression (kind: ShaderObjectKind): opengl.GLenum =
   of soTessEvaluation: opengl.GL_TESS_EVALUATION_SHADER
   of soTessControl: opengl.GL_TESS_CONTROL_SHADER
 
-proc init* (_: typedesc[ShaderObject], kind: ShaderObjectKind): ShaderObject {.raises: [ShaderCreationDefect].} =
+proc init* (_: typedesc[ShaderObject], kind: ShaderObjectKind): ShaderObject {.raises: [ShaderCreationDefect, Exception].} =
   ## Initializes ShaderObject by `kind`.
   let shader = opengl.glCreateShader(kind.convertGLExpression)
   if shader == opengl.GLuint(0):
