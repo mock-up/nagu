@@ -117,7 +117,7 @@ proc make* (_: typedesc[ProgramObject], vertex_shader: ShaderObject, fragment_sh
   result.link()
   result.use()
 
-proc make* (_: typedesc[ProgramObject], vertex_shader: ShaderObject, fragment_shader: ShaderObject, attributes, uniforms: seq[string]): ProgramObject =
+proc make* (_: typedesc[ProgramObject], vertex_shader: ShaderObject, fragment_shader: ShaderObject, attributes: seq[string] = @[], uniforms: seq[string] = @[]): ProgramObject =
   ## Makes a program linking `vertex_shader` and `fragment_shader`; registering `attributes` and `uniforms`.
   result = ProgramObject
             .init()
