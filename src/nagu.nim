@@ -1,2 +1,2 @@
-import nagu/[color, opengl, position, program, shader, triangle, vao, vbo, glfw]
-export color, opengl, position, program, shader, triangle, vao, vbo, glfw
+import nagu/[color, opengl, position, program, shader, shape, triangle, vao, vbo, glfw]
+export color, opengl, position, program, shader, shape, triangle, vao, vbo, glfw
