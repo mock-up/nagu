@@ -1,6 +1,7 @@
 ## src/nagu/color.nim defines the Color type and procedures.
 
 from Palette import rgb, tColor
+from std/strformat import `&`
 
 type
   ColorObj = object
@@ -12,6 +13,9 @@ type
 func init* (_: typedesc[Color], r, g, b: range[0.0..1.0]): Color =
   ## Initializes Color.
   result = Color(r: r, g: g, b: b)
+
+proc `$`* (color: Color): string =
+  result = &"(red: {color.r}, green: {color.g}, blue: {color.b})"
 
 func rgb* (color: Color): tuple[r, g, b: float32] =
   ## Gets rgb in `color`.
@@ -34,3 +38,6 @@ proc toColor* (color: tColor): Color =
     g: rgb.green / 255.0,
     b: rgb.blue / 255.0
   )
+
+proc `+`* (hex: string): Color =
+  result = ("#" & hex).toColor()
