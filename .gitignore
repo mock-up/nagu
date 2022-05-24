@@ -1,6 +1,7 @@
 tmp
 nimcache
 /docs
+/testresults
 
 # Assets used for experiments under development
 /assets
