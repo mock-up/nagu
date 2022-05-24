@@ -1,3 +1,17 @@
 VAO	nagu/vao.html#VAO	vao: VAO	
+dmPoints	nagu/vao.html#dmPoints	vaoDrawMode.dmPoints	
+dmLines	nagu/vao.html#dmLines	vaoDrawMode.dmLines	
+dmLineStrip	nagu/vao.html#dmLineStrip	vaoDrawMode.dmLineStrip	
+dmLineLoop	nagu/vao.html#dmLineLoop	vaoDrawMode.dmLineLoop	
+dmTriangles	nagu/vao.html#dmTriangles	vaoDrawMode.dmTriangles	
+dmTriangleStrip	nagu/vao.html#dmTriangleStrip	vaoDrawMode.dmTriangleStrip	
+dmTriangleFan	nagu/vao.html#dmTriangleFan	vaoDrawMode.dmTriangleFan	
+dmLinesAdjacency	nagu/vao.html#dmLinesAdjacency	vaoDrawMode.dmLinesAdjacency	
+dmLineStripAdjancency	nagu/vao.html#dmLineStripAdjancency	vaoDrawMode.dmLineStripAdjancency	
+dmTrianglesAdjacency	nagu/vao.html#dmTrianglesAdjacency	vaoDrawMode.dmTrianglesAdjacency	
+dmTriangleStripAdjacency	nagu/vao.html#dmTriangleStripAdjacency	vaoDrawMode.dmTriangleStripAdjacency	
+vaoDrawMode	nagu/vao.html#vaoDrawMode	vao: vaoDrawMode	
+`bind`	nagu/vao.html#bind,VAO	vao: `bind`(vao: VAO)	
 make	nagu/vao.html#make,typedesc[VAO]	vao: make(_: typedesc[VAO]): VAO	
-draw	nagu/vao.html#draw,VAO	vao: draw(vao: VAO)	
+draw	nagu/vao.html#draw,VAO,vaoDrawMode	vao: draw(vao: VAO; mode: vaoDrawMode)	
+delete	nagu/vao.html#delete,VAO	vao: delete(vao: VAO)	

@@ -16,5 +16,5 @@ link	nagu/program.html#link,ProgramObject	program: link(program: var ProgramObje
 registerAttrib	nagu/program.html#registerAttrib,ProgramObject,string	program: registerAttrib(program: var ProgramObject; name: string)	
 registerUniform	nagu/program.html#registerUniform,ProgramObject,string	program: registerUniform(program: var ProgramObject; name: string)	
 make	nagu/program.html#make,typedesc[ProgramObject],ShaderObject,ShaderObject	program: make(_: typedesc[ProgramObject]; vertex_shader: ShaderObject;\n     fragment_shader: ShaderObject): ProgramObject	
-make	nagu/program.html#make,typedesc[ProgramObject],ShaderObject,ShaderObject,seq[string],seq[string]	program: make(_: typedesc[ProgramObject]; vertex_shader: ShaderObject;\n     fragment_shader: ShaderObject; attributes, uniforms: seq[string]): ProgramObject	
+make	nagu/program.html#make,typedesc[ProgramObject],ShaderObject,ShaderObject,seq[string],seq[string]	program: make(_: typedesc[ProgramObject]; vertex_shader: ShaderObject;\n     fragment_shader: ShaderObject; attributes: seq[string] = @[];\n     uniforms: seq[string] = @[]): ProgramObject	
 applyMatrix	nagu/program.html#applyMatrix,ProgramObject,string,mvpMatrix	program: applyMatrix(program: ProgramObject; name: string;\n            matrix: mvpMatrix = IdentityMatrix)	

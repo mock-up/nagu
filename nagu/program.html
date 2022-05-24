@@ -183,8 +183,10 @@ window.addEventListener('DOMContentLoaded', main);
      fragment_shader: ShaderObject): ProgramObject</a></li>
   <li><a class="reference" href="#make%2Ctypedesc%5BProgramObject%5D%2CShaderObject%2CShaderObject%2Cseq%5Bstring%5D%2Cseq%5Bstring%5D"
     title="make(_: typedesc[ProgramObject]; vertex_shader: ShaderObject;
-     fragment_shader: ShaderObject; attributes, uniforms: seq[string]): ProgramObject">make(_: typedesc[ProgramObject]; vertex_shader: ShaderObject;
-     fragment_shader: ShaderObject; attributes, uniforms: seq[string]): ProgramObject</a></li>
+     fragment_shader: ShaderObject; attributes: seq[string] = @[];
+     uniforms: seq[string] = @[]): ProgramObject">make(_: typedesc[ProgramObject]; vertex_shader: ShaderObject;
+     fragment_shader: ShaderObject; attributes: seq[string] = @[];
+     uniforms: seq[string] = @[]): ProgramObject</a></li>
 
   </ul>
   <ul class="simple nested-toc-section">registerAttrib
@@ -373,7 +375,8 @@ Makes a program linking <tt class="docutils literal"><span class="pre"><span cla
 </div>
 <div id="make,typedesc[ProgramObject],ShaderObject,ShaderObject,seq[string],seq[string]">
 <dt><pre><span class="Keyword">proc</span> <a href="#make%2Ctypedesc%5BProgramObject%5D%2CShaderObject%2CShaderObject%2Cseq%5Bstring%5D%2Cseq%5Bstring%5D"><span class="Identifier">make</span></a><span class="Other">(</span><span class="Operator">_</span><span class="Other">:</span> <span class="Identifier">typedesc</span><span class="Other">[</span><a href="program.html#ProgramObject"><span class="Identifier">ProgramObject</span></a><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">vertex_shader</span><span class="Other">:</span> <a href="shader.html#ShaderObject"><span class="Identifier">ShaderObject</span></a><span class="Other">;</span>
-          <span class="Identifier">fragment_shader</span><span class="Other">:</span> <a href="shader.html#ShaderObject"><span class="Identifier">ShaderObject</span></a><span class="Other">;</span> <span class="Identifier">attributes</span><span class="Other">,</span> <span class="Identifier">uniforms</span><span class="Other">:</span> <span class="Identifier">seq</span><span class="Other">[</span><span class="Identifier">string</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="program.html#ProgramObject"><span class="Identifier">ProgramObject</span></a></pre></dt>
+          <span class="Identifier">fragment_shader</span><span class="Other">:</span> <a href="shader.html#ShaderObject"><span class="Identifier">ShaderObject</span></a><span class="Other">;</span> <span class="Identifier">attributes</span><span class="Other">:</span> <span class="Identifier">seq</span><span class="Other">[</span><span class="Identifier">string</span><span class="Other">]</span> <span class="Other">=</span> <span class="Operator">@</span><span class="Other">[</span><span class="Other">]</span><span class="Other">;</span>
+          <span class="Identifier">uniforms</span><span class="Other">:</span> <span class="Identifier">seq</span><span class="Other">[</span><span class="Identifier">string</span><span class="Other">]</span> <span class="Other">=</span> <span class="Operator">@</span><span class="Other">[</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="program.html#ProgramObject"><span class="Identifier">ProgramObject</span></a></pre></dt>
 <dd>
 
 Makes a program linking <tt class="docutils literal"><span class="pre"><span class="Identifier">vertex_shader</span></span></tt> and <tt class="docutils literal"><span class="pre"><span class="Identifier">fragment_shader</span></span></tt>; registering <tt class="docutils literal"><span class="pre"><span class="Identifier">attributes</span></span></tt> and <tt class="docutils literal"><span class="pre"><span class="Identifier">uniforms</span></span></tt>.
@@ -416,7 +419,7 @@ Use <tt class="docutils literal"><span class="pre"><span class="Identifier">prog
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2022-05-01 01:37:06 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2022-05-24 02:31:02 UTC</small>
       </div>
     </div>
   </div>

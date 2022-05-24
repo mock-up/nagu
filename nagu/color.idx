@@ -1,5 +1,7 @@
 Color	nagu/color.html#Color	color: Color	
 init	nagu/color.html#init,typedesc[Color],range[],range[],range[]	color: init(_: typedesc[Color]; r, g, b: range[0.0 .. 1.0]): Color	
+`$`	nagu/color.html#$,Color	color: `$`(color: Color): string	
 rgb	nagu/color.html#rgb,Color	color: rgb(color: Color): tuple[r, g, b: float32]	
 toColor	nagu/color.html#toColor,string	color: toColor(hex: string): Color	
 toColor	nagu/color.html#toColor,tColor	color: toColor(color: tColor): Color	
+`+`	nagu/color.html#+,string	color: `+`(hex: string): Color	

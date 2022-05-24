@@ -1,0 +1,14 @@
+Shape	nagu/shape.html#Shape	shape: Shape	
+`@`	nagu/shape.html#@,array[I,Position]	shape: `@`[I: static int](positions: array[I, Position]): array[3 * I, float32]	
+`@`	nagu/shape.html#@,array[I,Color]	shape: `@`[I: static int](colors: array[I, Color]): array[3 * I, float32]	
+positions	nagu/shape.html#positions,Shape[I]	shape: positions[I: static int](shape: Shape[I]): array[I div 3, Position]	
+colors	nagu/shape.html#colors,Shape[I]	shape: colors[I: static int](shape: Shape[I]): array[I div 3, Color]	
+init	nagu/shape.html#init,typedesc[Shape[I]],array[I,float32],array[I,float32]	shape: init[I: static int](_: typedesc[Shape[I]]; positionsArr: array[I, float32];\n                    colorsArr: array[I, float32]): Shape[I]	
+draw	nagu/shape.html#draw,Shape[I],vaoDrawMode	shape: draw[I: static int](shape: Shape[I]; mode: vaoDrawMode)	
+pMap	nagu/shape.html#pMap,Shape[I],	shape: pMap[I: static int](shape: var Shape[I]; fn: Position -&gt; Position)	
+cMap	nagu/shape.html#cMap,Shape[I],	shape: cMap[I: static int](shape: Shape[I]; fn: Color -&gt; Color): Shape[I]	
+correspond	nagu/shape.html#correspond,ProgramObject,Shape[I],string,string	shape: correspond[I: static int](program: ProgramObject; shape: Shape[I];\n                          position_name, color_name: string)	
+`+=`	nagu/shape.html#+=,Shape[I],Position	shape: `+=`[I: static int](shape: var Shape[I]; position: Position)	
+`-=`	nagu/shape.html#-=,Shape[I],Position	shape: `-=`[I: static int](shape: var Shape[I]; position: Position)	
+`*=`	nagu/shape.html#*=,Shape[I],Position	shape: `*=`[I: static int](shape: var Shape[I]; position: Position)	
+`/=`	nagu/shape.html#/=,Shape[I],Position	shape: `/=`[I: static int](shape: var Shape[I]; position: Position)	
