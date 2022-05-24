@@ -27,10 +27,10 @@ proc bindArrayBuffer[I, T] (vbo: vboRef[I, T]): vboRef[I, T] =
   result = vbo
   opengl.glBindBuffer(opengl.GL_ARRAY_BUFFER, vbo.id)
 
-proc assignArray[I, T] (vbo: vboRef[I, T], data: array[I, T]) =
-  var data = data
+proc assignArray[I, T] (vbo: var vboRef[I, T], data: array[I, T]) =
+  vbo.data = data
   discard vbo.bindArrayBuffer()
-  opengl.glBufferData(opengl.GL_ARRAY_BUFFER, data.len * sizeof(data[0]), data[0].addr, opengl.GL_STATIC_DRAW)
+  opengl.glBufferData(opengl.GL_ARRAY_BUFFER, vbo.data.len * sizeof(vbo.data[0]), vbo.data[0].addr, opengl.GL_STATIC_DRAW)
 
 proc `:=`* [I, T] (vbo: var vboRef[I, T], data: array[I, T]) =
   ## Assigns `data` to `vbo`.
