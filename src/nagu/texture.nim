@@ -61,10 +61,10 @@ proc `magFilter=`* (texture: var BindedTexture, mag_filter_param: TextureMagFilt
 proc `minFilter=`* (texture: var BindedTexture, min_filter_param: TextureMinFilterParameter) =
   texture.assignParameterBoiler(opengl.GL_TEXTURE_MIN_FILTER, opengl.GLint(min_filter_param))
 
-proc initPixels (texture: var BindedTexture, width, height: uint) =
+proc initPixels (texture: var BindedTexture) =
   opengl.glTexImage2D(
     opengl.GL_TEXTURE_2D, 0, opengl.GLint(opengl.GL_RGBA),
-    opengl.GLsizei(width), opengl.GLsizei(height),
+    opengl.GLsizei(0), opengl.GLsizei(0),
     0, opengl.GL_RGBA, opengl.GL_UNSIGNED_BYTE, nil
   )
 
@@ -75,11 +75,17 @@ proc `pixels=`* (texture: var BindedTexture, width, height: uint, data: pointer)
     opengl.GL_RGBA, opengl.GL_UNSIGNED_BYTE, data
   )
 
-proc init* (_: typedesc[Texture], width, height: uint): Texture =
+proc draw* (texture: var BindedTexture) =
+  opengl.glDrawArrays(
+    opengl.GL_TRIANGLE_FAN,
+    0, 4
+  )
+
+proc init* (_: typedesc[Texture]): Texture =
   result = Texture(id: 0, pixels: nil)
   opengl.glGenTextures(1, result.id.addr)
   result.use do (texture: var BindedTexture):
-    texture.initPixels(width, height)
+    texture.initPixels()
     texture.wrapS = tClampToEdge
     texture.wrapT = tClampToEdge
     texture.magFilter = TextureMagFilterParameter.tLinear
