@@ -1,18 +1,19 @@
-# This is just an example to get you started. A typical binary package
-# uses this file as the main entry point of the application.
-
 when isMainModule:
   import nagu
+  import pnm
+  import nimgl/opengl
 
-  let naguContext = setup(1000, 1000, "default")
+  var naguContext = setup(1000, 1000, "default")
 
-  var tex1 = Texture.init(100'u, 100'u)
+  var tex1 = Texture.init("assets/vertex/id.glsl", "assets/fragment/id.glsl")
+
+  var img = pnm.readPPMFile("assets/sea.ppm")
 
   tex1.use do (texture: var BindedTexture):
-    texture.wrapS = tRepeat
-    texture.wrapT = tRepeat
+    texture.pixels = (data: img.data, width: img.col, height: img.row)
 
-  echo tex1[]
-
+  glClearColor(1.0f, 1.0f, 1.0f, 1.0f)
   naguContext.update:
-    discard
+    glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT)
+    tex1.use do (texture: var BindedTexture):
+      texture.draw()
