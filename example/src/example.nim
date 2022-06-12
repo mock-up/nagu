@@ -5,7 +5,7 @@ when isMainModule:
 
   var naguContext = setup(1000, 1000, "default")
 
-  var tex1 = Texture.init("assets/vertex/id.glsl", "assets/fragment/id.glsl")
+  var tex1 = Texture.make("assets/vertex/id.glsl", "assets/fragment/id.glsl")
 
   var img = pnm.readPPMFile("assets/sea.ppm")
 
