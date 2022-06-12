@@ -5,6 +5,7 @@ from shader import ShaderObject, id
 from opengl as naguOpengl import OpenGLDefect
 from std/tables import Table, initTable, len, `[]`, `[]=`
 from std/strformat import `&`
+import utils
 
 type
   ProgramObjectObj = object
@@ -30,7 +31,7 @@ type
   mvpMatrix* = array[16, float32]
     ## Represents model view projection matrixes.
 
-const IdentityMatrix*: mvpMatrix = [
+func identityMatrix*: mvpMatrix = [
   1.0'f, 0.0, 0.0, 0.0,
   0.0,   1.0, 0.0, 0.0,
   0.0,   0.0, 1.0, 0.0,
@@ -140,18 +141,20 @@ proc make* (_: typedesc[ProgramObject], vertex_shader: ShaderObject, fragment_sh
   for uniform in uniforms:
     result.registerUniform(uniform)
 
-proc applyMatrix* (program: ProgramObject, name: string, matrix: mvpMatrix = IdentityMatrix) =
-  ## Apply matrix by passing `matrix` to the `name` variable.
-  var matrix = matrix
-  let index = opengl.GLint(program.nameToIndex[name])
-  when defined(debuggingOpenGL):
-    echo &"glUniformMatrix4fv({index}, 1, false, matrix[0].addr)"
-  opengl.glUniformMatrix4fv(index, 1, opengl.GLboolean(false), matrix[0].addr)
-
 proc `[]`* (program: ProgramObject, name: string): int =
   result = program.nameToIndex[name]
 
 proc `[]=`* (program: ProgramObject, name: string, v1: int) =
-  when defined(debuggingOpenGL):
-    echo &"glUniform1i({program.nameToIndex[name]}, {v1})"
-  opengl.glUniform1i(opengl.GLint(program.nameToIndex[name]), opengl.GLint(v1))
+  let index = program.nameToIndex[name]
+  opengl.glUniform1i(opengl.GLint(index), opengl.GLint(v1))
+
+  debugOpenGLStatement:
+    echo &"glUniform1i({index}, {v1})"
+
+proc `[]=`* (program: ProgramObject, name: string, matrix4v: array[16, float32]) =
+  let index = program.nameToIndex[name]
+  var matrix4v = matrix4v
+  opengl.glUniformMatrix4fv(opengl.GLint(index), 1, opengl.GLboolean(false), matrix4v[0].addr)
+  
+  debugOpenGLStatement:
+    echo &"glUniformMatrix4fv(index, 1, false, {matrix4v})"

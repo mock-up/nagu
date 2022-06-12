@@ -3,16 +3,22 @@ import ../vao, ../vbo, ../program
 import strformat
 
 type
+  TextureQuad* = VBO[20, float32]
+  BindedTextureQuad* = BindedVBO[20, float32]
+  TextureElem* = VBO[6, uint8]
+  BindedTextureElem* = BindedVBO[6, uint8]
+
   TextureObj [binded: static bool] = object
     id: opengl.GLuint
     vao*: VAO
-    quad*: VBO[20, float32]
-    elem*: VBO[6, uint8]
+    quad*: TextureQuad
+    elem*: TextureElem
     wrapS, wrapT: TextureWrapParameter
     magFilter: TextureMagFilterParameter
     minFilter: TextureMinFilterParameter
     pixels: pointer
     program*: ProgramObject
+    initializedPixels*: bool
   
   Texture* = ref TextureObj[false]
   BindedTexture* = ref TextureObj[true]
@@ -94,8 +100,8 @@ proc `minFilter=`* (texture: var BindedTexture, min_filter_param: TextureMinFilt
 proc init* (_: typedesc[Texture],
             id: opengl.GLuint = 0,
             vao: VAO = nil,
-            quad: VBO[20, float32] = nil,
-            elem: VBO[6, uint8] = nil,
+            quad: TextureQuad = nil,
+            elem: TextureElem = nil,
             wrapS: TextureWrapParameter = TextureWrapParameter.tInitialValue,
             wrapT: TextureWrapParameter = TextureWrapParameter.tInitialValue,
             magFilter: TextureMagFilterParameter = TextureMagFilterParameter.tInitialValue,

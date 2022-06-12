@@ -1,7 +1,7 @@
 ## src/nagu/vbo.nim defines the Triangle type and procedures.
 
 from nimgl/opengl import nil
-from program import ProgramObject, mvpMatrix, IdentityMatrix, index
+from program import ProgramObject, mvpMatrix, identityMatrix, index
 from position import Position, map, coord
 from old_vbo import vboRef, VBO, make, init, `:=`, id
 from color import Color, rgb
@@ -58,7 +58,7 @@ proc init* (_: typedesc[Triangle],
   result = Triangle(
     p1: p1, p2: p2, p3: p3,
     c1: c1, c2: c2, c3: c3,
-    mvp_matrix: IdentityMatrix # * x_axios_rotation_matrix
+    mvp_matrix: identityMatrix() # * x_axios_rotation_matrix
   )
 
 proc init* (_: typedesc[Triangle], p1, p2, p3: Position, color: Color): Triangle =
@@ -66,7 +66,7 @@ proc init* (_: typedesc[Triangle], p1, p2, p3: Position, color: Color): Triangle
   result = Triangle(
     p1: p1, p2: p2, p3: p3,
     c1: color, c2: color, c3: color,
-    mvp_matrix: IdentityMatrix
+    mvp_matrix: identityMatrix()
   )
 
 proc positionArray* (t: Triangle): triangleArray =
