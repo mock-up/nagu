@@ -12,3 +12,4 @@ bin           = @["example"]
 
 requires "nim >= 1.6.4"
 requires "nagu"
+requires "pnm >= 2.1.1"
