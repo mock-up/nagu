@@ -1,7 +1,9 @@
 from nimgl/opengl import nil
 import vao, vbo, program, shader, utils
 import types/[texture]
-import strformat
+
+debugOpenGLStatement:
+  import strformat
 
 proc `bind` (texture: var Texture): BindedTexture =  
   opengl.glBindTexture(opengl.GL_TEXTURE_2D, texture.id)
