@@ -1,8 +1,39 @@
-vboRef	nagu/vbo.html#vboRef	vbo: vboRef	
 VBO	nagu/vbo.html#VBO	vbo: VBO	
-init	nagu/vbo.html#init,typedesc[vboRef[I,T]]	vbo: init[I, T](_: typedesc[vboRef[I, T]]): vboRef[I, T]	
-id	nagu/vbo.html#id,vboRef[I,T]	vbo: id[I, T](vbo: vboRef[I, T]): opengl.GLuint	
-data	nagu/vbo.html#data,vboRef[I,T]	vbo: data[I, T](vbo: vboRef[I, T]): array[I, T]	
-`:=`	nagu/vbo.html#:=,vboRef[I,T],array[I,T]	vbo: `:=`[I, T](vbo: var vboRef[I, T]; data: array[I, T])	
-make	nagu/vbo.html#make,typedesc[VBO],array[I,T]	vbo: make[I: static[int]; T](_: typedesc[VBO]; data: array[I, T]): vboRef[I, T]	
-correspond	nagu/vbo.html#correspond,ProgramObject,vboRef[I,float32],string,int	vbo: correspond[I](program: ProgramObject; vbo: vboRef[I, float32]; name: string;\n              size: int)	
+BindedVBO	nagu/vbo.html#BindedVBO	vbo: BindedVBO	
+vtArrayBuffer	nagu/vbo.html#vtArrayBuffer	VBOTarget.vtArrayBuffer	
+vtElementArrayBuffer	nagu/vbo.html#vtElementArrayBuffer	VBOTarget.vtElementArrayBuffer	
+vtPixelPackBuffer	nagu/vbo.html#vtPixelPackBuffer	VBOTarget.vtPixelPackBuffer	
+vtPixelUnpackBuffer	nagu/vbo.html#vtPixelUnpackBuffer	VBOTarget.vtPixelUnpackBuffer	
+vtUniformBuffer	nagu/vbo.html#vtUniformBuffer	VBOTarget.vtUniformBuffer	
+vtTextureBuffer	nagu/vbo.html#vtTextureBuffer	VBOTarget.vtTextureBuffer	
+vtTransformFeedbackBuffer	nagu/vbo.html#vtTransformFeedbackBuffer	VBOTarget.vtTransformFeedbackBuffer	
+vtCopyReadBuffer	nagu/vbo.html#vtCopyReadBuffer	VBOTarget.vtCopyReadBuffer	
+vtCopyWriteBuffer	nagu/vbo.html#vtCopyWriteBuffer	VBOTarget.vtCopyWriteBuffer	
+vtDrawIndirectBuffer	nagu/vbo.html#vtDrawIndirectBuffer	VBOTarget.vtDrawIndirectBuffer	
+vtShaderStorageBuffer	nagu/vbo.html#vtShaderStorageBuffer	VBOTarget.vtShaderStorageBuffer	
+vtDispatchIndirectBuffer	nagu/vbo.html#vtDispatchIndirectBuffer	VBOTarget.vtDispatchIndirectBuffer	
+vtQueryBuffer	nagu/vbo.html#vtQueryBuffer	VBOTarget.vtQueryBuffer	
+vtAtomicCounterBuffer	nagu/vbo.html#vtAtomicCounterBuffer	VBOTarget.vtAtomicCounterBuffer	
+VBOTarget	nagu/vbo.html#VBOTarget	vbo: VBOTarget	
+vuStreamDraw	nagu/vbo.html#vuStreamDraw	VBOUsage.vuStreamDraw	
+vuStreamRead	nagu/vbo.html#vuStreamRead	VBOUsage.vuStreamRead	
+vuStreamCopy	nagu/vbo.html#vuStreamCopy	VBOUsage.vuStreamCopy	
+vuStaticDraw	nagu/vbo.html#vuStaticDraw	VBOUsage.vuStaticDraw	
+vuStaticRead	nagu/vbo.html#vuStaticRead	VBOUsage.vuStaticRead	
+vuStaticCopy	nagu/vbo.html#vuStaticCopy	VBOUsage.vuStaticCopy	
+vuDynamicDraw	nagu/vbo.html#vuDynamicDraw	VBOUsage.vuDynamicDraw	
+vuDynamicRead	nagu/vbo.html#vuDynamicRead	VBOUsage.vuDynamicRead	
+vuDynamicCopy	nagu/vbo.html#vuDynamicCopy	VBOUsage.vuDynamicCopy	
+VBOUsage	nagu/vbo.html#VBOUsage	vbo: VBOUsage	
+target=	nagu/vbo.html#target=,BindedVBO[I,T],VBOTarget	vbo: target=[I: static int; T](vbo: var BindedVBO[I, T]; target: VBOTarget)	
+data=	nagu/vbo.html#data=,BindedVBO[I,T],array[I,T]	vbo: data=[I: static int; T](vbo: var BindedVBO[I, T]; data: array[I, T])	
+usage=	nagu/vbo.html#usage=,BindedVBO[I,T],VBOUsage	vbo: usage=[I: static int; T](vbo: var BindedVBO[I, T]; usage: VBOUsage)	
+init	nagu/vbo.html#init,typedesc[VBO[I,T]]	vbo: init[I: static int; T](_: typedesc[VBO[I, T]]): VBO[I, T]	
+id	nagu/vbo.html#id,VBOObj[B,I,T]	vbo: id[B: static bool; I: static int; T](vbo: VBOObj[B, I, T]): uint	
+target	nagu/vbo.html#target,VBOObj[B,I,T]	vbo: target[B: static bool; I: static int; T](vbo: VBOObj[B, I, T]): VBOTarget	
+data	nagu/vbo.html#data,VBOObj[B,I,T]	vbo: data[B: static bool; I: static int; T](vbo: VBOObj[B, I, T]): array[I, T]	
+usage	nagu/vbo.html#usage,VBOObj[B,I,T]	vbo: usage[B: static bool; I: static int; T](vbo: VBOObj[B, I, T]): VBOUsage	
+`bind`	nagu/vbo.html#bind,VBO[I,T]	vbo: `bind`[I: static int; T](vbo: var VBO[I, T]): BindedVBO[I, T]	
+unbind	nagu/vbo.html#unbind,BindedVBO[I,T]	vbo: unbind[I: static int; T](vbo: var BindedVBO[I, T]): VBO[I, T]	
+use	nagu/vbo.html#use,VBO[I,T],proc(BindedVBO[I,T])	vbo: use[I: static int; T](vbo: var VBO[I, T];\n                      procedure: proc (vbo: var BindedVBO[I, T]))	
+correspond	nagu/vbo.html#correspond,BindedVBO,ProgramObject,string,int,uint,int	vbo: correspond(vbo: BindedVBO; program: ProgramObject; name: string; size: int;\n           stride: uint; offset = 0)	

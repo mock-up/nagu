@@ -1,17 +1,20 @@
 VAO	nagu/vao.html#VAO	vao: VAO	
-dmPoints	nagu/vao.html#dmPoints	vaoDrawMode.dmPoints	
-dmLines	nagu/vao.html#dmLines	vaoDrawMode.dmLines	
-dmLineStrip	nagu/vao.html#dmLineStrip	vaoDrawMode.dmLineStrip	
-dmLineLoop	nagu/vao.html#dmLineLoop	vaoDrawMode.dmLineLoop	
-dmTriangles	nagu/vao.html#dmTriangles	vaoDrawMode.dmTriangles	
-dmTriangleStrip	nagu/vao.html#dmTriangleStrip	vaoDrawMode.dmTriangleStrip	
-dmTriangleFan	nagu/vao.html#dmTriangleFan	vaoDrawMode.dmTriangleFan	
-dmLinesAdjacency	nagu/vao.html#dmLinesAdjacency	vaoDrawMode.dmLinesAdjacency	
-dmLineStripAdjancency	nagu/vao.html#dmLineStripAdjancency	vaoDrawMode.dmLineStripAdjancency	
-dmTrianglesAdjacency	nagu/vao.html#dmTrianglesAdjacency	vaoDrawMode.dmTrianglesAdjacency	
-dmTriangleStripAdjacency	nagu/vao.html#dmTriangleStripAdjacency	vaoDrawMode.dmTriangleStripAdjacency	
-vaoDrawMode	nagu/vao.html#vaoDrawMode	vao: vaoDrawMode	
-`bind`	nagu/vao.html#bind,VAO	vao: `bind`(vao: VAO)	
+BindedVAO	nagu/vao.html#BindedVAO	vao: BindedVAO	
+vdmPoints	nagu/vao.html#vdmPoints	VAODrawMode.vdmPoints	
+vdmLines	nagu/vao.html#vdmLines	VAODrawMode.vdmLines	
+vdmLineLoop	nagu/vao.html#vdmLineLoop	VAODrawMode.vdmLineLoop	
+vdmLineStrip	nagu/vao.html#vdmLineStrip	VAODrawMode.vdmLineStrip	
+vdmTriangles	nagu/vao.html#vdmTriangles	VAODrawMode.vdmTriangles	
+vdmTriangleStrip	nagu/vao.html#vdmTriangleStrip	VAODrawMode.vdmTriangleStrip	
+vdmTriangleFan	nagu/vao.html#vdmTriangleFan	VAODrawMode.vdmTriangleFan	
+vdmLinesAdjacency	nagu/vao.html#vdmLinesAdjacency	VAODrawMode.vdmLinesAdjacency	
+vdmLineStripAdjancency	nagu/vao.html#vdmLineStripAdjancency	VAODrawMode.vdmLineStripAdjancency	
+vdmTrianglesAdjacency	nagu/vao.html#vdmTrianglesAdjacency	VAODrawMode.vdmTrianglesAdjacency	
+vdmTriangleStripAdjacency	nagu/vao.html#vdmTriangleStripAdjacency	VAODrawMode.vdmTriangleStripAdjacency	
+VAODrawMode	nagu/vao.html#VAODrawMode	vao: VAODrawMode	
+init	nagu/vao.html#init,typedesc[VAO]	vao: init(_: typedesc[VAO]): VAO	
+`bind`	nagu/vao.html#bind,VAO	vao: `bind`(vao: var VAO): BindedVAO	
+unbind	nagu/vao.html#unbind	vao: unbind()	
+use	nagu/vao.html#use,VAO,proc(BindedVAO)	vao: use(vao: var VAO; procedure: proc (vao: var BindedVAO))	
 make	nagu/vao.html#make,typedesc[VAO]	vao: make(_: typedesc[VAO]): VAO	
-draw	nagu/vao.html#draw,VAO,vaoDrawMode	vao: draw(vao: VAO; mode: vaoDrawMode)	
-delete	nagu/vao.html#delete,VAO	vao: delete(vao: VAO)	
+draw	nagu/vao.html#draw,BindedVAO,VAODrawMode	vao: draw(vao: BindedVAO; mode: VAODrawMode)	

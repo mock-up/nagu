@@ -1,0 +1,21 @@
+TextureQuad	nagu/types/texture.html#TextureQuad	texture: TextureQuad	
+BindedTextureQuad	nagu/types/texture.html#BindedTextureQuad	texture: BindedTextureQuad	
+TextureElem	nagu/types/texture.html#TextureElem	texture: TextureElem	
+BindedTextureElem	nagu/types/texture.html#BindedTextureElem	texture: BindedTextureElem	
+Texture	nagu/types/texture.html#Texture	texture: Texture	
+BindedTexture	nagu/types/texture.html#BindedTexture	texture: BindedTexture	
+TextureWrapParameter	nagu/types/texture.html#TextureWrapParameter	texture: TextureWrapParameter	
+TextureMagFilterParameter	nagu/types/texture.html#TextureMagFilterParameter	texture: TextureMagFilterParameter	
+TextureMinFilterParameter	nagu/types/texture.html#TextureMinFilterParameter	texture: TextureMinFilterParameter	
+toBindedTexture	nagu/types/texture.html#toBindedTexture,Texture	texture: toBindedTexture(texture: Texture): BindedTexture	
+toTexture	nagu/types/texture.html#toTexture,BindedTexture	texture: toTexture(texture: BindedTexture): Texture	
+id	nagu/types/texture.html#id,AllTextures	texture: id(texture: AllTextures): opengl.GLuint	
+wrapS	nagu/types/texture.html#wrapS,AllTextures	texture: wrapS(texture: AllTextures): TextureWrapParameter	
+wrapT	nagu/types/texture.html#wrapT,AllTextures	texture: wrapT(texture: AllTextures): TextureWrapParameter	
+magFilter	nagu/types/texture.html#magFilter,AllTextures	texture: magFilter(texture: AllTextures): TextureMagFilterParameter	
+minFilter	nagu/types/texture.html#minFilter,AllTextures	texture: minFilter(texture: AllTextures): TextureMinFilterParameter	
+wrapS=	nagu/types/texture.html#wrapS=,BindedTexture,TextureWrapParameter	texture: wrapS=(texture: var BindedTexture; wrap_param: TextureWrapParameter)	
+wrapT=	nagu/types/texture.html#wrapT=,BindedTexture,TextureWrapParameter	texture: wrapT=(texture: var BindedTexture; wrap_param: TextureWrapParameter)	
+magFilter=	nagu/types/texture.html#magFilter=,BindedTexture,TextureMagFilterParameter	texture: magFilter=(texture: var BindedTexture;\n           mag_filter_param: TextureMagFilterParameter)	
+minFilter=	nagu/types/texture.html#minFilter=,BindedTexture,TextureMinFilterParameter	texture: minFilter=(texture: var BindedTexture;\n           min_filter_param: TextureMinFilterParameter)	
+init	nagu/types/texture.html#init,typedesc[Texture],int,VAO,TextureQuad,TextureElem,TextureWrapParameter,TextureWrapParameter,TextureMagFilterParameter,TextureMinFilterParameter,ProgramObject	texture: init(_: typedesc[Texture]; id: opengl.GLuint = 0; vao: VAO = nil;\n     quad: TextureQuad = nil; elem: TextureElem = nil;\n     wrapS: TextureWrapParameter = TextureWrapParameter.tInitialValue;\n     wrapT: TextureWrapParameter = TextureWrapParameter.tInitialValue; magFilter: TextureMagFilterParameter = TextureMagFilterParameter.tInitialValue;\n    minFilter: TextureMinFilterParameter = TextureMinFilterParameter.tInitialValue;\n     program: ProgramObject = nil): Texture	

@@ -1,0 +1,9 @@
+use	nagu/texture.html#use,Texture,proc(BindedTexture)	texture: use(texture: var Texture; procedure: proc (texture: var BindedTexture))	
+useVAO	nagu/texture.html#useVAO,BindedTexture,proc(BindedTexture,BindedVAO)	texture: useVAO(bindedTexture: var BindedTexture;\n       procedure: proc (texture: var BindedTexture; vao: var BindedVAO))	
+useElem	nagu/texture.html#useElem,BindedTexture,proc(BindedTexture,BindedTextureElem)	texture: useElem(bindedTexture: var BindedTexture; procedure: proc (\n    texture: var BindedTexture; vbo: var BindedTextureElem))	
+useQuad	nagu/texture.html#useQuad,BindedTexture,proc(BindedTexture,BindedTextureQuad)	texture: useQuad(bindedTexture: var BindedTexture; procedure: proc (\n    texture: var BindedTexture; vbo: var BindedTextureQuad))	
+pixels=	nagu/texture.html#pixels=,BindedTexture,uint,uint,pointer	texture: pixels=(texture: var BindedTexture; width, height: uint; data: pointer)	
+pixels=	nagu/texture.html#pixels=,BindedTexture,tuple[seq[uint8],int,int]	texture: pixels=(texture: var BindedTexture;\n        img: tuple[data: seq[uint8], width: int, height: int])	
+pixels=	nagu/texture.html#pixels=,BindedTexture,array[H,array[W,array[,T]]]	texture: pixels=[W, H: static[int]; T](texture: var BindedTexture;\n                              data: array[H, array[W, array[4, T]]])	
+draw	nagu/texture.html#draw,BindedTexture	texture: draw(texture: var BindedTexture)	
+make	nagu/texture.html#make,typedesc[Texture],Position,string,string	texture: make(_: typedesc[Texture]; position: Position = Position.init(0, 0, 0);\n     vertex_shader_path: string; fragment_shader_path: string): Texture	

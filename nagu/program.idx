@@ -4,7 +4,7 @@ ProgramCreationDefect	nagu/program.html#ProgramCreationDefect	program: ProgramCr
 ProgramLinkingDefect	nagu/program.html#ProgramLinkingDefect	program: ProgramLinkingDefect	
 ProgramNotExistsActiveUniformDefect	nagu/program.html#ProgramNotExistsActiveUniformDefect	program: ProgramNotExistsActiveUniformDefect	
 mvpMatrix	nagu/program.html#mvpMatrix	program: mvpMatrix	
-IdentityMatrix	nagu/program.html#IdentityMatrix	program: IdentityMatrix	
+identityMatrix	nagu/program.html#identityMatrix	program: identityMatrix(): mvpMatrix	
 init	nagu/program.html#init,typedesc[ProgramObject]	program: init(_: typedesc[ProgramObject]): ProgramObject	
 id	nagu/program.html#id,ProgramObject	program: id(program: ProgramObject): opengl.GLuint	
 linked	nagu/program.html#linked,ProgramObject	program: linked(program: ProgramObject): bool	
@@ -17,4 +17,6 @@ registerAttrib	nagu/program.html#registerAttrib,ProgramObject,string	program: re
 registerUniform	nagu/program.html#registerUniform,ProgramObject,string	program: registerUniform(program: var ProgramObject; name: string)	
 make	nagu/program.html#make,typedesc[ProgramObject],ShaderObject,ShaderObject	program: make(_: typedesc[ProgramObject]; vertex_shader: ShaderObject;\n     fragment_shader: ShaderObject): ProgramObject	
 make	nagu/program.html#make,typedesc[ProgramObject],ShaderObject,ShaderObject,seq[string],seq[string]	program: make(_: typedesc[ProgramObject]; vertex_shader: ShaderObject;\n     fragment_shader: ShaderObject; attributes: seq[string] = @[];\n     uniforms: seq[string] = @[]): ProgramObject	
-applyMatrix	nagu/program.html#applyMatrix,ProgramObject,string,mvpMatrix	program: applyMatrix(program: ProgramObject; name: string;\n            matrix: mvpMatrix = IdentityMatrix)	
+`[]`	nagu/program.html#[],ProgramObject,string	program: `[]`(program: ProgramObject; name: string): int	
+`[]=`	nagu/program.html#[]=,ProgramObject,string,int	program: `[]=`(program: ProgramObject; name: string; v1: int)	
+`[]=`	nagu/program.html#[]=,ProgramObject,string,array[,float32]	program: `[]=`(program: ProgramObject; name: string; matrix4v: array[16, float32])	
