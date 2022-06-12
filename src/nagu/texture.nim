@@ -1,20 +1,21 @@
 from nimgl/opengl import nil
-import vao, vbo, program, shader
+import vao, vbo, program, shader, utils
 import types/[texture]
 import strformat
 
-proc `bind` (texture: var Texture): BindedTexture =
-  when defined(debuggingOpenGL):
-    echo &"glBindTexture(opengl.GL_TEXTURE_2D, {texture.id})"
-  
+proc `bind` (texture: var Texture): BindedTexture =  
   opengl.glBindTexture(opengl.GL_TEXTURE_2D, texture.id)
   result = texture.toBindedTexture
 
+  debugOpenGLStatement:
+    echo &"glBindTexture(GL_TEXTURE_2D, {texture.id})"
+
 proc unbind (bindedTexture: var BindedTexture): Texture =
-  when defined(debuggingOpenGL):
-    echo &"glBindTexture(opengl.GL_TEXTURE_2D, 0)"
   opengl.glBindTexture(opengl.GL_TEXTURE_2D, 0)
   result = bindedTexture.toTexture
+
+  debugOpenGLStatement:
+    echo &"glBindTexture(GL_TEXTURE_2D, 0)"
 
 proc use* (texture: var Texture, procedure: proc (texture: var BindedTexture)) =
   var bindedTexture = texture.bind()
@@ -52,18 +53,14 @@ proc `pixels=`* (
   ]
 ) =
   var data = img.data
-  when defined(debuggingOpenGL):
-    echo &"""glTexImage2D(
-  opengl.GL_TEXTURE_2D, 0, GL_RGB,
-  {img.width}, {img.height}, 0,
-  GL_RGB, GL_UNSIGNED_BYTE, data[0].addr
-)"""
-
   opengl.glTexImage2D(
     opengl.GL_TEXTURE_2D, 0, opengl.GLint(opengl.GL_RGB),
     opengl.GLsizei(img.width), opengl.GLsizei(img.height), 0,
     opengl.GL_RGB, opengl.GL_UNSIGNED_BYTE, data[0].addr
   )
+
+  debugOpenGLStatement:
+    echo &"glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, {img.width}, {img.height}, 0, GL_RGB, GL_UNSIGNED_BYTE, data[0].addr)"
 
 proc `pixels=`* [W, H: static[int], T] (texture: var BindedTexture, data: array[H, array[W, array[4, T]]]) =
   var data = data
@@ -76,13 +73,16 @@ proc `pixels=`* [W, H: static[int], T] (texture: var BindedTexture, data: array[
 proc draw* (texture: var BindedTexture) =
   texture.useVAO do (texture: var BindedTexture, vao: var BindedVAO):
     texture.useElem do (texture: var BindedTexture, vbo: var BindedVBO[6, uint8]):
-      when defined(debuggingOpenGL):
-        echo &"glDrawElements(opengl.GL_TRIANGLES, 6, opengl.GL_UNSIGNED_BYTE, nil)"
-      # opengl.glDrawElements(opengl.GL_TRIANGLES, 6, opengl.GL_UNSIGNED_BYTE, nil)
       opengl.glDrawArrays(opengl.GLenum(vdmTriangleFan), 0, 4)
+
+      debugOpenGLStatement:
+        echo &"glDrawArrays(vdmTriangleFan, 0, 4)"
 
 proc pixelStore (texture: var BindedTexture, pname: opengl.GLenum, param: opengl.GLint) =
   opengl.glPixelStorei(pname, param)
+
+  debugOpenGLStatement:
+    echo &"glPixelStorei({pname.repr}, {param.repr})"
 
 func quad: array[20, float32] = [
    0.5'f32, 0.5, 0.0, 1.0, 0.0,
@@ -105,8 +105,6 @@ proc make* (_: typedesc[Texture],
     fragment_shader = ShaderObject.make(soFragment, fragment_shader_path)
 
   result.program = ProgramObject.make(vertex_shader, fragment_shader, @["vertex", "texCoord0"], @["mvpMatrix", "frameTex"])
-  
-  opengl.glActiveTexture(opengl.GL_TEXTURE0)
   result.use do (texture: var BindedTexture):
     texture.useVAO do (texture: var BindedTexture, vao: var BindedVAO):
       texture.pixelStore(opengl.GL_UNPACK_ALIGNMENT, 1)

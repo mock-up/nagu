@@ -104,3 +104,4 @@ proc init* (_: typedesc[Texture],
            ): Texture =
   result = Texture(id: id, vao: vao, quad: quad, elem: elem, wrapS: wrapS, wrapT: wrapT, magFilter: magFilter, minFilter: minFilter, program: program)
   opengl.glGenTextures(1, result.id.addr)
+  opengl.glActiveTexture(opengl.GL_TEXTURE0)
