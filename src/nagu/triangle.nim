@@ -3,10 +3,10 @@
 from nimgl/opengl import nil
 from program import ProgramObject, mvpMatrix, IdentityMatrix, index
 from position import Position, map, coord
-from vbo import vboRef, VBO, make, init, `:=`, id
+from old_vbo import vboRef, VBO, make, init, `:=`, id
 from color import Color, rgb
 from std/sugar import `->`, `=>`
-from math import sin, cos
+from math import sin, cos, degToRad
 
 type
   vboRefForTriangle = vboRef[9, float32]
