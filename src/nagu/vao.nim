@@ -3,49 +3,51 @@
 from nimgl/opengl import nil
 
 type
-  vaoObj = object
-    id: opengl.GLuint
+  VAOObj [binded: static bool] = object
+    id*: opengl.GLuint
   
-  VAO* = ref vaoObj
+  VAO* = ref VAOObj[false]
     ## The ProgramObject type representations OpenGL program object.
   
-  vaoDrawMode* = enum
-    ## Represents VAO drawing mode.
-    dmPoints, dmLines, dmLineStrip, dmLineLoop,
-    dmTriangles, dmTriangleStrip, dmTriangleFan,
-    dmLinesAdjacency, dmLineStripAdjancency,
-    dmTrianglesAdjacency, dmTriangleStripAdjacency
+  BindedVAO* = ref VAOObj[true]
 
-proc init (_: typedesc[VAO]): VAO =
+  VAODrawMode* = enum
+    ## Represents VAO drawing mode.
+    vdmPoints = opengl.GL_POINTS,
+    vdmLines = opengl.GL_LINES,
+    vdmLineLoop = opengl.GL_LINE_LOOP,
+    vdmLineStrip = opengl.GL_LINE_STRIP,
+    vdmTriangles = opengl.GL_TRIANGLES,
+    vdmTriangleStrip = opengl.GL_TRIANGLE_STRIP,
+    vdmTriangleFan = opengl.GL_TRIANGLE_FAN,
+    vdmLinesAdjacency = opengl.GL_LINES_ADJACENCY,
+    vdmLineStripAdjancency = opengl.GL_LINE_STRIP_ADJACENCY,
+    vdmTrianglesAdjacency = opengl.GL_TRIANGLES_ADJACENCY,
+    vdmTriangleStripAdjacency = opengl.GL_TRIANGLE_STRIP_ADJACENCY
+
+proc init* (_: typedesc[VAO]): VAO =
   result = VAO()
   opengl.glGenVertexArrays(1, result.id.addr)
 
-func convertDrawMode (mode: vaoDrawMode): opengl.GLenum =
-  result = case mode:
-           of dmPoints: opengl.GL_POINTS
-           of dmLines: opengl.GL_LINES
-           of dmLineStrip: opengl.GL_LINE_STRIP
-           of dmLineLoop: opengl.GL_LINE_LOOP
-           of dmTriangles: opengl.GL_TRIANGLES
-           of dmTriangleStrip: opengl.GL_TRIANGLE_STRIP
-           of dmTriangleFan: opengl.GL_TRIANGLE_FAN
-           of dmLinesAdjacency: opengl.GL_LINES_ADJACENCY
-           of dmLineStripAdjancency: opengl.GL_LINE_STRIP_ADJACENCY
-           of dmTrianglesAdjacency: opengl.GL_TRIANGLES_ADJACENCY
-           of dmTriangleStripAdjacency: opengl.GL_TRIANGLE_STRIP_ADJACENCY
-
-proc `bind`* (vao: VAO) =
+proc `bind`* (vao: var VAO): BindedVAO =
   opengl.glBindVertexArray(vao.id)
+  result = BindedVAO(id: vao.id)
+
+proc unbind* =
+  opengl.glBindVertexArray(0)
+
+proc use* (vao: var VAO, procedure: proc (vao: var BindedVAO)) =
+  var bindedVAO = vao.bind()
+  bindedVAO.procedure()
+  unbind()
 
 proc make* (_: typedesc[VAO]): VAO =
   ## Initializes and binds VAO.
   result = VAO.init()
-  result.bind()
 
-proc draw* (vao: VAO, mode: vaoDrawMode) =
+proc draw* (vao: BindedVAO, mode: VAODrawMode) =
   ## Draws from `vao`.
-  vao.bind()
-  opengl.glDrawArrays(mode.convertDrawMode, 0, 4)
+  opengl.glDrawArrays(opengl.GLenum(mode), 0, 4)
 
-proc delete* (vao: VAO) =
+proc delete (vao: VAO) =
   opengl.glDeleteVertexArrays(1, vao.id.addr)

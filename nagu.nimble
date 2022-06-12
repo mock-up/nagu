@@ -34,3 +34,9 @@ task docsCi, "Run Docs CI":
 task mainCi, "Run CI":
   exec "nimble docsCi"
   exec "nimble test -Y"
+
+task dev, "dev envoironment":
+  exec "cd example && nimble -d:debuggingOpenGL run"
+
+task release, "release environment":
+  exec "cd example && nimble run --silent"

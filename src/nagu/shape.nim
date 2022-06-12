@@ -2,8 +2,8 @@
 
 from position import Position, coord, init
 from color import Color, rgb, init
-from vao import VAO, draw, vaoDrawMode
-from vbo import VBO, vboRef, data, `:=`
+from vao import VAO, draw, VAODrawMode
+from old_vbo import VBO, vboRef, data, `:=`
 from program import mvpMatrix, ProgramObject
 import nimgl/opengl
 
@@ -58,7 +58,7 @@ proc init* [I: static int] (_: typedesc[Shape[I]], positionsArr: array[I, float3
   # echo typeof result
   # echo typeof result.positions_vbo
 
-proc draw* [I: static int] (shape: Shape[I], mode: vaoDrawMode) =
+proc draw* [I: static int] (shape: Shape[I], mode: VAODrawMode) =
   shape.vao.draw(mode)
 
 proc pMap* [I: static int] (shape: var Shape[I], fn: Position -> Position) =

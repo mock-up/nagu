@@ -5,6 +5,7 @@ from shader import ShaderObject, id
 from opengl as naguOpengl import OpenGLDefect
 from std/tables import Table, initTable, len, `[]`, `[]=`
 from std/strformat import `&`
+import utils
 
 type
   ProgramObjectObj = object
@@ -30,7 +31,7 @@ type
   mvpMatrix* = array[16, float32]
     ## Represents model view projection matrixes.
 
-const IdentityMatrix*: mvpMatrix = [
+func identityMatrix*: mvpMatrix = [
   1.0'f, 0.0, 0.0, 0.0,
   0.0,   1.0, 0.0, 0.0,
   0.0,   0.0, 1.0, 0.0,
@@ -64,11 +65,15 @@ func index* (program: ProgramObject, name: string): int =
 proc attach* (program: ProgramObject, shader: ShaderObject): ProgramObject =
   ## Attach `shader` to `program`.
   result = program
+  when defined(debuggingOpenGL):
+    echo &"glAttachShader({program.id}, {shader.id})"
   opengl.glAttachShader(program.id, opengl.GLuint(shader.id))
 
 proc successLink (program: ProgramObject): bool =
   var status: opengl.GLint
   opengl.glGetProgramiv(program.id, opengl.GL_LINK_STATUS, status.addr)
+  when defined(debuggingOpenGL):
+    echo &"glGetProgramiv({program.id}, GL_LINK_STATUS, {status})"
   result = status == opengl.GLint(opengl.GL_TRUE)
 
 proc log* (program: ProgramObject): string =
@@ -85,10 +90,14 @@ proc log* (program: ProgramObject): string =
 proc use* (program: ProgramObject) =
   ## Use `program` if it is linked.
   if program.linked:
+    when defined(debuggingOpenGL):
+      echo &"glUseProgram({program.id})"
     opengl.glUseProgram(program.id)
 
 proc link* (program: var ProgramObject) =
   ## Links `program`.
+  when defined(debuggingOpenGL):
+    echo &"glLinkProgram({program.id})"
   opengl.glLinkProgram(program.id)
   if program.successLink:
     program.linked = true
@@ -99,6 +108,8 @@ proc registerAttrib* (program: var ProgramObject, name: string) =
   ## Register an attrib variable named `name` in `program`
   let index = program.nameToIndex.len
   program.nameToIndex[name] = index
+  when defined(debuggingOpenGL):
+    echo &"glBindAttribLocation({program.id}, {index}, {name})"
   opengl.glBindAttribLocation(program.id, opengl.GLuint(index), name)
 
 proc registerUniform* (program: var ProgramObject, name: string) =
@@ -130,8 +141,20 @@ proc make* (_: typedesc[ProgramObject], vertex_shader: ShaderObject, fragment_sh
   for uniform in uniforms:
     result.registerUniform(uniform)
 
-proc applyMatrix* (program: ProgramObject, name: string, matrix: mvpMatrix = IdentityMatrix) =
-  ## Apply matrix by passing `matrix` to the `name` variable.
-  var matrix = matrix
-  let index = opengl.GLint(program.nameToIndex[name])
-  opengl.glUniformMatrix4fv(index, 1, opengl.GLboolean(false), matrix[0].addr)
+proc `[]`* (program: ProgramObject, name: string): int =
+  result = program.nameToIndex[name]
+
+proc `[]=`* (program: ProgramObject, name: string, v1: int) =
+  let index = program.nameToIndex[name]
+  opengl.glUniform1i(opengl.GLint(index), opengl.GLint(v1))
+
+  debugOpenGLStatement:
+    echo &"glUniform1i({index}, {v1})"
+
+proc `[]=`* (program: ProgramObject, name: string, matrix4v: array[16, float32]) =
+  let index = program.nameToIndex[name]
+  var matrix4v = matrix4v
+  opengl.glUniformMatrix4fv(opengl.GLint(index), 1, opengl.GLboolean(false), matrix4v[0].addr)
+  
+  debugOpenGLStatement:
+    echo &"glUniformMatrix4fv(index, 1, false, {matrix4v})"
