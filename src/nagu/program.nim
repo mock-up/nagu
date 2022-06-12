@@ -64,11 +64,15 @@ func index* (program: ProgramObject, name: string): int =
 proc attach* (program: ProgramObject, shader: ShaderObject): ProgramObject =
   ## Attach `shader` to `program`.
   result = program
+  when defined(debuggingOpenGL):
+    echo &"glAttachShader({program.id}, {shader.id})"
   opengl.glAttachShader(program.id, opengl.GLuint(shader.id))
 
 proc successLink (program: ProgramObject): bool =
   var status: opengl.GLint
   opengl.glGetProgramiv(program.id, opengl.GL_LINK_STATUS, status.addr)
+  when defined(debuggingOpenGL):
+    echo &"glGetProgramiv({program.id}, GL_LINK_STATUS, {status})"
   result = status == opengl.GLint(opengl.GL_TRUE)
 
 proc log* (program: ProgramObject): string =
@@ -85,10 +89,14 @@ proc log* (program: ProgramObject): string =
 proc use* (program: ProgramObject) =
   ## Use `program` if it is linked.
   if program.linked:
+    when defined(debuggingOpenGL):
+      echo &"glUseProgram({program.id})"
     opengl.glUseProgram(program.id)
 
 proc link* (program: var ProgramObject) =
   ## Links `program`.
+  when defined(debuggingOpenGL):
+    echo &"glLinkProgram({program.id})"
   opengl.glLinkProgram(program.id)
   if program.successLink:
     program.linked = true
@@ -99,6 +107,8 @@ proc registerAttrib* (program: var ProgramObject, name: string) =
   ## Register an attrib variable named `name` in `program`
   let index = program.nameToIndex.len
   program.nameToIndex[name] = index
+  when defined(debuggingOpenGL):
+    echo &"glBindAttribLocation({program.id}, {index}, {name})"
   opengl.glBindAttribLocation(program.id, opengl.GLuint(index), name)
 
 proc registerUniform* (program: var ProgramObject, name: string) =
@@ -134,4 +144,14 @@ proc applyMatrix* (program: ProgramObject, name: string, matrix: mvpMatrix = Ide
   ## Apply matrix by passing `matrix` to the `name` variable.
   var matrix = matrix
   let index = opengl.GLint(program.nameToIndex[name])
+  when defined(debuggingOpenGL):
+    echo &"glUniformMatrix4fv({index}, 1, false, matrix[0].addr)"
   opengl.glUniformMatrix4fv(index, 1, opengl.GLboolean(false), matrix[0].addr)
+
+proc `[]`* (program: ProgramObject, name: string): int =
+  result = program.nameToIndex[name]
+
+proc `[]=`* (program: ProgramObject, name: string, v1: int) =
+  when defined(debuggingOpenGL):
+    echo &"glUniform1i({program.nameToIndex[name]}, {v1})"
+  opengl.glUniform1i(opengl.GLint(program.nameToIndex[name]), opengl.GLint(v1))
