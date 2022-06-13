@@ -5,13 +5,18 @@ from shader import ShaderObject, id, ShaderObjectKind, convertGLExpression
 from opengl as naguOpengl import OpenGLDefect
 from std/tables import Table, initTable, len, `[]`, `[]=`
 from std/strformat import `&`
-import utils
+import utils, vbo
 
 type
+  ProgramVariableKind = enum
+    pvkAttrib,
+    pvkUniform,
+    pvkSubroutineUniform
+
   ProgramObjectObj = object
     id: opengl.GLuint
     linked: bool
-    nameToIndex: Table[string, int]
+    nameToIndex: Table[string, tuple[index: int, kind: ProgramVariableKind]]
   
   ProgramObject* = ref ProgramObjectObj
     ## The ProgramObject type representations OpenGL program object.
@@ -49,7 +54,7 @@ proc init* (_: typedesc[ProgramObject]): ProgramObject =
   result = ProgramObject(
     id: program,
     linked: false,
-    nameToIndex: initTable[string, int]()
+    nameToIndex: initTable[string, (int, ProgramVariableKind)]()
   )
 
 func id* (program: ProgramObject): opengl.GLuint =
@@ -62,7 +67,7 @@ func linked* (program: ProgramObject): bool =
 
 func index* (program: ProgramObject, name: string): int =
   ## Queries `program` for `name` and corresponding index.
-  result = program.nameToIndex[name]
+  result = program.nameToIndex[name].index
 
 proc attach* (program: ProgramObject, shader: ShaderObject): ProgramObject =
   ## Attach `shader` to `program`.
@@ -109,7 +114,7 @@ proc link* (program: var ProgramObject) =
 proc registerAttrib* (program: var ProgramObject, name: string) =
   ## Register an attrib variable named `name` in `program`
   let index = program.nameToIndex.len
-  program.nameToIndex[name] = index
+  program.nameToIndex[name] = (index, pvkAttrib)
   when defined(debuggingOpenGL):
     echo &"glBindAttribLocation({program.id}, {index}, {name})"
   opengl.glBindAttribLocation(program.id, opengl.GLuint(index), name)
@@ -119,13 +124,13 @@ proc registerUniform* (program: var ProgramObject, name: string) =
   let index = opengl.glGetUniformLocation(program.id, name).int
   if index == -1:
     raise newException(ProgramNotExistsActiveUniformDefect, &"Active Uniform variable {name} does not exist in GLSL.")
-  program.nameToIndex[name] = index
+  program.nameToIndex[name] = (index, pvkUniform)
 
 proc registerSubroutineUniform* (program: var ProgramObject, shaderType: ShaderObjectKind, name: string) =
   let index = opengl.glGetSubroutineUniformLocation(program.id, shaderType.convertGLExpression, name).int
   if index == -1:
     raise newException(ProgramNotExistsActiveSubroutineUniformDefect, &"Active Subroutine-Uniform variable {name} does not exist in GLSL.")
-  program.nameToIndex[name] = index
+  program.nameToIndex[name] = (index, pvkSubroutineUniform)
 
 proc make* (_: typedesc[ProgramObject], vertex_shader: ShaderObject, fragment_shader: ShaderObject): ProgramObject =
   ## Makes a program linking `vertex_shader` and `fragment_shader`.
@@ -152,19 +157,29 @@ proc make* (_: typedesc[ProgramObject], vertex_shader: ShaderObject, fragment_sh
     result.registerSubroutineUniform(shader_kind, subroutine_uniform)
 
 proc `[]`* (program: ProgramObject, name: string): int =
-  result = program.nameToIndex[name]
+  result = program.nameToIndex[name].index
 
 proc `[]=`* (program: ProgramObject, name: string, v1: int) =
-  let index = program.nameToIndex[name]
+  let index = program[name]
   opengl.glUniform1i(opengl.GLint(index), opengl.GLint(v1))
 
   debugOpenGLStatement:
     echo &"glUniform1i({index}, {v1})"
 
 proc `[]=`* (program: ProgramObject, name: string, matrix4v: array[16, float32]) =
-  let index = program.nameToIndex[name]
+  let index = program[name]
   var matrix4v = matrix4v
   opengl.glUniformMatrix4fv(opengl.GLint(index), 1, opengl.GLboolean(false), matrix4v[0].addr)
   
   debugOpenGLStatement:
     echo &"glUniformMatrix4fv(index, 1, false, {matrix4v})"
+
+proc `[]=`* [I: static int, T] (program: ProgramObject,
+                                name: string,
+                                data: tuple[
+                                  vbo: BindedVBO[I ,T],
+                                  size: int
+                                ]) =
+  let index = opengl.GLuint(program[name])
+  opengl.glEnableVertexAttribArray(index)
+  opengl.glVertexAttribPointer(index, opengl.GLint(data.size), opengl.EGL_FLOAT, false, opengl.GLSizei(data.vbo.data.len), cast[pointer](0))

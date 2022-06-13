@@ -3,8 +3,10 @@ import ../vao, ../vbo, ../program
 import strformat
 
 type
-  TextureQuad* = VBO[20, float32]
-  BindedTextureQuad* = BindedVBO[20, float32]
+  TextureQuad* = VBO[12, float32]
+  BindedTextureQuad* = BindedVBO[12, float32]
+  TextureUV* = VBO[8, float32]
+  BindedTextureUV* = BindedVBO[8, float32]
   TextureElem* = VBO[6, uint8]
   BindedTextureElem* = BindedVBO[6, uint8]
 
@@ -12,6 +14,7 @@ type
     id: opengl.GLuint
     vao*: VAO
     quad*: TextureQuad
+    uv*: TextureUV
     elem*: TextureElem
     wrapS, wrapT: TextureWrapParameter
     magFilter: TextureMagFilterParameter
@@ -49,6 +52,7 @@ func toBindedTexture* (texture: Texture): BindedTexture =
     id: texture.id,
     vao: texture.vao,
     quad: texture.quad,
+    uv: texture.uv,
     elem: texture.elem,
     wrapS: texture.wrapS, wrapT: texture.wrapT,
     magFilter: texture.magFilter,
@@ -62,6 +66,7 @@ func toTexture* (texture: BindedTexture): Texture =
     id: texture.id,
     vao: texture.vao,
     quad: texture.quad,
+    uv: texture.uv,
     elem: texture.elem,
     wrapS: texture.wrapS, wrapT: texture.wrapT,
     magFilter: texture.magFilter,
@@ -101,6 +106,7 @@ proc init* (_: typedesc[Texture],
             id: opengl.GLuint = 0,
             vao: VAO = nil,
             quad: TextureQuad = nil,
+            uv: TextureUV = nil,
             elem: TextureElem = nil,
             wrapS: TextureWrapParameter = TextureWrapParameter.tInitialValue,
             wrapT: TextureWrapParameter = TextureWrapParameter.tInitialValue,
@@ -108,6 +114,11 @@ proc init* (_: typedesc[Texture],
             minFilter: TextureMinFilterParameter = TextureMinFilterParameter.tInitialValue,
             program: ProgramObject = nil
            ): Texture =
-  result = Texture(id: id, vao: vao, quad: quad, elem: elem, wrapS: wrapS, wrapT: wrapT, magFilter: magFilter, minFilter: minFilter, program: program)
+  result = Texture(
+    id: id,
+    vao: vao, quad: quad, uv: uv, elem: elem,
+    wrapS: wrapS, wrapT: wrapT,
+    magFilter: magFilter, minFilter: minFilter, program: program
+  )
   opengl.glGenTextures(1, result.id.addr)
   opengl.glActiveTexture(opengl.GL_TEXTURE0)

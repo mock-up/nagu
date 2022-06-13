@@ -1,6 +1,6 @@
 from nimgl/opengl import nil
 import vao, vbo, program, shader, utils, position
-import types/[texture]
+import types/texture
 import strformat
 
 proc `bind` (texture: var Texture): BindedTexture =  
@@ -36,6 +36,11 @@ proc useQuad* (bindedTexture: var BindedTexture, procedure: proc (texture: var B
   var bindedVBO = bindedTexture.quad.bind()
   procedure(bindedTexture, bindedVBO)
   bindedTexture.quad = bindedVBO.unbind()
+
+proc useUV* (bindedTexture: var BindedTexture, procedure: proc (texture: var BindedTexture, vbo: var BindedTextureUV)) =
+  var bindedVBO = bindedTexture.uv.bind()
+  procedure(bindedTexture, bindedVBO)
+  bindedTexture.uv = bindedVBO.unbind()
 
 proc `pixels=`* (texture: var BindedTexture, width, height: uint, data: pointer) =
   opengl.glTexSubImage2D(
@@ -89,14 +94,21 @@ proc pixelStore (texture: var BindedTexture, pname: opengl.GLenum, param: opengl
   debugOpenGLStatement:
     echo &"glPixelStorei({pname.repr}, {param.repr})"
 
-func quad (base_pos: Position): array[20, float32] =
+func quad (base_pos: Position): array[12, float32] =
   let (x, y, z) = base_pos.coord
   result = [
-     0.1'f32 + x,  0.1 + y, 0.0 + z, 1.0, 0.0,
-    -0.1 + x,      0.1 + y, 0.0 + z, 0.0, 0.0,
-    -0.1 + x,     -0.1 + y, 0.0 + z, 0.0, 1.0,
-     0.1 + x,     -0.1 + y, 0.0 + z, 1.0, 1.0,
-  ] # xyz座標 + uv座標
+     0.1'f32 + x,  0.1 + y, 0.0 + z,
+    -0.1 + x,      0.1 + y, 0.0 + z,
+    -0.1 + x,     -0.1 + y, 0.0 + z,
+     0.1 + x,     -0.1 + y, 0.0 + z,
+  ]
+
+func uv: array[8, float32] = [
+  1.0'f32, 0.0,
+  0.0,     0.0,
+  0.0,     1.0,
+  1.0,     1.0
+]
 
 func elem: array[6, uint8] = [
   0'u8, 1, 2, 0, 2, 3
@@ -107,7 +119,7 @@ proc make* (_: typedesc[Texture],
             vertex_shader_path: string,
             fragment_shader_path: string,
            ): Texture =
-  result = Texture.init(vao=VAO.init(), quad=TextureQuad.init(), elem=TextureElem.init())
+  result = Texture.init(vao=VAO.init(), quad=TextureQuad.init(), uv=TextureUV.init(), elem=TextureElem.init())
 
   let
     vertex_shader = ShaderObject.make(soVertex, vertex_shader_path)
@@ -117,20 +129,20 @@ proc make* (_: typedesc[Texture],
     vertex_shader,
     fragment_shader,
     @["vertex", "texCoord0"],
-    @["frameTex"],
-    @[(soVertex, "mvpMatrix")]
+    @["frameTex", "mvpMatrix"],
+    # @[(soVertex, "mvpMatrix")]
   )
   result.use do (texture: var BindedTexture):
     texture.useVAO do (texture: var BindedTexture, vao: var BindedVAO):
       texture.pixelStore(opengl.GL_UNPACK_ALIGNMENT, 1)
 
       texture.useQuad do (texture: var BindedTexture, vbo: var BindedTextureQuad):
-        var quad = quad(position)
-        vbo.target = vtArrayBuffer
-        vbo.usage = vuStaticDraw
-        vbo.data = quad
-        vbo.correspond(texture.program, "vertex", 3, 20, 0)
-        vbo.correspond(texture.program, "texCoord0", 2, 20, 12)
+        vbo.data = quad(position)
+        texture.program["vertex"] = (vbo, 3)
+
+      texture.useUV do (texture: var BindedTexture, vbo: var BindedTextureUV):
+        vbo.data = uv()
+        texture.program["texCoord0"] = (vbo, 2)
       
       texture.useElem do (texture: var BindedTexture, vbo: var BindedTextureElem):
         var elem = elem()
