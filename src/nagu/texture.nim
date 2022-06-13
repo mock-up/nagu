@@ -1,9 +1,7 @@
 from nimgl/opengl import nil
 import vao, vbo, program, shader, utils, position
 import types/[texture]
-
-debugOpenGLStatement:
-  import strformat
+import strformat
 
 proc `bind` (texture: var Texture): BindedTexture =  
   opengl.glBindTexture(opengl.GL_TEXTURE_2D, texture.id)
@@ -115,7 +113,13 @@ proc make* (_: typedesc[Texture],
     vertex_shader = ShaderObject.make(soVertex, vertex_shader_path)
     fragment_shader = ShaderObject.make(soFragment, fragment_shader_path)
 
-  result.program = ProgramObject.make(vertex_shader, fragment_shader, @["vertex", "texCoord0"], @["mvpMatrix", "frameTex"])
+  result.program = ProgramObject.make(
+    vertex_shader,
+    fragment_shader,
+    @["vertex", "texCoord0"],
+    @["frameTex"],
+    @[(soVertex, "mvpMatrix")]
+  )
   result.use do (texture: var BindedTexture):
     texture.useVAO do (texture: var BindedTexture, vao: var BindedVAO):
       texture.pixelStore(opengl.GL_UNPACK_ALIGNMENT, 1)
@@ -140,4 +144,3 @@ proc make* (_: typedesc[Texture],
       texture.wrapT = tRepeat
       texture.magFilter = TextureMagFilterParameter.tLinear
       texture.minFilter = TextureMinFilterParameter.tLinear
-

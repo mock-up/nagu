@@ -1,7 +1,7 @@
 ## src/nagu/program.nim defines the ProgramObject type and procedures related to its for abstracting OpenGL program.
 
 from nimgl/opengl import nil
-from shader import ShaderObject, id
+from shader import ShaderObject, id, ShaderObjectKind, convertGLExpression
 from opengl as naguOpengl import OpenGLDefect
 from std/tables import Table, initTable, len, `[]`, `[]=`
 from std/strformat import `&`
@@ -27,6 +27,8 @@ type
 
   ProgramNotExistsActiveUniformDefect* = object of ProgramDefect
     ## Raised by the condition that program don't have active uniform variables.
+  
+  ProgramNotExistsActiveSubroutineUniformDefect* = object of ProgramDefect
 
   mvpMatrix* = array[16, float32]
     ## Represents model view projection matrixes.
@@ -119,6 +121,12 @@ proc registerUniform* (program: var ProgramObject, name: string) =
     raise newException(ProgramNotExistsActiveUniformDefect, &"Active Uniform variable {name} does not exist in GLSL.")
   program.nameToIndex[name] = index
 
+proc registerSubroutineUniform* (program: var ProgramObject, shaderType: ShaderObjectKind, name: string) =
+  let index = opengl.glGetSubroutineUniformLocation(program.id, shaderType.convertGLExpression, name).int
+  if index == -1:
+    raise newException(ProgramNotExistsActiveSubroutineUniformDefect, &"Active Subroutine-Uniform variable {name} does not exist in GLSL.")
+  program.nameToIndex[name] = index
+
 proc make* (_: typedesc[ProgramObject], vertex_shader: ShaderObject, fragment_shader: ShaderObject): ProgramObject =
   ## Makes a program linking `vertex_shader` and `fragment_shader`.
   result = ProgramObject
@@ -128,7 +136,7 @@ proc make* (_: typedesc[ProgramObject], vertex_shader: ShaderObject, fragment_sh
   result.link()
   result.use()
 
-proc make* (_: typedesc[ProgramObject], vertex_shader: ShaderObject, fragment_shader: ShaderObject, attributes: seq[string] = @[], uniforms: seq[string] = @[]): ProgramObject =
+proc make* (_: typedesc[ProgramObject], vertex_shader: ShaderObject, fragment_shader: ShaderObject, attributes: seq[string] = @[], uniforms: seq[string] = @[], subroutine_uniforms: seq[(ShaderObjectKind, string)] = @[]): ProgramObject =
   ## Makes a program linking `vertex_shader` and `fragment_shader`; registering `attributes` and `uniforms`.
   result = ProgramObject
             .init()
@@ -140,6 +148,8 @@ proc make* (_: typedesc[ProgramObject], vertex_shader: ShaderObject, fragment_sh
   result.use()
   for uniform in uniforms:
     result.registerUniform(uniform)
+  for (shader_kind, subroutine_uniform) in subroutine_uniforms:
+    result.registerSubroutineUniform(shader_kind, subroutine_uniform)
 
 proc `[]`* (program: ProgramObject, name: string): int =
   result = program.nameToIndex[name]

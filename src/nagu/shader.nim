@@ -23,7 +23,7 @@ type
   ShaderFailedCompilationDefect* = object of ShaderDefect
     ## Raised by failed compilation OpenGL shaders.
 
-func convertGLExpression (kind: ShaderObjectKind): opengl.GLenum =
+func convertGLExpression* (kind: ShaderObjectKind): opengl.GLenum =
   case kind:
   of soVertex: opengl.GL_VERTEX_SHADER
   of soFragment: opengl.GL_FRAGMENT_SHADER
@@ -74,7 +74,7 @@ proc compile* (shader: ShaderObject): ShaderObject {.raises: [ShaderFailedCompil
   result = shader
   opengl.glCompileShader(opengl.GLuint(result.id))
   if not result.successCompile:
-    raise newException(ShaderFailedCompilationDefect, "Failed to compile the shader: " & result.log)
+    raise newException(ShaderFailedCompilationDefect, "Failed to compile the shader: ") # & result.log)
 
 proc make* (_: typedesc[ShaderObject], kind: ShaderObjectKind, path: string): ShaderObject =
   ## Makes a compiled ShaderObject from `path`.
