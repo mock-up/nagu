@@ -21,23 +21,23 @@ when isMainModule:
 
   sea_tex.use do (texture: var BindedTexture):
     texture.pixels = (data: sea.data, width: sea.col, height: sea.row)
-    echo texture.program[]
 
   cat_tex.use do (texture: var BindedTexture):
     texture.pixels = (data: cat.data, width: cat.col, height: cat.row)
-    echo texture.program[]
 
-  var v: float32 = 2.0
+  var v: float32 = 1.0
   naguContext.update:
     naguContext.clear(toColor("#ffffff"))
     sea_tex.use do (texture: var BindedTexture):
       texture.draw()
-      texture.program["mvpMatrix"] = [
-        v, 0.0, 0.0, 0.0,
-        0.0,   1.0, 0.0, 0.0,
-        0.0,   0.0, 1.0, 0.0,
-        0.0,   0.0, 0.0, 1.0
-      ]
-      # v += 0.01
+      texture.useModelMatrixVector(0) do (texture: var BindedTexture, vbo: var BindedTextureModelMatrixVector):
+        vbo.data = [
+          v, 0.0, 0.0, 0.0,
+          v, 0.0, 0.0, 0.0,
+          v, 0.0, 0.0, 0.0,
+          v, 0.0, 0.0, 0.0,
+        ]
+        texture.program["modelMatrixVec1"] = (vbo, 4)
+      v += 0.01
     cat_tex.use do (texture: var BindedTexture):
       texture.draw()
