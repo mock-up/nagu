@@ -1,19 +1,43 @@
 when isMainModule:
   import nagu
   import pnm
-  import nimgl/opengl
 
-  var naguContext = setup(1000, 1000, "default")
+  var
+    naguContext = setup(1000, 1000, "default")
 
-  var tex1 = Texture.make("assets/vertex/id.glsl", "assets/fragment/id.glsl")
+    sea_tex = Texture.make(
+      Position.init(0.1, -0.1, 0),
+      "assets/vertex/id.glsl",
+      "assets/fragment/id.glsl"
+    )
+    sea = pnm.readPPMFile("assets/sea.ppm")
 
-  var img = pnm.readPPMFile("assets/sea.ppm")
+    cat_tex = Texture.make(
+      Position.init(-0.4, 0.4, 0),
+      "assets/vertex/id.glsl",
+      "assets/fragment/id.glsl"
+    )
+    cat = pnm.readPPMFile("assets/cat.ppm")
 
-  tex1.use do (texture: var BindedTexture):
-    texture.pixels = (data: img.data, width: img.col, height: img.row)
+  sea_tex.use do (texture: var BindedTexture):
+    texture.pixels = (data: sea.data, width: sea.col, height: sea.row)
+    echo texture.program[]
 
-  glClearColor(1.0f, 1.0f, 1.0f, 1.0f)
+  cat_tex.use do (texture: var BindedTexture):
+    texture.pixels = (data: cat.data, width: cat.col, height: cat.row)
+    echo texture.program[]
+
+  var v: float32 = 2.0
   naguContext.update:
-    glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT)
-    tex1.use do (texture: var BindedTexture):
+    naguContext.clear(toColor("#ffffff"))
+    sea_tex.use do (texture: var BindedTexture):
+      texture.draw()
+      texture.program["mvpMatrix"] = [
+        v, 0.0, 0.0, 0.0,
+        0.0,   1.0, 0.0, 0.0,
+        0.0,   0.0, 1.0, 0.0,
+        0.0,   0.0, 0.0, 1.0
+      ]
+      # v += 0.01
+    cat_tex.use do (texture: var BindedTexture):
       texture.draw()
