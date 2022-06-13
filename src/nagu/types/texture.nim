@@ -9,6 +9,8 @@ type
   BindedTextureUV* = BindedVBO[8, float32]
   TextureElem* = VBO[6, uint8]
   BindedTextureElem* = BindedVBO[6, uint8]
+  TextureModelMatrixVector* = VBO[16, float32]
+  BindedTextureModelMatrixVector* = BindedVBO[16, float32]
 
   TextureObj [binded: static bool] = object
     id: opengl.GLuint
@@ -16,6 +18,7 @@ type
     quad*: TextureQuad
     uv*: TextureUV
     elem*: TextureElem
+    model_matrix*: array[4, TextureModelMatrixVector]
     wrapS, wrapT: TextureWrapParameter
     magFilter: TextureMagFilterParameter
     minFilter: TextureMinFilterParameter
@@ -54,6 +57,7 @@ func toBindedTexture* (texture: Texture): BindedTexture =
     quad: texture.quad,
     uv: texture.uv,
     elem: texture.elem,
+    model_matrix: texture.model_matrix,
     wrapS: texture.wrapS, wrapT: texture.wrapT,
     magFilter: texture.magFilter,
     minFilter: texture.minFilter,
@@ -68,6 +72,7 @@ func toTexture* (texture: BindedTexture): Texture =
     quad: texture.quad,
     uv: texture.uv,
     elem: texture.elem,
+    model_matrix: texture.model_matrix,
     wrapS: texture.wrapS, wrapT: texture.wrapT,
     magFilter: texture.magFilter,
     minFilter: texture.minFilter,
@@ -108,6 +113,7 @@ proc init* (_: typedesc[Texture],
             quad: TextureQuad = nil,
             uv: TextureUV = nil,
             elem: TextureElem = nil,
+            model_matrix: array[4, TextureModelMatrixVector],
             wrapS: TextureWrapParameter = TextureWrapParameter.tInitialValue,
             wrapT: TextureWrapParameter = TextureWrapParameter.tInitialValue,
             magFilter: TextureMagFilterParameter = TextureMagFilterParameter.tInitialValue,
@@ -117,6 +123,7 @@ proc init* (_: typedesc[Texture],
   result = Texture(
     id: id,
     vao: vao, quad: quad, uv: uv, elem: elem,
+    model_matrix: model_matrix,
     wrapS: wrapS, wrapT: wrapT,
     magFilter: magFilter, minFilter: minFilter, program: program
   )

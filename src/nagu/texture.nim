@@ -42,6 +42,11 @@ proc useUV* (bindedTexture: var BindedTexture, procedure: proc (texture: var Bin
   procedure(bindedTexture, bindedVBO)
   bindedTexture.uv = bindedVBO.unbind()
 
+proc useModelMatrixVector* (bindedTexture: var BindedTexture, index: range[0..3], procedure: proc (texture: var BindedTexture, vbo: var BindedTextureModelMatrixVector)) =
+  var bindedVBO = bindedTexture.model_matrix[index].bind()
+  procedure(bindedTexture, bindedVBO)
+  bindedTexture.model_matrix[index] = bindedVBO.unbind()
+
 proc `pixels=`* (texture: var BindedTexture, width, height: uint, data: pointer) =
   opengl.glTexSubImage2D(
     opengl.GL_TEXTURE_2D, 0, 0, 0,
@@ -67,7 +72,6 @@ proc `pixels=`* (
       opengl.GL_RGB, opengl.GL_UNSIGNED_BYTE, data[0].addr
     )
     texture.initializedPixels = true
-  echo "update"
   
   debugOpenGLStatement:
     echo &"glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, {img.width}, {img.height}, 0, GL_RGB, GL_UNSIGNED_BYTE, data[0].addr)"
@@ -114,12 +118,51 @@ func elem: array[6, uint8] = [
   0'u8, 1, 2, 0, 2, 3
 ]
 
+func textureIdentityMatrix* (index: range[0..3]): array[16, float32] =
+  case index:
+  of 0: [
+          1.0'f, 0.0, 0.0, 0.0,
+          1.0,   0.0, 0.0, 0.0,
+          1.0,   0.0, 0.0, 0.0,
+          1.0,   0.0, 0.0, 0.0,
+        ]
+  of 1: [
+          0.0'f, 1.0, 0.0, 0.0,
+          0.0,   1.0, 0.0, 0.0,
+          0.0,   1.0, 0.0, 0.0,
+          0.0,   1.0, 0.0, 0.0,
+        ]
+  of 2: [
+          0.0'f, 0.0, 1.0, 0.0,
+          0.0,   0.0, 1.0, 0.0,
+          0.0,   0.0, 1.0, 0.0,
+          0.0,   0.0, 1.0, 0.0,
+        ]
+  of 3: [
+          0.0'f, 0.0, 0.0, 1.0,
+          0.0'f, 0.0, 0.0, 1.0,
+          0.0'f, 0.0, 0.0, 1.0,
+          0.0'f, 0.0, 0.0, 1.0,
+        ]
+
 proc make* (_: typedesc[Texture],
             position: Position = Position.init(0, 0, 0),
             vertex_shader_path: string,
             fragment_shader_path: string,
            ): Texture =
-  result = Texture.init(vao=VAO.init(), quad=TextureQuad.init(), uv=TextureUV.init(), elem=TextureElem.init())
+
+  result = Texture.init(
+    vao = VAO.init(),
+    quad = TextureQuad.init(),
+    uv = TextureUV.init(),
+    elem = TextureElem.init(),
+    model_matrix = [
+                      TextureModelMatrixVector.init(),
+                      TextureModelMatrixVector.init(),
+                      TextureModelMatrixVector.init(),
+                      TextureModelMatrixVector.init()
+                    ]
+  )
 
   let
     vertex_shader = ShaderObject.make(soVertex, vertex_shader_path)
@@ -128,7 +171,7 @@ proc make* (_: typedesc[Texture],
   result.program = ProgramObject.make(
     vertex_shader,
     fragment_shader,
-    @["vertex", "texCoord0"],
+    @["vertex", "texCoord0", "modelMatrixVec1", "modelMatrixVec2", "modelMatrixVec3", "modelMatrixVec4"],
     @["frameTex", "mvpMatrix"],
     # @[(soVertex, "mvpMatrix")]
   )
@@ -143,6 +186,11 @@ proc make* (_: typedesc[Texture],
       texture.useUV do (texture: var BindedTexture, vbo: var BindedTextureUV):
         vbo.data = uv()
         texture.program["texCoord0"] = (vbo, 2)
+      
+      for index in 0 ..< 4:
+        texture.useModelMatrixVector(index) do (texture: var BindedTexture, vbo: var BindedTextureModelMatrixVector):
+          vbo.data = textureIdentityMatrix(index)
+          texture.program[&"modelMatrixVec{index+1}"] = (vbo, 4)
       
       texture.useElem do (texture: var BindedTexture, vbo: var BindedTextureElem):
         var elem = elem()
