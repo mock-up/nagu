@@ -1,5 +1,4 @@
 from nimgl/opengl import nil
-import program
 import strformat
 
 type
@@ -39,6 +38,22 @@ type
     vuDynamicRead = opengl.GL_DYNAMIC_READ
     vuDynamicCopy = opengl.GL_DYNAMIC_COPY
 
+func toBindedVBO* [I: static int, T] (vbo: VBO[I, T]): BindedVBO[I, T] =
+  result = BindedVBO[I, T](
+    id: vbo.id,
+    target: vbo.target,
+    data: vbo.data,
+    usage: vbo.usage
+  )
+
+func toVBO* [I: static int, T] (vbo: BindedVBO[I, T]): VBO[I, T] =
+  result = VBO[I, T](
+    id: vbo.id,
+    target: vbo.target,
+    data: vbo.data,
+    usage: vbo.usage
+  )
+
 proc `target=`* [I: static int, T] (vbo: var BindedVBO[I, T], target: VBOTarget) =
   vbo.target = target
 
@@ -70,7 +85,7 @@ func id* [B: static bool, I: static int, T] (vbo: VBOObj[B, I, T]): uint =
 func target* [B: static bool, I: static int, T] (vbo: VBOObj[B, I, T]): VBOTarget =
   result = vbo.target
 
-func data* [B: static bool, I: static int, T] (vbo: VBOObj[B, I, T]): array[I, T] =
+func data* [I: static int, T] (vbo: VBO[I, T] | BindedVBO[I, T]): array[I, T] =
   result = vbo.data
 
 func usage* [B: static bool, I: static int, T] (vbo: VBOObj[B, I, T]): VBOUsage =
@@ -80,33 +95,15 @@ proc `bind`* [I: static int, T] (vbo: var VBO[I, T]): BindedVBO[I, T] =
   when defined(debuggingOpenGL):
     echo &"glBindBuffer({vbo.target}, {vbo.id})"
   opengl.glBindBuffer(opengl.GLenum(vbo.target), vbo.id)
-  result = BindedVBO[I, T](
-    id: vbo.id,
-    target: vbo.target,
-    data: vbo.data,
-    usage: vbo.usage
-  )
+  result = vbo.toBindedVBO
 
 proc unbind* [I: static int, T] (vbo: var BindedVBO[I, T]): VBO[I, T] =
   when defined(debuggingOpenGL):
     echo &"glBindBuffer({vbo.target}, 0)"
   opengl.glBindBuffer(opengl.GLenum(vbo.target), 0)
-  result = VBO[I, T](
-    id: vbo.id,
-    target: vbo.target,
-    data: vbo.data,
-    usage: vbo.usage
-  )
+  result = vbo.toVBO
 
 proc use* [I: static int, T] (vbo: var VBO[I, T], procedure: proc (vbo: var BindedVBO[I, T])) =
   var bindedVBO = vbo.bind()
   bindedVBO.procedure()
   vbo = bindedVBO.unbind()
-
-proc correspond* (vbo: BindedVBO, program: ProgramObject, name: string, size: int, stride: uint, offset = 0) =
-  let index = opengl.GLuint(program[name])
-  when defined(debuggingOpenGL):
-    echo &"glEnableVertexAttribArray({index})"
-    echo &"glVertexAttribPointer({index}, {size}, EGL_FLOAT, false, {stride}, {offset})"
-  opengl.glEnableVertexAttribArray(index)
-  opengl.glVertexAttribPointer(index, opengl.GLint(size), opengl.EGL_FLOAT, false, opengl.GLsizei(stride), cast[pointer](offset))
