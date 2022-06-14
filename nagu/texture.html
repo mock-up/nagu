@@ -132,6 +132,13 @@ window.addEventListener('DOMContentLoaded', main);
                               data: array[H, array[W, array[4, T]]])</a></li>
 
   </ul>
+  <ul class="simple nested-toc-section">setModelMatrix
+      <li><a class="reference" href="#setModelMatrix%2CBindedTexture%2Carray%5B%2Cfloat32%5D"
+    title="setModelMatrix(texture: var BindedTexture; matrix4v: array[16, float32])">setModelMatrix(texture: var BindedTexture; matrix4v: array[16, float32])</a></li>
+  <li><a class="reference" href="#setModelMatrix%2CBindedTexture%2CMat4%5Bfloat32%5D"
+    title="setModelMatrix(texture: var BindedTexture; matrix4v: Mat4[float32])">setModelMatrix(texture: var BindedTexture; matrix4v: Mat4[float32])</a></li>
+
+  </ul>
   <ul class="simple nested-toc-section">use
       <li><a class="reference" href="#use%2CTexture%2Cproc%28BindedTexture%29"
     title="use(texture: var Texture; procedure: proc (texture: var BindedTexture))">use(texture: var Texture; procedure: proc (texture: var BindedTexture))</a></li>
@@ -144,11 +151,36 @@ window.addEventListener('DOMContentLoaded', main);
     texture: var BindedTexture; vbo: var BindedTextureElem))</a></li>
 
   </ul>
+  <ul class="simple nested-toc-section">useModelMatrix
+      <li><a class="reference" href="#useModelMatrix%2CBindedTexture%2Cproc%28BindedTexture%2Carray%5B%2CBindedTextureModelMatrixVector%5D%29"
+    title="useModelMatrix(bindedTexture: var BindedTexture; procedure: proc (
+    texture: var BindedTexture;
+    vbo: var array[4, BindedTextureModelMatrixVector]))">useModelMatrix(bindedTexture: var BindedTexture; procedure: proc (
+    texture: var BindedTexture;
+    vbo: var array[4, BindedTextureModelMatrixVector]))</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">useModelMatrixVector
+      <li><a class="reference" href="#useModelMatrixVector%2CBindedTexture%2Crange%5B%5D%2Cproc%28BindedTexture%2CBindedTextureModelMatrixVector%29"
+    title="useModelMatrixVector(bindedTexture: var BindedTexture; index: range[0 .. 3];
+    procedure: proc (texture: var BindedTexture;
+                     vbo: var BindedTextureModelMatrixVector))">useModelMatrixVector(bindedTexture: var BindedTexture; index: range[0 .. 3];
+    procedure: proc (texture: var BindedTexture;
+                     vbo: var BindedTextureModelMatrixVector))</a></li>
+
+  </ul>
   <ul class="simple nested-toc-section">useQuad
       <li><a class="reference" href="#useQuad%2CBindedTexture%2Cproc%28BindedTexture%2CBindedTextureQuad%29"
     title="useQuad(bindedTexture: var BindedTexture; procedure: proc (
     texture: var BindedTexture; vbo: var BindedTextureQuad))">useQuad(bindedTexture: var BindedTexture; procedure: proc (
     texture: var BindedTexture; vbo: var BindedTextureQuad))</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">useUV
+      <li><a class="reference" href="#useUV%2CBindedTexture%2Cproc%28BindedTexture%2CBindedTextureUV%29"
+    title="useUV(bindedTexture: var BindedTexture;
+      procedure: proc (texture: var BindedTexture; vbo: var BindedTextureUV))">useUV(bindedTexture: var BindedTexture;
+      procedure: proc (texture: var BindedTexture; vbo: var BindedTextureUV))</a></li>
 
   </ul>
   <ul class="simple nested-toc-section">useVAO
@@ -223,6 +255,24 @@ window.addEventListener('DOMContentLoaded', main);
 
 </dd>
 </div>
+<div id="setModelMatrix,BindedTexture,array[,float32]">
+<dt><pre><span class="Keyword">proc</span> <a href="#setModelMatrix%2CBindedTexture%2Carray%5B%2Cfloat32%5D"><span class="Identifier">setModelMatrix</span></a><span class="Other">(</span><span class="Identifier">texture</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="types/texture.html#BindedTexture"><span class="Identifier">BindedTexture</span></a><span class="Other">;</span> <span class="Identifier">matrix4v</span><span class="Other">:</span> <span class="Identifier">array</span><span class="Other">[</span><span class="DecNumber">16</span><span class="Other">,</span> <span class="Identifier">float32</span><span class="Other">]</span><span class="Other">)</span> {.
+    <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">,</span> <span class="Identifier">KeyError</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span>.}</pre></dt>
+<dd>
+
+
+
+</dd>
+</div>
+<div id="setModelMatrix,BindedTexture,Mat4[float32]">
+<dt><pre><span class="Keyword">proc</span> <a href="#setModelMatrix%2CBindedTexture%2CMat4%5Bfloat32%5D"><span class="Identifier">setModelMatrix</span></a><span class="Other">(</span><span class="Identifier">texture</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="types/texture.html#BindedTexture"><span class="Identifier">BindedTexture</span></a><span class="Other">;</span> <span class="Identifier">matrix4v</span><span class="Other">:</span> <span class="Identifier">Mat4</span><span class="Other">[</span><span class="Identifier">float32</span><span class="Other">]</span><span class="Other">)</span> {.
+    <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">,</span> <span class="Identifier">KeyError</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span>.}</pre></dt>
+<dd>
+
+
+
+</dd>
+</div>
 <div id="use,Texture,proc(BindedTexture)">
 <dt><pre><span class="Keyword">proc</span> <a href="#use%2CTexture%2Cproc%28BindedTexture%29"><span class="Identifier">use</span></a><span class="Other">(</span><span class="Identifier">texture</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="types/texture.html#Texture"><span class="Identifier">Texture</span></a><span class="Other">;</span> <span class="Identifier">procedure</span><span class="Other">:</span> <span class="Keyword">proc</span> <span class="Other">(</span><span class="Identifier">texture</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="types/texture.html#BindedTexture"><span class="Identifier">BindedTexture</span></a><span class="Other">)</span><span class="Other">)</span> {.
     <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span>.}</pre></dt>
@@ -242,9 +292,40 @@ window.addEventListener('DOMContentLoaded', main);
 
 </dd>
 </div>
+<div id="useModelMatrix,BindedTexture,proc(BindedTexture,array[,BindedTextureModelMatrixVector])">
+<dt><pre><span class="Keyword">proc</span> <a href="#useModelMatrix%2CBindedTexture%2Cproc%28BindedTexture%2Carray%5B%2CBindedTextureModelMatrixVector%5D%29"><span class="Identifier">useModelMatrix</span></a><span class="Other">(</span><span class="Identifier">bindedTexture</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="types/texture.html#BindedTexture"><span class="Identifier">BindedTexture</span></a><span class="Other">;</span> <span class="Identifier">procedure</span><span class="Other">:</span> <span class="Keyword">proc</span> <span class="Other">(</span>
+    <span class="Identifier">texture</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="types/texture.html#BindedTexture"><span class="Identifier">BindedTexture</span></a><span class="Other">;</span>
+    <span class="Identifier">vbo</span><span class="Other">:</span> <span class="Keyword">var</span> <span class="Identifier">array</span><span class="Other">[</span><span class="DecNumber">4</span><span class="Other">,</span> <a href="types/texture.html#BindedTextureModelMatrixVector"><span class="Identifier">BindedTextureModelMatrixVector</span></a><span class="Other">]</span><span class="Other">)</span><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+<dd>
+
+
+
+</dd>
+</div>
+<div id="useModelMatrixVector,BindedTexture,range[],proc(BindedTexture,BindedTextureModelMatrixVector)">
+<dt><pre><span class="Keyword">proc</span> <a href="#useModelMatrixVector%2CBindedTexture%2Crange%5B%5D%2Cproc%28BindedTexture%2CBindedTextureModelMatrixVector%29"><span class="Identifier">useModelMatrixVector</span></a><span class="Other">(</span><span class="Identifier">bindedTexture</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="types/texture.html#BindedTexture"><span class="Identifier">BindedTexture</span></a><span class="Other">;</span>
+                          <span class="Identifier">index</span><span class="Other">:</span> <span class="Identifier">range</span><span class="Other">[</span><span class="DecNumber">0</span> <span class="Operator">..</span> <span class="DecNumber">3</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">procedure</span><span class="Other">:</span> <span class="Keyword">proc</span> <span class="Other">(</span>
+    <span class="Identifier">texture</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="types/texture.html#BindedTexture"><span class="Identifier">BindedTexture</span></a><span class="Other">;</span> <span class="Identifier">vbo</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="types/texture.html#BindedTextureModelMatrixVector"><span class="Identifier">BindedTextureModelMatrixVector</span></a><span class="Other">)</span><span class="Other">)</span> {.
+    <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span>.}</pre></dt>
+<dd>
+
+
+
+</dd>
+</div>
 <div id="useQuad,BindedTexture,proc(BindedTexture,BindedTextureQuad)">
 <dt><pre><span class="Keyword">proc</span> <a href="#useQuad%2CBindedTexture%2Cproc%28BindedTexture%2CBindedTextureQuad%29"><span class="Identifier">useQuad</span></a><span class="Other">(</span><span class="Identifier">bindedTexture</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="types/texture.html#BindedTexture"><span class="Identifier">BindedTexture</span></a><span class="Other">;</span> <span class="Identifier">procedure</span><span class="Other">:</span> <span class="Keyword">proc</span> <span class="Other">(</span>
     <span class="Identifier">texture</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="types/texture.html#BindedTexture"><span class="Identifier">BindedTexture</span></a><span class="Other">;</span> <span class="Identifier">vbo</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="types/texture.html#BindedTextureQuad"><span class="Identifier">BindedTextureQuad</span></a><span class="Other">)</span><span class="Other">)</span> {.
+    <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span>.}</pre></dt>
+<dd>
+
+
+
+</dd>
+</div>
+<div id="useUV,BindedTexture,proc(BindedTexture,BindedTextureUV)">
+<dt><pre><span class="Keyword">proc</span> <a href="#useUV%2CBindedTexture%2Cproc%28BindedTexture%2CBindedTextureUV%29"><span class="Identifier">useUV</span></a><span class="Other">(</span><span class="Identifier">bindedTexture</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="types/texture.html#BindedTexture"><span class="Identifier">BindedTexture</span></a><span class="Other">;</span> <span class="Identifier">procedure</span><span class="Other">:</span> <span class="Keyword">proc</span> <span class="Other">(</span>
+    <span class="Identifier">texture</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="types/texture.html#BindedTexture"><span class="Identifier">BindedTexture</span></a><span class="Other">;</span> <span class="Identifier">vbo</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="types/texture.html#BindedTextureUV"><span class="Identifier">BindedTextureUV</span></a><span class="Other">)</span><span class="Other">)</span> {.
     <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
@@ -272,7 +353,7 @@ window.addEventListener('DOMContentLoaded', main);
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2022-06-12 15:17:12 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2022-06-14 10:50:52 UTC</small>
       </div>
     </div>
   </div>

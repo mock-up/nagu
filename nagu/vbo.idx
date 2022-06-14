@@ -25,15 +25,16 @@ vuDynamicDraw	nagu/vbo.html#vuDynamicDraw	VBOUsage.vuDynamicDraw
 vuDynamicRead	nagu/vbo.html#vuDynamicRead	VBOUsage.vuDynamicRead	
 vuDynamicCopy	nagu/vbo.html#vuDynamicCopy	VBOUsage.vuDynamicCopy	
 VBOUsage	nagu/vbo.html#VBOUsage	vbo: VBOUsage	
+toBindedVBO	nagu/vbo.html#toBindedVBO,VBO[I,T]	vbo: toBindedVBO[I: static int; T](vbo: VBO[I, T]): BindedVBO[I, T]	
+toVBO	nagu/vbo.html#toVBO,BindedVBO[I,T]	vbo: toVBO[I: static int; T](vbo: BindedVBO[I, T]): VBO[I, T]	
 target=	nagu/vbo.html#target=,BindedVBO[I,T],VBOTarget	vbo: target=[I: static int; T](vbo: var BindedVBO[I, T]; target: VBOTarget)	
 data=	nagu/vbo.html#data=,BindedVBO[I,T],array[I,T]	vbo: data=[I: static int; T](vbo: var BindedVBO[I, T]; data: array[I, T])	
 usage=	nagu/vbo.html#usage=,BindedVBO[I,T],VBOUsage	vbo: usage=[I: static int; T](vbo: var BindedVBO[I, T]; usage: VBOUsage)	
 init	nagu/vbo.html#init,typedesc[VBO[I,T]]	vbo: init[I: static int; T](_: typedesc[VBO[I, T]]): VBO[I, T]	
 id	nagu/vbo.html#id,VBOObj[B,I,T]	vbo: id[B: static bool; I: static int; T](vbo: VBOObj[B, I, T]): uint	
 target	nagu/vbo.html#target,VBOObj[B,I,T]	vbo: target[B: static bool; I: static int; T](vbo: VBOObj[B, I, T]): VBOTarget	
-data	nagu/vbo.html#data,VBOObj[B,I,T]	vbo: data[B: static bool; I: static int; T](vbo: VBOObj[B, I, T]): array[I, T]	
+data	nagu/vbo.html#data	vbo: data[I: static int; T](vbo: VBO[I, T] | BindedVBO[I, T]): array[I, T]	
 usage	nagu/vbo.html#usage,VBOObj[B,I,T]	vbo: usage[B: static bool; I: static int; T](vbo: VBOObj[B, I, T]): VBOUsage	
 `bind`	nagu/vbo.html#bind,VBO[I,T]	vbo: `bind`[I: static int; T](vbo: var VBO[I, T]): BindedVBO[I, T]	
 unbind	nagu/vbo.html#unbind,BindedVBO[I,T]	vbo: unbind[I: static int; T](vbo: var BindedVBO[I, T]): VBO[I, T]	
 use	nagu/vbo.html#use,VBO[I,T],proc(BindedVBO[I,T])	vbo: use[I: static int; T](vbo: var VBO[I, T];\n                      procedure: proc (vbo: var BindedVBO[I, T]))	
-correspond	nagu/vbo.html#correspond,BindedVBO,ProgramObject,string,int,uint,int	vbo: correspond(vbo: BindedVBO; program: ProgramObject; name: string; size: int;\n           stride: uint; offset = 0)	

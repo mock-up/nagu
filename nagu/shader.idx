@@ -8,6 +8,7 @@ ShaderObjectKind	nagu/shader.html#ShaderObjectKind	shader: ShaderObjectKind
 ShaderDefect	nagu/shader.html#ShaderDefect	shader: ShaderDefect	
 ShaderCreationDefect	nagu/shader.html#ShaderCreationDefect	shader: ShaderCreationDefect	
 ShaderFailedCompilationDefect	nagu/shader.html#ShaderFailedCompilationDefect	shader: ShaderFailedCompilationDefect	
+convertGLExpression	nagu/shader.html#convertGLExpression,ShaderObjectKind	shader: convertGLExpression(kind: ShaderObjectKind): opengl.GLenum	
 init	nagu/shader.html#init,typedesc[ShaderObject],ShaderObjectKind	shader: init(_: typedesc[ShaderObject]; kind: ShaderObjectKind): ShaderObject	
 id	nagu/shader.html#id,ShaderObject	shader: id(shader: ShaderObject): uint	
 log	nagu/shader.html#log,ShaderObject	shader: log(shader: ShaderObject): string	

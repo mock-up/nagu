@@ -111,8 +111,12 @@ window.addEventListener('DOMContentLoaded', main);
     title="BindedTexture = ref TextureObj[true]">BindedTexture</a></li>
   <li><a class="reference" href="#BindedTextureElem"
     title="BindedTextureElem = BindedVBO[6, uint8]">BindedTextureElem</a></li>
+  <li><a class="reference" href="#BindedTextureModelMatrixVector"
+    title="BindedTextureModelMatrixVector = BindedVBO[16, float32]">BindedTextureModelMatrixVector</a></li>
   <li><a class="reference" href="#BindedTextureQuad"
-    title="BindedTextureQuad = BindedVBO[20, float32]">BindedTextureQuad</a></li>
+    title="BindedTextureQuad = BindedVBO[12, float32]">BindedTextureQuad</a></li>
+  <li><a class="reference" href="#BindedTextureUV"
+    title="BindedTextureUV = BindedVBO[8, float32]">BindedTextureUV</a></li>
   <li><a class="reference" href="#Texture"
     title="Texture = ref TextureObj[false]">Texture</a></li>
   <li><a class="reference" href="#TextureElem"
@@ -125,8 +129,12 @@ window.addEventListener('DOMContentLoaded', main);
   tInitialValue = 0, tNearest = 9728, tLinear = 9729,
   tNearestMipmapNearest = 9984, tLinearMipmapNearest = 9985,
   tNearestMipmapLinear = 9986, tLinearMipmapLinear = 9987">TextureMinFilterParameter</a></li>
+  <li><a class="reference" href="#TextureModelMatrixVector"
+    title="TextureModelMatrixVector = VBO[16, float32]">TextureModelMatrixVector</a></li>
   <li><a class="reference" href="#TextureQuad"
-    title="TextureQuad = VBO[20, float32]">TextureQuad</a></li>
+    title="TextureQuad = VBO[12, float32]">TextureQuad</a></li>
+  <li><a class="reference" href="#TextureUV"
+    title="TextureUV = VBO[8, float32]">TextureUV</a></li>
   <li><a class="reference" href="#TextureWrapParameter"
     title="TextureWrapParameter {.pure.} = enum
   tInitialValue = 0, tRepeat = 10497, tClampToEdge = 33071,
@@ -143,14 +151,16 @@ window.addEventListener('DOMContentLoaded', main);
 
   </ul>
   <ul class="simple nested-toc-section">init
-      <li><a class="reference" href="#init%2Ctypedesc%5BTexture%5D%2Cint%2CVAO%2CTextureQuad%2CTextureElem%2CTextureWrapParameter%2CTextureWrapParameter%2CTextureMagFilterParameter%2CTextureMinFilterParameter%2CProgramObject"
+      <li><a class="reference" href="#init%2Ctypedesc%5BTexture%5D%2Cint%2CVAO%2CTextureQuad%2CTextureUV%2CTextureElem%2Carray%5B%2CTextureModelMatrixVector%5D%2CTextureWrapParameter%2CTextureWrapParameter%2CTextureMagFilterParameter%2CTextureMinFilterParameter%2CProgramObject"
     title="init(_: typedesc[Texture]; id: opengl.GLuint = 0; vao: VAO = nil;
-     quad: TextureQuad = nil; elem: TextureElem = nil;
+     quad: TextureQuad = nil; uv: TextureUV = nil; elem: TextureElem = nil;
+     model_matrix: array[4, TextureModelMatrixVector];
      wrapS: TextureWrapParameter = TextureWrapParameter.tInitialValue;
      wrapT: TextureWrapParameter = TextureWrapParameter.tInitialValue; magFilter: TextureMagFilterParameter = TextureMagFilterParameter.tInitialValue;
     minFilter: TextureMinFilterParameter = TextureMinFilterParameter.tInitialValue;
      program: ProgramObject = nil): Texture">init(_: typedesc[Texture]; id: opengl.GLuint = 0; vao: VAO = nil;
-     quad: TextureQuad = nil; elem: TextureElem = nil;
+     quad: TextureQuad = nil; uv: TextureUV = nil; elem: TextureElem = nil;
+     model_matrix: array[4, TextureModelMatrixVector];
      wrapS: TextureWrapParameter = TextureWrapParameter.tInitialValue;
      wrapT: TextureWrapParameter = TextureWrapParameter.tInitialValue; magFilter: TextureMagFilterParameter = TextureMagFilterParameter.tInitialValue;
     minFilter: TextureMinFilterParameter = TextureMinFilterParameter.tInitialValue;
@@ -247,8 +257,24 @@ window.addEventListener('DOMContentLoaded', main);
 
 </dd>
 </div>
+<div id="BindedTextureModelMatrixVector">
+<dt><pre><a href="texture.html#BindedTextureModelMatrixVector"><span class="Identifier">BindedTextureModelMatrixVector</span></a> <span class="Other">=</span> <a href="../vbo.html#BindedVBO"><span class="Identifier">BindedVBO</span></a><span class="Other">[</span><span class="DecNumber">16</span><span class="Other">,</span> <span class="Identifier">float32</span><span class="Other">]</span></pre></dt>
+<dd>
+
+
+
+</dd>
+</div>
 <div id="BindedTextureQuad">
-<dt><pre><a href="texture.html#BindedTextureQuad"><span class="Identifier">BindedTextureQuad</span></a> <span class="Other">=</span> <a href="../vbo.html#BindedVBO"><span class="Identifier">BindedVBO</span></a><span class="Other">[</span><span class="DecNumber">20</span><span class="Other">,</span> <span class="Identifier">float32</span><span class="Other">]</span></pre></dt>
+<dt><pre><a href="texture.html#BindedTextureQuad"><span class="Identifier">BindedTextureQuad</span></a> <span class="Other">=</span> <a href="../vbo.html#BindedVBO"><span class="Identifier">BindedVBO</span></a><span class="Other">[</span><span class="DecNumber">12</span><span class="Other">,</span> <span class="Identifier">float32</span><span class="Other">]</span></pre></dt>
+<dd>
+
+
+
+</dd>
+</div>
+<div id="BindedTextureUV">
+<dt><pre><a href="texture.html#BindedTextureUV"><span class="Identifier">BindedTextureUV</span></a> <span class="Other">=</span> <a href="../vbo.html#BindedVBO"><span class="Identifier">BindedVBO</span></a><span class="Other">[</span><span class="DecNumber">8</span><span class="Other">,</span> <span class="Identifier">float32</span><span class="Other">]</span></pre></dt>
 <dd>
 
 
@@ -291,8 +317,24 @@ window.addEventListener('DOMContentLoaded', main);
 
 </dd>
 </div>
+<div id="TextureModelMatrixVector">
+<dt><pre><a href="texture.html#TextureModelMatrixVector"><span class="Identifier">TextureModelMatrixVector</span></a> <span class="Other">=</span> <a href="../vbo.html#VBO"><span class="Identifier">VBO</span></a><span class="Other">[</span><span class="DecNumber">16</span><span class="Other">,</span> <span class="Identifier">float32</span><span class="Other">]</span></pre></dt>
+<dd>
+
+
+
+</dd>
+</div>
 <div id="TextureQuad">
-<dt><pre><a href="texture.html#TextureQuad"><span class="Identifier">TextureQuad</span></a> <span class="Other">=</span> <a href="../vbo.html#VBO"><span class="Identifier">VBO</span></a><span class="Other">[</span><span class="DecNumber">20</span><span class="Other">,</span> <span class="Identifier">float32</span><span class="Other">]</span></pre></dt>
+<dt><pre><a href="texture.html#TextureQuad"><span class="Identifier">TextureQuad</span></a> <span class="Other">=</span> <a href="../vbo.html#VBO"><span class="Identifier">VBO</span></a><span class="Other">[</span><span class="DecNumber">12</span><span class="Other">,</span> <span class="Identifier">float32</span><span class="Other">]</span></pre></dt>
+<dd>
+
+
+
+</dd>
+</div>
+<div id="TextureUV">
+<dt><pre><a href="texture.html#TextureUV"><span class="Identifier">TextureUV</span></a> <span class="Other">=</span> <a href="../vbo.html#VBO"><span class="Identifier">VBO</span></a><span class="Other">[</span><span class="DecNumber">8</span><span class="Other">,</span> <span class="Identifier">float32</span><span class="Other">]</span></pre></dt>
 <dd>
 
 
@@ -322,9 +364,10 @@ window.addEventListener('DOMContentLoaded', main);
 
 </dd>
 </div>
-<div id="init,typedesc[Texture],int,VAO,TextureQuad,TextureElem,TextureWrapParameter,TextureWrapParameter,TextureMagFilterParameter,TextureMinFilterParameter,ProgramObject">
-<dt><pre><span class="Keyword">proc</span> <a href="#init%2Ctypedesc%5BTexture%5D%2Cint%2CVAO%2CTextureQuad%2CTextureElem%2CTextureWrapParameter%2CTextureWrapParameter%2CTextureMagFilterParameter%2CTextureMinFilterParameter%2CProgramObject"><span class="Identifier">init</span></a><span class="Other">(</span><span class="Operator">_</span><span class="Other">:</span> <span class="Identifier">typedesc</span><span class="Other">[</span><a href="texture.html#Texture"><span class="Identifier">Texture</span></a><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">id</span><span class="Other">:</span> <span class="Identifier">opengl</span><span class="Other">.</span><span class="Identifier">GLuint</span> <span class="Other">=</span> <span class="DecNumber">0</span><span class="Other">;</span> <span class="Identifier">vao</span><span class="Other">:</span> <a href="../vao.html#VAO"><span class="Identifier">VAO</span></a> <span class="Other">=</span> <span class="Keyword">nil</span><span class="Other">;</span>
-          <span class="Identifier">quad</span><span class="Other">:</span> <a href="texture.html#TextureQuad"><span class="Identifier">TextureQuad</span></a> <span class="Other">=</span> <span class="Keyword">nil</span><span class="Other">;</span> <span class="Identifier">elem</span><span class="Other">:</span> <a href="texture.html#TextureElem"><span class="Identifier">TextureElem</span></a> <span class="Other">=</span> <span class="Keyword">nil</span><span class="Other">;</span>
+<div id="init,typedesc[Texture],int,VAO,TextureQuad,TextureUV,TextureElem,array[,TextureModelMatrixVector],TextureWrapParameter,TextureWrapParameter,TextureMagFilterParameter,TextureMinFilterParameter,ProgramObject">
+<dt><pre><span class="Keyword">proc</span> <a href="#init%2Ctypedesc%5BTexture%5D%2Cint%2CVAO%2CTextureQuad%2CTextureUV%2CTextureElem%2Carray%5B%2CTextureModelMatrixVector%5D%2CTextureWrapParameter%2CTextureWrapParameter%2CTextureMagFilterParameter%2CTextureMinFilterParameter%2CProgramObject"><span class="Identifier">init</span></a><span class="Other">(</span><span class="Operator">_</span><span class="Other">:</span> <span class="Identifier">typedesc</span><span class="Other">[</span><a href="texture.html#Texture"><span class="Identifier">Texture</span></a><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">id</span><span class="Other">:</span> <span class="Identifier">opengl</span><span class="Other">.</span><span class="Identifier">GLuint</span> <span class="Other">=</span> <span class="DecNumber">0</span><span class="Other">;</span> <span class="Identifier">vao</span><span class="Other">:</span> <a href="../vao.html#VAO"><span class="Identifier">VAO</span></a> <span class="Other">=</span> <span class="Keyword">nil</span><span class="Other">;</span>
+          <span class="Identifier">quad</span><span class="Other">:</span> <a href="texture.html#TextureQuad"><span class="Identifier">TextureQuad</span></a> <span class="Other">=</span> <span class="Keyword">nil</span><span class="Other">;</span> <span class="Identifier">uv</span><span class="Other">:</span> <a href="texture.html#TextureUV"><span class="Identifier">TextureUV</span></a> <span class="Other">=</span> <span class="Keyword">nil</span><span class="Other">;</span> <span class="Identifier">elem</span><span class="Other">:</span> <a href="texture.html#TextureElem"><span class="Identifier">TextureElem</span></a> <span class="Other">=</span> <span class="Keyword">nil</span><span class="Other">;</span>
+          <span class="Identifier">model_matrix</span><span class="Other">:</span> <span class="Identifier">array</span><span class="Other">[</span><span class="DecNumber">4</span><span class="Other">,</span> <a href="texture.html#TextureModelMatrixVector"><span class="Identifier">TextureModelMatrixVector</span></a><span class="Other">]</span><span class="Other">;</span>
           <span class="Identifier">wrapS</span><span class="Other">:</span> <a href="texture.html#TextureWrapParameter"><span class="Identifier">TextureWrapParameter</span></a> <span class="Other">=</span> <a href="texture.html#TextureWrapParameter"><span class="Identifier">TextureWrapParameter</span></a><span class="Other">.</span><span class="Identifier">tInitialValue</span><span class="Other">;</span>
           <span class="Identifier">wrapT</span><span class="Other">:</span> <a href="texture.html#TextureWrapParameter"><span class="Identifier">TextureWrapParameter</span></a> <span class="Other">=</span> <a href="texture.html#TextureWrapParameter"><span class="Identifier">TextureWrapParameter</span></a><span class="Other">.</span><span class="Identifier">tInitialValue</span><span class="Other">;</span>
     <span class="Identifier">magFilter</span><span class="Other">:</span> <a href="texture.html#TextureMagFilterParameter"><span class="Identifier">TextureMagFilterParameter</span></a> <span class="Other">=</span> <a href="texture.html#TextureMagFilterParameter"><span class="Identifier">TextureMagFilterParameter</span></a><span class="Other">.</span><span class="Identifier">tInitialValue</span><span class="Other">;</span>
@@ -432,7 +475,7 @@ window.addEventListener('DOMContentLoaded', main);
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2022-06-12 15:17:12 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2022-06-14 10:50:52 UTC</small>
       </div>
     </div>
   </div>

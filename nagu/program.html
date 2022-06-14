@@ -115,10 +115,15 @@ window.addEventListener('DOMContentLoaded', main);
     title="ProgramDefect = object of OpenGLDefect">ProgramDefect</a></li>
   <li><a class="reference" href="#ProgramLinkingDefect"
     title="ProgramLinkingDefect = object of ProgramDefect">ProgramLinkingDefect</a></li>
+  <li><a class="reference" href="#ProgramNotExistsActiveSubroutineUniformDefect"
+    title="ProgramNotExistsActiveSubroutineUniformDefect = object of ProgramDefect">ProgramNotExistsActiveSubroutineUniformDefect</a></li>
   <li><a class="reference" href="#ProgramNotExistsActiveUniformDefect"
     title="ProgramNotExistsActiveUniformDefect = object of ProgramDefect">ProgramNotExistsActiveUniformDefect</a></li>
   <li><a class="reference" href="#ProgramObject"
     title="ProgramObject = ref ProgramObjectObj">ProgramObject</a></li>
+  <li><a class="reference" href="#ProgramVariableKind"
+    title="ProgramVariableKind = enum
+  pvkAttrib, pvkUniform, pvkSubroutineUniform">ProgramVariableKind</a></li>
 
   </ul>
 </li>
@@ -135,6 +140,10 @@ window.addEventListener('DOMContentLoaded', main);
     title="`[]=`(program: ProgramObject; name: string; matrix4v: array[16, float32])">`[]=`(program: ProgramObject; name: string; matrix4v: array[16, float32])</a></li>
   <li><a class="reference" href="#%5B%5D%3D%2CProgramObject%2Cstring%2Cint"
     title="`[]=`(program: ProgramObject; name: string; v1: int)">`[]=`(program: ProgramObject; name: string; v1: int)</a></li>
+  <li><a class="reference" href="#%5B%5D%3D%2CProgramObject%2Cstring%2Ctuple%5BBindedVBO%5BI%2CT%5D%2Cint%5D"
+    title="`[]=`[I: static int; T](program: ProgramObject; name: string;
+                        data: tuple[vbo: BindedVBO[I, T], size: int])">`[]=`[I: static int; T](program: ProgramObject; name: string;
+                        data: tuple[vbo: BindedVBO[I, T], size: int])</a></li>
 
   </ul>
   <ul class="simple nested-toc-section">attach
@@ -182,17 +191,26 @@ window.addEventListener('DOMContentLoaded', main);
     title="make(_: typedesc[ProgramObject]; vertex_shader: ShaderObject;
      fragment_shader: ShaderObject): ProgramObject">make(_: typedesc[ProgramObject]; vertex_shader: ShaderObject;
      fragment_shader: ShaderObject): ProgramObject</a></li>
-  <li><a class="reference" href="#make%2Ctypedesc%5BProgramObject%5D%2CShaderObject%2CShaderObject%2Cseq%5Bstring%5D%2Cseq%5Bstring%5D"
+  <li><a class="reference" href="#make%2Ctypedesc%5BProgramObject%5D%2CShaderObject%2CShaderObject%2Cseq%5Bstring%5D%2Cseq%5Bstring%5D%2Cseq%5B%5D"
     title="make(_: typedesc[ProgramObject]; vertex_shader: ShaderObject;
      fragment_shader: ShaderObject; attributes: seq[string] = @[];
-     uniforms: seq[string] = @[]): ProgramObject">make(_: typedesc[ProgramObject]; vertex_shader: ShaderObject;
+     uniforms: seq[string] = @[];
+     subroutine_uniforms: seq[(ShaderObjectKind, string)] = @[]): ProgramObject">make(_: typedesc[ProgramObject]; vertex_shader: ShaderObject;
      fragment_shader: ShaderObject; attributes: seq[string] = @[];
-     uniforms: seq[string] = @[]): ProgramObject</a></li>
+     uniforms: seq[string] = @[];
+     subroutine_uniforms: seq[(ShaderObjectKind, string)] = @[]): ProgramObject</a></li>
 
   </ul>
   <ul class="simple nested-toc-section">registerAttrib
       <li><a class="reference" href="#registerAttrib%2CProgramObject%2Cstring"
     title="registerAttrib(program: var ProgramObject; name: string)">registerAttrib(program: var ProgramObject; name: string)</a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">registerSubroutineUniform
+      <li><a class="reference" href="#registerSubroutineUniform%2CProgramObject%2CShaderObjectKind%2Cstring"
+    title="registerSubroutineUniform(program: var ProgramObject;
+                          shaderType: ShaderObjectKind; name: string)">registerSubroutineUniform(program: var ProgramObject;
+                          shaderType: ShaderObjectKind; name: string)</a></li>
 
   </ul>
   <ul class="simple nested-toc-section">registerUniform
@@ -220,7 +238,7 @@ window.addEventListener('DOMContentLoaded', main);
   <div class="section" id="6">
 <h1><a class="toc-backref" href="#6">Imports</a></h1>
 <dl class="item">
-<a class="reference external" href="shader.html">shader</a>, <a class="reference external" href="opengl.html">opengl</a>, <a class="reference external" href="utils.html">utils</a>
+<a class="reference external" href="shader.html">shader</a>, <a class="reference external" href="opengl.html">opengl</a>, <a class="reference external" href="utils.html">utils</a>, <a class="reference external" href="vbo.html">vbo</a>
 </dl></div>
 <div class="section" id="7">
 <h1><a class="toc-backref" href="#7">Types</a></h1>
@@ -260,6 +278,14 @@ Raised by linking OpenGL programs.
 
 </dd>
 </div>
+<div id="ProgramNotExistsActiveSubroutineUniformDefect">
+<dt><pre><a href="program.html#ProgramNotExistsActiveSubroutineUniformDefect"><span class="Identifier">ProgramNotExistsActiveSubroutineUniformDefect</span></a> <span class="Other">=</span> <span class="Keyword">object</span> <span class="Keyword">of</span> <a href="program.html#ProgramDefect"><span class="Identifier">ProgramDefect</span></a></pre></dt>
+<dd>
+
+
+
+</dd>
+</div>
 <div id="ProgramNotExistsActiveUniformDefect">
 <dt><pre><a href="program.html#ProgramNotExistsActiveUniformDefect"><span class="Identifier">ProgramNotExistsActiveUniformDefect</span></a> <span class="Other">=</span> <span class="Keyword">object</span> <span class="Keyword">of</span> <a href="program.html#ProgramDefect"><span class="Identifier">ProgramDefect</span></a>
   </pre></dt>
@@ -274,6 +300,15 @@ Raised by the condition that program don't have active uniform variables.
 <dd>
 
 The ProgramObject type representations OpenGL program object.
+
+</dd>
+</div>
+<div id="ProgramVariableKind">
+<dt><pre><a href="program.html#ProgramVariableKind"><span class="Identifier">ProgramVariableKind</span></a> <span class="Other">=</span> <span class="Keyword">enum</span>
+  <span class="Identifier">pvkAttrib</span><span class="Other">,</span> <span class="Identifier">pvkUniform</span><span class="Other">,</span> <span class="Identifier">pvkSubroutineUniform</span></pre></dt>
+<dd>
+
+
 
 </dd>
 </div>
@@ -294,6 +329,15 @@ The ProgramObject type representations OpenGL program object.
 <div id="[]=,ProgramObject,string,int">
 <dt><pre><span class="Keyword">proc</span> <a href="#%5B%5D%3D%2CProgramObject%2Cstring%2Cint"><span class="Identifier">`[]=`</span></a><span class="Other">(</span><span class="Identifier">program</span><span class="Other">:</span> <a href="program.html#ProgramObject"><span class="Identifier">ProgramObject</span></a><span class="Other">;</span> <span class="Identifier">name</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">v1</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span> {.
     <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">KeyError</span><span class="Other">,</span> <span class="Identifier">Exception</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span>.}</pre></dt>
+<dd>
+
+
+
+</dd>
+</div>
+<div id="[]=,ProgramObject,string,tuple[BindedVBO[I,T],int]">
+<dt><pre><span class="Keyword">proc</span> <a href="#%5B%5D%3D%2CProgramObject%2Cstring%2Ctuple%5BBindedVBO%5BI%2CT%5D%2Cint%5D"><span class="Identifier">`[]=`</span></a><span class="Other">[</span><span class="Identifier">I</span><span class="Other">:</span> <span class="Identifier">static</span> <span class="Identifier">int</span><span class="Other">;</span> <span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">program</span><span class="Other">:</span> <a href="program.html#ProgramObject"><span class="Identifier">ProgramObject</span></a><span class="Other">;</span> <span class="Identifier">name</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span>
+                             <span class="Identifier">data</span><span class="Other">:</span> <span class="Keyword">tuple</span><span class="Other">[</span><span class="Identifier">vbo</span><span class="Other">:</span> <a href="vbo.html#BindedVBO"><span class="Identifier">BindedVBO</span></a><span class="Other">[</span><span class="Identifier">I</span><span class="Other">,</span> <span class="Identifier">T</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">size</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">]</span><span class="Other">)</span></pre></dt>
 <dd>
 
 
@@ -385,10 +429,11 @@ Makes a program linking <tt class="docutils literal"><span class="pre"><span cla
 
 </dd>
 </div>
-<div id="make,typedesc[ProgramObject],ShaderObject,ShaderObject,seq[string],seq[string]">
-<dt><pre><span class="Keyword">proc</span> <a href="#make%2Ctypedesc%5BProgramObject%5D%2CShaderObject%2CShaderObject%2Cseq%5Bstring%5D%2Cseq%5Bstring%5D"><span class="Identifier">make</span></a><span class="Other">(</span><span class="Operator">_</span><span class="Other">:</span> <span class="Identifier">typedesc</span><span class="Other">[</span><a href="program.html#ProgramObject"><span class="Identifier">ProgramObject</span></a><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">vertex_shader</span><span class="Other">:</span> <a href="shader.html#ShaderObject"><span class="Identifier">ShaderObject</span></a><span class="Other">;</span>
+<div id="make,typedesc[ProgramObject],ShaderObject,ShaderObject,seq[string],seq[string],seq[]">
+<dt><pre><span class="Keyword">proc</span> <a href="#make%2Ctypedesc%5BProgramObject%5D%2CShaderObject%2CShaderObject%2Cseq%5Bstring%5D%2Cseq%5Bstring%5D%2Cseq%5B%5D"><span class="Identifier">make</span></a><span class="Other">(</span><span class="Operator">_</span><span class="Other">:</span> <span class="Identifier">typedesc</span><span class="Other">[</span><a href="program.html#ProgramObject"><span class="Identifier">ProgramObject</span></a><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">vertex_shader</span><span class="Other">:</span> <a href="shader.html#ShaderObject"><span class="Identifier">ShaderObject</span></a><span class="Other">;</span>
           <span class="Identifier">fragment_shader</span><span class="Other">:</span> <a href="shader.html#ShaderObject"><span class="Identifier">ShaderObject</span></a><span class="Other">;</span> <span class="Identifier">attributes</span><span class="Other">:</span> <span class="Identifier">seq</span><span class="Other">[</span><span class="Identifier">string</span><span class="Other">]</span> <span class="Other">=</span> <span class="Operator">@</span><span class="Other">[</span><span class="Other">]</span><span class="Other">;</span>
-          <span class="Identifier">uniforms</span><span class="Other">:</span> <span class="Identifier">seq</span><span class="Other">[</span><span class="Identifier">string</span><span class="Other">]</span> <span class="Other">=</span> <span class="Operator">@</span><span class="Other">[</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="program.html#ProgramObject"><span class="Identifier">ProgramObject</span></a></pre></dt>
+          <span class="Identifier">uniforms</span><span class="Other">:</span> <span class="Identifier">seq</span><span class="Other">[</span><span class="Identifier">string</span><span class="Other">]</span> <span class="Other">=</span> <span class="Operator">@</span><span class="Other">[</span><span class="Other">]</span><span class="Other">;</span>
+          <span class="Identifier">subroutine_uniforms</span><span class="Other">:</span> <span class="Identifier">seq</span><span class="Other">[</span><span class="Other">(</span><a href="shader.html#ShaderObjectKind"><span class="Identifier">ShaderObjectKind</span></a><span class="Other">,</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">]</span> <span class="Other">=</span> <span class="Operator">@</span><span class="Other">[</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="program.html#ProgramObject"><span class="Identifier">ProgramObject</span></a></pre></dt>
 <dd>
 
 Makes a program linking <tt class="docutils literal"><span class="pre"><span class="Identifier">vertex_shader</span></span></tt> and <tt class="docutils literal"><span class="pre"><span class="Identifier">fragment_shader</span></span></tt>; registering <tt class="docutils literal"><span class="pre"><span class="Identifier">attributes</span></span></tt> and <tt class="docutils literal"><span class="pre"><span class="Identifier">uniforms</span></span></tt>.
@@ -401,6 +446,16 @@ Makes a program linking <tt class="docutils literal"><span class="pre"><span cla
 <dd>
 
 Register an attrib variable named <tt class="docutils literal"><span class="pre"><span class="Identifier">name</span></span></tt> in <tt class="docutils literal"><span class="pre"><span class="Identifier">program</span></span></tt>
+
+</dd>
+</div>
+<div id="registerSubroutineUniform,ProgramObject,ShaderObjectKind,string">
+<dt><pre><span class="Keyword">proc</span> <a href="#registerSubroutineUniform%2CProgramObject%2CShaderObjectKind%2Cstring"><span class="Identifier">registerSubroutineUniform</span></a><span class="Other">(</span><span class="Identifier">program</span><span class="Other">:</span> <span class="Keyword">var</span> <a href="program.html#ProgramObject"><span class="Identifier">ProgramObject</span></a><span class="Other">;</span>
+                               <span class="Identifier">shaderType</span><span class="Other">:</span> <a href="shader.html#ShaderObjectKind"><span class="Identifier">ShaderObjectKind</span></a><span class="Other">;</span> <span class="Identifier">name</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span> {.
+    <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span>.}</pre></dt>
+<dd>
+
+
 
 </dd>
 </div>
@@ -431,7 +486,7 @@ Use <tt class="docutils literal"><span class="pre"><span class="Identifier">prog
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2022-06-12 15:17:12 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2022-06-14 10:50:51 UTC</small>
       </div>
     </div>
   </div>

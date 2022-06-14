@@ -1,8 +1,13 @@
+pvkAttrib	nagu/program.html#pvkAttrib	ProgramVariableKind.pvkAttrib	
+pvkUniform	nagu/program.html#pvkUniform	ProgramVariableKind.pvkUniform	
+pvkSubroutineUniform	nagu/program.html#pvkSubroutineUniform	ProgramVariableKind.pvkSubroutineUniform	
+ProgramVariableKind	nagu/program.html#ProgramVariableKind	program: ProgramVariableKind	
 ProgramObject	nagu/program.html#ProgramObject	program: ProgramObject	
 ProgramDefect	nagu/program.html#ProgramDefect	program: ProgramDefect	
 ProgramCreationDefect	nagu/program.html#ProgramCreationDefect	program: ProgramCreationDefect	
 ProgramLinkingDefect	nagu/program.html#ProgramLinkingDefect	program: ProgramLinkingDefect	
 ProgramNotExistsActiveUniformDefect	nagu/program.html#ProgramNotExistsActiveUniformDefect	program: ProgramNotExistsActiveUniformDefect	
+ProgramNotExistsActiveSubroutineUniformDefect	nagu/program.html#ProgramNotExistsActiveSubroutineUniformDefect	program: ProgramNotExistsActiveSubroutineUniformDefect	
 mvpMatrix	nagu/program.html#mvpMatrix	program: mvpMatrix	
 identityMatrix	nagu/program.html#identityMatrix	program: identityMatrix(): mvpMatrix	
 init	nagu/program.html#init,typedesc[ProgramObject]	program: init(_: typedesc[ProgramObject]): ProgramObject	
@@ -15,8 +20,10 @@ use	nagu/program.html#use,ProgramObject	program: use(program: ProgramObject)
 link	nagu/program.html#link,ProgramObject	program: link(program: var ProgramObject)	
 registerAttrib	nagu/program.html#registerAttrib,ProgramObject,string	program: registerAttrib(program: var ProgramObject; name: string)	
 registerUniform	nagu/program.html#registerUniform,ProgramObject,string	program: registerUniform(program: var ProgramObject; name: string)	
+registerSubroutineUniform	nagu/program.html#registerSubroutineUniform,ProgramObject,ShaderObjectKind,string	program: registerSubroutineUniform(program: var ProgramObject;\n                          shaderType: ShaderObjectKind; name: string)	
 make	nagu/program.html#make,typedesc[ProgramObject],ShaderObject,ShaderObject	program: make(_: typedesc[ProgramObject]; vertex_shader: ShaderObject;\n     fragment_shader: ShaderObject): ProgramObject	
-make	nagu/program.html#make,typedesc[ProgramObject],ShaderObject,ShaderObject,seq[string],seq[string]	program: make(_: typedesc[ProgramObject]; vertex_shader: ShaderObject;\n     fragment_shader: ShaderObject; attributes: seq[string] = @[];\n     uniforms: seq[string] = @[]): ProgramObject	
+make	nagu/program.html#make,typedesc[ProgramObject],ShaderObject,ShaderObject,seq[string],seq[string],seq[]	program: make(_: typedesc[ProgramObject]; vertex_shader: ShaderObject;\n     fragment_shader: ShaderObject; attributes: seq[string] = @[];\n     uniforms: seq[string] = @[];\n     subroutine_uniforms: seq[(ShaderObjectKind, string)] = @[]): ProgramObject	
 `[]`	nagu/program.html#[],ProgramObject,string	program: `[]`(program: ProgramObject; name: string): int	
 `[]=`	nagu/program.html#[]=,ProgramObject,string,int	program: `[]=`(program: ProgramObject; name: string; v1: int)	
 `[]=`	nagu/program.html#[]=,ProgramObject,string,array[,float32]	program: `[]=`(program: ProgramObject; name: string; matrix4v: array[16, float32])	
+`[]=`	nagu/program.html#[]=,ProgramObject,string,tuple[BindedVBO[I,T],int]	program: `[]=`[I: static int; T](program: ProgramObject; name: string;\n                        data: tuple[vbo: BindedVBO[I, T], size: int])	
