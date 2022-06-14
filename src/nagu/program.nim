@@ -72,14 +72,14 @@ func index* (program: ProgramObject, name: string): int =
 proc attach* (program: ProgramObject, shader: ShaderObject): ProgramObject =
   ## Attach `shader` to `program`.
   result = program
-  when defined(debuggingOpenGL):
+  debugOpenGLStatement:
     echo &"glAttachShader({program.id}, {shader.id})"
   opengl.glAttachShader(program.id, opengl.GLuint(shader.id))
 
 proc successLink (program: ProgramObject): bool =
   var status: opengl.GLint
   opengl.glGetProgramiv(program.id, opengl.GL_LINK_STATUS, status.addr)
-  when defined(debuggingOpenGL):
+  debugOpenGLStatement:
     echo &"glGetProgramiv({program.id}, GL_LINK_STATUS, {status})"
   result = status == opengl.GLint(opengl.GL_TRUE)
 
@@ -97,13 +97,13 @@ proc log* (program: ProgramObject): string =
 proc use* (program: ProgramObject) =
   ## Use `program` if it is linked.
   if program.linked:
-    when defined(debuggingOpenGL):
+    debugOpenGLStatement:
       echo &"glUseProgram({program.id})"
     opengl.glUseProgram(program.id)
 
 proc link* (program: var ProgramObject) =
   ## Links `program`.
-  when defined(debuggingOpenGL):
+  debugOpenGLStatement:
     echo &"glLinkProgram({program.id})"
   opengl.glLinkProgram(program.id)
   if program.successLink:
@@ -115,7 +115,7 @@ proc registerAttrib* (program: var ProgramObject, name: string) =
   ## Register an attrib variable named `name` in `program`
   let index = program.nameToIndex.len
   program.nameToIndex[name] = (index, pvkAttrib)
-  when defined(debuggingOpenGL):
+  debugOpenGLStatement:
     echo &"glBindAttribLocation({program.id}, {index}, {name})"
   opengl.glBindAttribLocation(program.id, opengl.GLuint(index), name)
 

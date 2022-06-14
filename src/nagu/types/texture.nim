@@ -1,5 +1,5 @@
 from nimgl/opengl import nil
-import ../vao, ../vbo, ../program
+import ../vao, ../vbo, ../program, ../utils
 import strformat
 
 type
@@ -91,7 +91,7 @@ func magFilter* (texture: AllTextures): TextureMagFilterParameter = texture.magF
 func minFilter* (texture: AllTextures): TextureMinFilterParameter = texture.minFilter
 
 proc assignParameterBoiler (texture: var BindedTexture, name: opengl.GLenum, param: opengl.GLint) =
-  when defined(debuggingOpenGL):
+  debugOpenGLStatement:
     echo &"glTexParameteri(opengl.GL_TEXTURE_2D, {name.repr}, {param.repr})"
   opengl.glTexParameteri(opengl.GL_TEXTURE_2D, name, param)
 

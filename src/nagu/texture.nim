@@ -6,7 +6,7 @@ import strformat
 
 import tables
 
-proc `bind` (texture: var Texture): BindedTexture =  
+proc `bind` (texture: var Texture): BindedTexture =
   opengl.glBindTexture(opengl.GL_TEXTURE_2D, texture.id)
   result = texture.toBindedTexture
 
