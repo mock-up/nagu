@@ -1,4 +1,5 @@
 from nimgl/opengl import nil
+import glm
 import vao, vbo, program, shader, utils, position
 import types/texture
 import strformat
@@ -144,6 +145,14 @@ proc setModelMatrix* (texture: var BindedTexture, matrix4v: array[16, float32]) 
     texture.useModelMatrixVector(index) do (texture: var BindedTexture, vbo: var BindedTextureModelMatrixVector):
       vbo.data = matrix
       texture.program[&"modelMatrixVec{index+1}"] = (vbo, 4)
+
+proc toArray[T] (matrix4v: Mat4[T]): array[16, T] =
+  for vec_index, vec in matrix4v.arr:
+    for elem_index, elem in vec.arr:
+      result[vec_index * 4 + elem_index] = elem
+
+proc setModelMatrix* (texture: var BindedTexture, matrix4v: Mat4[float32]) =
+  setModelMatrix(texture, matrix4v.toArray)
 
 proc make* (_: typedesc[Texture],
             position: Position = Position.init(0, 0, 0),
