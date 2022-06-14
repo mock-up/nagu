@@ -3,16 +3,22 @@ import ../vao, ../vbo, ../program
 import strformat
 
 type
-  TextureQuad* = VBO[20, float32]
-  BindedTextureQuad* = BindedVBO[20, float32]
+  TextureQuad* = VBO[12, float32]
+  BindedTextureQuad* = BindedVBO[12, float32]
+  TextureUV* = VBO[8, float32]
+  BindedTextureUV* = BindedVBO[8, float32]
   TextureElem* = VBO[6, uint8]
   BindedTextureElem* = BindedVBO[6, uint8]
+  TextureModelMatrixVector* = VBO[16, float32]
+  BindedTextureModelMatrixVector* = BindedVBO[16, float32]
 
   TextureObj [binded: static bool] = object
     id: opengl.GLuint
     vao*: VAO
     quad*: TextureQuad
+    uv*: TextureUV
     elem*: TextureElem
+    model_matrix*: array[4, TextureModelMatrixVector]
     wrapS, wrapT: TextureWrapParameter
     magFilter: TextureMagFilterParameter
     minFilter: TextureMinFilterParameter
@@ -49,7 +55,9 @@ func toBindedTexture* (texture: Texture): BindedTexture =
     id: texture.id,
     vao: texture.vao,
     quad: texture.quad,
+    uv: texture.uv,
     elem: texture.elem,
+    model_matrix: texture.model_matrix,
     wrapS: texture.wrapS, wrapT: texture.wrapT,
     magFilter: texture.magFilter,
     minFilter: texture.minFilter,
@@ -62,7 +70,9 @@ func toTexture* (texture: BindedTexture): Texture =
     id: texture.id,
     vao: texture.vao,
     quad: texture.quad,
+    uv: texture.uv,
     elem: texture.elem,
+    model_matrix: texture.model_matrix,
     wrapS: texture.wrapS, wrapT: texture.wrapT,
     magFilter: texture.magFilter,
     minFilter: texture.minFilter,
@@ -101,13 +111,21 @@ proc init* (_: typedesc[Texture],
             id: opengl.GLuint = 0,
             vao: VAO = nil,
             quad: TextureQuad = nil,
+            uv: TextureUV = nil,
             elem: TextureElem = nil,
+            model_matrix: array[4, TextureModelMatrixVector],
             wrapS: TextureWrapParameter = TextureWrapParameter.tInitialValue,
             wrapT: TextureWrapParameter = TextureWrapParameter.tInitialValue,
             magFilter: TextureMagFilterParameter = TextureMagFilterParameter.tInitialValue,
             minFilter: TextureMinFilterParameter = TextureMinFilterParameter.tInitialValue,
             program: ProgramObject = nil
            ): Texture =
-  result = Texture(id: id, vao: vao, quad: quad, elem: elem, wrapS: wrapS, wrapT: wrapT, magFilter: magFilter, minFilter: minFilter, program: program)
+  result = Texture(
+    id: id,
+    vao: vao, quad: quad, uv: uv, elem: elem,
+    model_matrix: model_matrix,
+    wrapS: wrapS, wrapT: wrapT,
+    magFilter: magFilter, minFilter: minFilter, program: program
+  )
   opengl.glGenTextures(1, result.id.addr)
   opengl.glActiveTexture(opengl.GL_TEXTURE0)
