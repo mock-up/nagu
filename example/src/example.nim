@@ -30,14 +30,12 @@ when isMainModule:
     naguContext.clear(toColor("#ffffff"))
     sea_tex.use do (texture: var BindedTexture):
       texture.draw()
-      texture.useModelMatrixVector(0) do (texture: var BindedTexture, vbo: var BindedTextureModelMatrixVector):
-        vbo.data = [
-          v, 0.0, 0.0, 0.0,
-          v, 0.0, 0.0, 0.0,
-          v, 0.0, 0.0, 0.0,
-          v, 0.0, 0.0, 0.0,
-        ]
-        texture.program["modelMatrixVec1"] = (vbo, 4)
+      texture.setModelMatrix([
+        1.0f, 0.0, 0.0, 0.0,
+        0.0, v, 0.0, 0.0,
+        0.0, 0.0, 1.0, 0.0,
+        0.0, 0.0, 0.0, 1.0
+      ])
       v += 0.01
     cat_tex.use do (texture: var BindedTexture):
       texture.draw()
