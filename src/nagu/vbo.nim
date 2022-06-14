@@ -1,11 +1,13 @@
 from nimgl/opengl import nil
 import strformat
+import utils
 
 type
   VBOObj [binded: static bool, I: static int, T] = object
     id: opengl.GLuint
     target: VBOTarget
     data: array[I, T]
+    # 安易に公開すると`data=`が死に、OpenGL命令が実行されなくなりSIGSEGVで落ちる
     usage: VBOUsage
 
   VBO* [I: static int, T] = ref VBOObj[false, I, T]
@@ -66,7 +68,7 @@ proc `data=`* [I: static int, T] (vbo: var BindedVBO[I, T], data: array[I, T]) =
     vbo.data[0].addr,
     opengl.GLenum(vbo.usage)
   )
-  when defined(debuggingOpenGL):
+  debugOpenGLStatement:
     echo &"glBufferData({vbo.target}, {size}, data[0].addr, {vbo.usage})"
 
 proc `usage=`* [I: static int, T] (vbo: var BindedVBO[I, T], usage: VBOUsage) =
@@ -75,7 +77,7 @@ proc `usage=`* [I: static int, T] (vbo: var BindedVBO[I, T], usage: VBOUsage) =
 proc init* [I: static int, T] (_: typedesc[VBO[I, T]]): VBO[I, T] =
   var data: array[I, T]
   result = VBO[I, T](target: vtArrayBuffer, usage: vuStaticDraw, data: data)
-  when defined(debuggingOpenGL):
+  debugOpenGLStatement:
     echo &"glGenBuffers(1, result.id.addr)"
   opengl.glGenBuffers(1, result.id.addr)
 
@@ -92,13 +94,13 @@ func usage* [B: static bool, I: static int, T] (vbo: VBOObj[B, I, T]): VBOUsage 
   result = vbo.usage
 
 proc `bind`* [I: static int, T] (vbo: var VBO[I, T]): BindedVBO[I, T] =
-  when defined(debuggingOpenGL):
+  debugOpenGLStatement:
     echo &"glBindBuffer({vbo.target}, {vbo.id})"
   opengl.glBindBuffer(opengl.GLenum(vbo.target), vbo.id)
   result = vbo.toBindedVBO
 
 proc unbind* [I: static int, T] (vbo: var BindedVBO[I, T]): VBO[I, T] =
-  when defined(debuggingOpenGL):
+  debugOpenGLStatement:
     echo &"glBindBuffer({vbo.target}, 0)"
   opengl.glBindBuffer(opengl.GLenum(vbo.target), 0)
   result = vbo.toVBO

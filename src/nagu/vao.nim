@@ -1,6 +1,8 @@
 ## src/nagu/vao.nim defines the VAO type and procedures related to its for abstracting OpenGL VAO.
 
 from nimgl/opengl import nil
+import utils
+import std/strformat
 
 type
   VAOObj [binded: static bool] = object
@@ -28,13 +30,19 @@ type
 proc init* (_: typedesc[VAO]): VAO =
   result = VAO()
   opengl.glGenVertexArrays(1, result.id.addr)
+  debugOpenGLStatement:
+    echo &"glGenVertexArrays(1, {result.id})"
 
 proc `bind`* (vao: var VAO): BindedVAO =
   opengl.glBindVertexArray(vao.id)
   result = BindedVAO(id: vao.id)
+  debugOpenGLStatement:
+    echo &"glBindVertexArray({vao.id})"
 
 proc unbind* =
   opengl.glBindVertexArray(0)
+  debugOpenGLStatement:
+    echo "glBindVertexArray(0)"
 
 proc use* (vao: var VAO, procedure: proc (vao: var BindedVAO)) =
   var bindedVAO = vao.bind()
@@ -48,6 +56,10 @@ proc make* (_: typedesc[VAO]): VAO =
 proc draw* (vao: BindedVAO, mode: VAODrawMode) =
   ## Draws from `vao`.
   opengl.glDrawArrays(opengl.GLenum(mode), 0, 4)
+  debugOpenGLStatement:
+    echo &"glDrawArrays({mode}, 0, 4)"
 
 proc delete (vao: VAO) =
   opengl.glDeleteVertexArrays(1, vao.id.addr)
+  debugOpenGLStatement:
+    echo &"glDeleteVertexArrays(1, {vao.id})"
