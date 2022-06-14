@@ -3,6 +3,8 @@ import vao, vbo, program, shader, utils, position
 import types/texture
 import strformat
 
+import tables
+
 proc `bind` (texture: var Texture): BindedTexture =  
   opengl.glBindTexture(opengl.GL_TEXTURE_2D, texture.id)
   result = texture.toBindedTexture
@@ -41,6 +43,15 @@ proc useUV* (bindedTexture: var BindedTexture, procedure: proc (texture: var Bin
   var bindedVBO = bindedTexture.uv.bind()
   procedure(bindedTexture, bindedVBO)
   bindedTexture.uv = bindedVBO.unbind()
+
+proc useModelMatrix* (bindedTexture: var BindedTexture, procedure: proc (texture: var BindedTexture, vbo: var array[4, BindedTextureModelMatrixVector])) =
+  discard
+  # var
+  #   bindedVec1VBO = bindedTexture.model_matrix[0].bind()
+  # procedure(bindedTexture, bindedVBO)
+  # bindedTexture.model_matrix[index] = bindedVBO.unbind()
+  # めっちゃ難しい。行列に対する操作をしつつbind管理もしなければいけない
+  # 仮想的な行列を持って置いて、代入するタイミングで順番にuseModelMatrixVectorを回すのが良いのかも。
 
 proc useModelMatrixVector* (bindedTexture: var BindedTexture, index: range[0..3], procedure: proc (texture: var BindedTexture, vbo: var BindedTextureModelMatrixVector)) =
   var bindedVBO = bindedTexture.model_matrix[index].bind()
@@ -118,32 +129,21 @@ func elem: array[6, uint8] = [
   0'u8, 1, 2, 0, 2, 3
 ]
 
-func textureIdentityMatrix* (index: range[0..3]): array[16, float32] =
-  case index:
-  of 0: [
-          1.0'f, 0.0, 0.0, 0.0,
-          1.0,   0.0, 0.0, 0.0,
-          1.0,   0.0, 0.0, 0.0,
-          1.0,   0.0, 0.0, 0.0,
-        ]
-  of 1: [
-          0.0'f, 1.0, 0.0, 0.0,
-          0.0,   1.0, 0.0, 0.0,
-          0.0,   1.0, 0.0, 0.0,
-          0.0,   1.0, 0.0, 0.0,
-        ]
-  of 2: [
-          0.0'f, 0.0, 1.0, 0.0,
-          0.0,   0.0, 1.0, 0.0,
-          0.0,   0.0, 1.0, 0.0,
-          0.0,   0.0, 1.0, 0.0,
-        ]
-  of 3: [
-          0.0'f, 0.0, 0.0, 1.0,
-          0.0'f, 0.0, 0.0, 1.0,
-          0.0'f, 0.0, 0.0, 1.0,
-          0.0'f, 0.0, 0.0, 1.0,
-        ]
+# proc `[]=`* (texture: var BindedTexture, name: string, matrix4v: array[16, float32]) =
+# そのうち一般化する、VBO名に依存したuse関数を作るのをやめる、customなvertex attrib変数に対して
+# 適用できるUse関数を定義する
+# VBOを専用のフィールドで持つのではなくテーブルに持っておくと良いと思う
+proc setModelMatrix* (texture: var BindedTexture, matrix4v: array[16, float32]) =
+  for index in 0 ..< 4:
+    let matrix = [
+      matrix4v[index*4], matrix4v[index*4+1], matrix4v[index*4+2], matrix4v[index*4+3],
+      matrix4v[index*4], matrix4v[index*4+1], matrix4v[index*4+2], matrix4v[index*4+3],
+      matrix4v[index*4], matrix4v[index*4+1], matrix4v[index*4+2], matrix4v[index*4+3],
+      matrix4v[index*4], matrix4v[index*4+1], matrix4v[index*4+2], matrix4v[index*4+3],
+    ]
+    texture.useModelMatrixVector(index) do (texture: var BindedTexture, vbo: var BindedTextureModelMatrixVector):
+      vbo.data = matrix
+      texture.program[&"modelMatrixVec{index+1}"] = (vbo, 4)
 
 proc make* (_: typedesc[Texture],
             position: Position = Position.init(0, 0, 0),
@@ -187,10 +187,7 @@ proc make* (_: typedesc[Texture],
         vbo.data = uv()
         texture.program["texCoord0"] = (vbo, 2)
       
-      for index in 0 ..< 4:
-        texture.useModelMatrixVector(index) do (texture: var BindedTexture, vbo: var BindedTextureModelMatrixVector):
-          vbo.data = textureIdentityMatrix(index)
-          texture.program[&"modelMatrixVec{index+1}"] = (vbo, 4)
+      texture.setModelMatrix(identityMatrix())
       
       texture.useElem do (texture: var BindedTexture, vbo: var BindedTextureElem):
         var elem = elem()

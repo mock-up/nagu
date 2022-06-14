@@ -8,7 +8,7 @@ from std/strformat import `&`
 import utils, vbo
 
 type
-  ProgramVariableKind = enum
+  ProgramVariableKind* = enum
     pvkAttrib,
     pvkUniform,
     pvkSubroutineUniform
@@ -16,7 +16,7 @@ type
   ProgramObjectObj = object
     id: opengl.GLuint
     linked: bool
-    nameToIndex: Table[string, tuple[index: int, kind: ProgramVariableKind]]
+    nameToIndex*: Table[string, tuple[index: int, kind: ProgramVariableKind]]
   
   ProgramObject* = ref ProgramObjectObj
     ## The ProgramObject type representations OpenGL program object.
@@ -174,12 +174,7 @@ proc `[]=`* (program: ProgramObject, name: string, matrix4v: array[16, float32])
   debugOpenGLStatement:
     echo &"glUniformMatrix4fv(index, 1, false, {matrix4v})"
 
-proc `[]=`* [I: static int, T] (program: ProgramObject,
-                                name: string,
-                                data: tuple[
-                                  vbo: BindedVBO[I ,T],
-                                  size: int
-                                ]) =
+proc `[]=`* [I: static int, T] (program: ProgramObject, name: string, data: tuple[vbo: BindedVBO[I ,T], size: int]) =
   let index = opengl.GLuint(program[name])
   opengl.glEnableVertexAttribArray(index)
   opengl.glVertexAttribPointer(index, opengl.GLint(data.size), opengl.EGL_FLOAT, false, opengl.GLSizei(data.vbo.data.len), cast[pointer](0))
