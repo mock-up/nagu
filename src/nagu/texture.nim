@@ -1,6 +1,6 @@
 from nimgl/opengl import nil
 import glm
-import vao, vbo, program, shader, utils, position
+import vao, vbo, program, shader, utils, position, mvp_matrix
 import types/texture
 import strformat
 
@@ -45,7 +45,7 @@ proc useUV* (bindedTexture: var BindedTexture, procedure: proc (texture: var Bin
   procedure(bindedTexture, bindedVBO)
   bindedTexture.uv = bindedVBO.unbind()
 
-proc useModelMatrix* (bindedTexture: var BindedTexture, procedure: proc (texture: var BindedTexture, vbo: var array[4, BindedTextureModelMatrixVector])) =
+proc useModelMatrix* (bindedTexture: var BindedTexture, procedure: proc (texture: var BindedTexture, vbo: var array[4, BindedModelMatrixVector])) =
   discard
   # var
   #   bindedVec1VBO = bindedTexture.model_matrix[0].bind()
@@ -54,7 +54,7 @@ proc useModelMatrix* (bindedTexture: var BindedTexture, procedure: proc (texture
   # めっちゃ難しい。行列に対する操作をしつつbind管理もしなければいけない
   # 仮想的な行列を持って置いて、代入するタイミングで順番にuseModelMatrixVectorを回すのが良いのかも。
 
-proc useModelMatrixVector* (bindedTexture: var BindedTexture, index: range[0..3], procedure: proc (texture: var BindedTexture, vbo: var BindedTextureModelMatrixVector)) =
+proc useModelMatrixVector* (bindedTexture: var BindedTexture, index: range[0..3], procedure: proc (texture: var BindedTexture, vbo: var BindedModelMatrixVector)) =
   var bindedVBO = bindedTexture.model_matrix[index].bind()
   procedure(bindedTexture, bindedVBO)
   bindedTexture.model_matrix[index] = bindedVBO.unbind()
@@ -142,7 +142,7 @@ proc setModelMatrix* (texture: var BindedTexture, matrix4v: array[16, float32]) 
       matrix4v[index*4], matrix4v[index*4+1], matrix4v[index*4+2], matrix4v[index*4+3],
       matrix4v[index*4], matrix4v[index*4+1], matrix4v[index*4+2], matrix4v[index*4+3],
     ]
-    texture.useModelMatrixVector(index) do (texture: var BindedTexture, vbo: var BindedTextureModelMatrixVector):
+    texture.useModelMatrixVector(index) do (texture: var BindedTexture, vbo: var BindedModelMatrixVector):
       vbo.data = matrix
       texture.program[&"modelMatrixVec{index+1}"] = (vbo, 4)
 
@@ -165,12 +165,7 @@ proc make* (_: typedesc[Texture],
     quad = TextureQuad.init(),
     uv = TextureUV.init(),
     elem = TextureElem.init(),
-    model_matrix = [
-                      TextureModelMatrixVector.init(),
-                      TextureModelMatrixVector.init(),
-                      TextureModelMatrixVector.init(),
-                      TextureModelMatrixVector.init()
-                    ]
+    model_matrix = ModelMatrix.init()
   )
 
   let

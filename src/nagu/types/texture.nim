@@ -1,5 +1,5 @@
 from nimgl/opengl import nil
-import ../vao, ../vbo, ../program, ../utils
+import ../vao, ../vbo, ../program, ../utils, ../mvp_matrix
 import strformat
 
 type
@@ -9,8 +9,6 @@ type
   BindedTextureUV* = BindedVBO[8, float32]
   TextureElem* = VBO[6, uint8]
   BindedTextureElem* = BindedVBO[6, uint8]
-  TextureModelMatrixVector* = VBO[16, float32]
-  BindedTextureModelMatrixVector* = BindedVBO[16, float32]
 
   TextureObj [binded: static bool] = object
     id: opengl.GLuint
@@ -18,7 +16,7 @@ type
     quad*: TextureQuad
     uv*: TextureUV
     elem*: TextureElem
-    model_matrix*: array[4, TextureModelMatrixVector]
+    model_matrix*: array[4, ModelMatrixVector]
     wrapS, wrapT: TextureWrapParameter
     magFilter: TextureMagFilterParameter
     minFilter: TextureMinFilterParameter
@@ -113,7 +111,7 @@ proc init* (_: typedesc[Texture],
             quad: TextureQuad = nil,
             uv: TextureUV = nil,
             elem: TextureElem = nil,
-            model_matrix: array[4, TextureModelMatrixVector],
+            model_matrix: array[4, ModelMatrixVector],
             wrapS: TextureWrapParameter = TextureWrapParameter.tInitialValue,
             wrapT: TextureWrapParameter = TextureWrapParameter.tInitialValue,
             magFilter: TextureMagFilterParameter = TextureMagFilterParameter.tInitialValue,
