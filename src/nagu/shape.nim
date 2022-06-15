@@ -1,5 +1,6 @@
 import vao, vbo, mvp_matrix, shader, program
 import glm
+import std/strformat
 
 type
   ShapeObj [
@@ -40,17 +41,41 @@ func toBindedShape [V, V3x, V4x: static int] (shape: Shape[V, V3x, V4x]): Binded
     program: shape.program
   )
 
+func toShape [V, V3x, V4x: static int] (shape: BindedShape[V, V3x, V4x]): Shape[V, V3x, V4x] =
+  result = Shape[V, V3x, V4x](
+    vao: shape.vao,
+    positions: shape.positions,
+    colors: shape.colors,
+    model_matrix: shape.model_matrix,
+    program: shape.program
+  )
+
 proc use* [V, V3x, V4x: static int] (shape: var Shape[V, V3x, V4x], procedure: proc (shape: var BindedShape[V, V3x, V4x])) =
-  discard shape.vao.bind()
   discard shape.program.bind()
+  discard shape.vao.bind()
   var bindedShape = shape.toBindedShape
   procedure(bindedShape)
+  shape = bindedShape.toShape
+  # Programをunbindする？
+
+proc useVAO* [V, V3x, V4x: static int] (shape: var BindedShape[V, V3x, V4x], procedure: proc (shape: var BindedShape[V, V3x, V4x], vao: var BindedVAO)) =
+  var bindedVAO = shape.vao.bind()
+  procedure(shape, bindedVAO)
   unbind() # TODO: 本当は変更後のBindedVAOを代入する方が良い（ここでは必要ない）
+  shape = shape
+  # shape.vao = bindedVAO.unbind()
 
 proc usePositions* [V, V3x, V4x: static int] (shape: var BindedShape[V, V3x, V4x], procedure: proc (shape: var BindedShape[V, V3x, V4x], vbo: var BindedVBO[V3x, float32])) =
   var bindedVBO = shape.positions.bind()
   procedure(shape, bindedVBO)
   shape = shape
+  shape.positions = bindedVBO.unbind()
+
+proc usePositions* [V, V3x, V4x: static int] (shape: var BindedShape[V, V3x, V4x], procedure: proc (shape: var BindedShape[V, V3x, V4x], vao: var BindedVAO, vbo: var BindedVBO[V3x, float32])) =
+  var
+    bindedVAO = shape.vao.bind()
+    bindedVBO = shape.positions.bind()
+  procedure(shape, bindedVAO, bindedVBO)
   shape.positions = bindedVBO.unbind()
 
 proc useColors* [V, V3x, V4x: static int] (shape: var BindedShape[V, V3x, V4x], procedure: proc (shape: var BindedShape[V, V3x, V4x], vbo: var BindedVBO[V4x, float32])) =
@@ -68,6 +93,28 @@ func toArray [V, V3x, V4x: static int] (_: BindedShape[V, V3x, V4x], vector: arr
   for vec_index, vec in vector:
     for elem_index, elem in vec.arr:
       result[vec_index*4 + elem_index] = elem
+
+proc useModelMatrixVector* [V, V3x, V4x: static int] (bindedShape: var BindedShape[V, V3x, V4x], index: range[0..3], procedure: proc (shape: var BindedShape[V, V3x, V4x], vbo: var BindedModelMatrixVector)) =
+  var bindedVBO = bindedShape.model_matrix[index].bind()
+  procedure(bindedShape, bindedVBO)
+  bindedShape.model_matrix[index] = bindedVBO.unbind()
+
+proc setModelMatrix* [V, V3x, V4x: static int] (shape: var BindedShape[V, V3x, V4x], matrix4v: array[16, float32]) =
+  for index in 0 ..< 4:
+    let matrix = [
+      matrix4v[index*4], matrix4v[index*4+1], matrix4v[index*4+2], matrix4v[index*4+3],
+      matrix4v[index*4], matrix4v[index*4+1], matrix4v[index*4+2], matrix4v[index*4+3],
+      matrix4v[index*4], matrix4v[index*4+1], matrix4v[index*4+2], matrix4v[index*4+3],
+      matrix4v[index*4], matrix4v[index*4+1], matrix4v[index*4+2], matrix4v[index*4+3],
+    ]
+    shape.useModelMatrixVector(index) do (shape: var BindedShape[V, V3x, V4x], vbo: var BindedModelMatrixVector):
+      vbo.data = matrix
+      shape.program[&"modelMatrixVec{index+1}"] = (vbo, 4)
+
+proc toArray[T] (matrix4v: Mat4[T]): array[16, T] =
+  for vec_index, vec in matrix4v.arr:
+    for elem_index, elem in vec.arr:
+      result[vec_index * 4 + elem_index] = elem
 
 proc make* [V, V3x, V4x: static int] (
   _: typedesc[Shape[V, V3x, V4x]],
@@ -105,4 +152,10 @@ proc make* [V, V3x, V4x: static int] (
       vbo.data = toArray(shape, colors)
       shape.program["vertexColors"] = (vbo, 4)
 
+    shape.setModelMatrix(identityMatrix())
+
     shape.program["mvpMatrix"] = identityMatrix()
+
+proc draw* [V, V3x, V4x: static int] (shape: var BindedShape[V, V3x, V4x], mode: VAODrawMode) =
+  shape.usePositions do (shape: var BindedShape[V, V3x, V4x], vao: var BindedVAO, vbo: var BindedVBO[V3x, float32]):
+    vao.draw(mode)
