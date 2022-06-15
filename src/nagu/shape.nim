@@ -1,79 +1,104 @@
-import vao, vbo, mvp_matrix
+import vao, vbo, mvp_matrix, shader, program
 import glm
 
 type
-  ThreeTimeFloat32VBO [V: static int] = VBO[V*3, float32]
-    ## コンパイラを騙すために定義している。
-    ## そもそも経緯として`ShapeObj.positions`、`ShapeObj.colors`が直接`VBO[V*3, float32]`を持つと、`V*3`がコンパイル時に計算されず`V=5`における`VBO[15,float32]`が落ちてしまう。
-    ## ところが構造体のメンバでない場合、つまり`ThreeTimeFloat32VBO`のように直接型変数を受け取って計算する場合はコンパイル時にうまく解釈できる。
-    ## 従って定義したわけだが、利用時には`ThreeTimeFloat32VBO[I] is VBO[I*3,float32] == true`と解釈されないことに留意する必要がある。
-    ## これに関してはコンパイラが悪く、いかなる場合でも`ThreeTimeFloat32VBO[I]`型は`VBO[I*3,float32]`型であることが保証できるため強制キャストで型を合わせて実行する。
-  
-  BindedThreeTimeFloat32VBO [V: static int] = BindedVBO[V*3, float32]
-
   ShapeObj [
     binded: static bool,
-    V: static int
+    vertex_num: static int,
+    vertex_num_3x: static int,
+    vertex_num_4x: static int
   ] = object
     vao: VAO
-    positions: ThreeTimeFloat32VBO[V]
-    colors: ThreeTimeFloat32VBO[V]
-    model_matrix: array[4, VBO[16, float32]]
+    positions: VBO[vertex_num_3x, float32] # 本来は 3*V
+    colors: VBO[vertex_num_4x, float32] # 本来は 4*V
+    model_matrix: array[4, VBO[vertex_num_4x, float32]] # 本来は 4*V
+    program: ProgramObject
+
+  Shape* [
+    vertex_num: static int,
+    vertex_num_3x: static int,
+    vertex_num_4x: static int
+  ] = ref ShapeObj[false, vertex_num, vertex_num_3x, vertex_num_4x]
+
+  # Shape* [vertex_num, vertex_num_3x, vertex_num_4x: static int] = concept x
+  #   vertex_num * 3 == vertex_num_3x
+  #   vertex_num * 4 == vertex_num_4x
+  #   x is ShapeBase
   
-  Shape* [V: static int] = ref ShapeObj[false, V]
-  BindedShape* [V: static int] = ref ShapeObj[true, V]
+  BindedShape* [
+    vertex_num: static int,
+    vertex_num_3x: static int,
+    vertex_num_4x: static int
+  ] = ref ShapeObj[true, vertex_num, vertex_num_3x, vertex_num_4x]
 
-func toTTF [V: static int] (vbo: VBO[V, float32]): ThreeTimeFloat32VBO[V div 3] =
-  result = cast[ThreeTimeFloat32VBO[V div 3]](vbo)
-
-func toBindedTTF [V: static int] (vbo: BindedVBO[V, float32]): BindedThreeTimeFloat32VBO[V div 3] =
-  result = cast[BindedThreeTimeFloat32VBO[V div 3]](vbo)
-
-func toVBO [V: static int] (ttf: ThreeTimeFloat32VBO[V]): VBO[V*3, float32] =
-  result = cast[VBO[V*3, float32]](ttf)
-
-func toBindedVBO [V: static int] (ttf: BindedThreeTimeFloat32VBO[V]): BindedVBO[V*3, float32] =
-  result = cast[BindedVBO[V*3, float32]](ttf)
-
-func toBindedShape [V: static int] (shape: Shape[V]): BindedShape[V] =
-  result = BindedShape[V](
+func toBindedShape [V, V3x, V4x: static int] (shape: Shape[V, V3x, V4x]): BindedShape[V, V3x, V4x] =
+  result = BindedShape[V, V3x, V4x](
     vao: shape.vao,
     positions: shape.positions,
     colors: shape.colors,
-    model_matrix: shape.model_matrix
+    model_matrix: shape.model_matrix,
+    program: shape.program
   )
 
-proc use* [V: static int] (shape: var Shape[V], procedure: proc (shape: var BindedShape[V])) =
-  var
-    bindedVAO = shape.vao.bind()
-    bindedShape = shape.toBindedShape
+proc use* [V, V3x, V4x: static int] (shape: var Shape[V, V3x, V4x], procedure: proc (shape: var BindedShape[V, V3x, V4x])) =
+  discard shape.vao.bind()
+  var bindedShape = shape.toBindedShape
   procedure(bindedShape)
-  unbind()
+  unbind() # TODO: 本当は変更後のBindedVAOを代入する方が良い（ここでは必要ない）
 
-proc usePositions* [V: static int] (bindedShape: var BindedShape[V], procedure: proc (shape: var BindedShape[V], positions: var BindedThreeTimeFloat32VBO[V])) =
-  var bindedVBO = bindedShape.positions.toVBO.bind().toBindedTTF
-  procedure(bindedShape, bindedVBO)
-  bindedVBO.unbind()
+proc usePositions* [V, V3x, V4x: static int] (shape: var BindedShape[V, V3x, V4x], procedure: proc (shape: var BindedShape[V, V3x, V4x], vbo: var BindedVBO[V3x, float32])) =
+  var bindedVBO = shape.positions.bind()
+  procedure(shape, bindedVBO)
+  shape = shape
+  shape.positions = bindedVBO.unbind()
 
-func toArray [V: static int] (vectors: array[V, Vec3[float32]]): array[V*3, float32] =
-  for vec_index, vec in vectors:
+proc useColors* [V, V3x, V4x: static int] (shape: var BindedShape[V, V3x, V4x], procedure: proc (shape: var BindedShape[V, V3x, V4x], vbo: var BindedVBO[V4x, float32])) =
+  var bindedVBO = shape.colors.bind()
+  procedure(shape, bindedVBO)
+  shape = shape
+  shape.colors = bindedVBO.unbind()
+
+func toArray [V, V3x, V4x: static int] (_: BindedShape[V, V3x, V4x], vector: array[V, Vec3[float32]]): array[V3x, float32] =
+  for vec_index, vec in vector:
     for elem_index, elem in vec.arr:
       result[vec_index*3 + elem_index] = elem
 
-proc make* [V: static int] (
-  _: typedesc[Shape],
+func toArray [V, V3x, V4x: static int] (_: BindedShape[V, V3x, V4x], vector: array[V, Vec4[float32]]): array[V4x, float32] =
+  for vec_index, vec in vector:
+    for elem_index, elem in vec.arr:
+      result[vec_index*4 + elem_index] = elem
+
+proc make* [V, V3x, V4x: static int] (
+  _: typedesc[Shape[V, V3x, V4x]],
   positions: array[V, Vec3[float32]],
-  colors: array[V, Vec3[float32]]
-): Shape[V] =
-  let
-    positions = toTTF(VBO[V*3, float32].init())
-    colors = toTTF(VBO[V*3, float32].init())
-  result = Shape[V](
+  colors: array[V, Vec4[float32]],
+  vertex_shader_path: string,
+  fragment_shader_path: string,
+): Shape[V, V3x, V4x] =
+  result = Shape[V, V3x, V4x](
     vao: VAO.init(),
-    positions: positions,
-    colors: colors,
+    positions: VBO[V3x, float32].init(),
+    colors: VBO[V4x, float32].init(),
     model_matrix: ModelMatrix.init()
   )
-  result.use do (shape: var BindedShape[V]):
-    shape.usePositions do (shape: var BindedShape[V], vbo: var BindedThreeTimeFloat32VBO[V]):
-      vbo.data = [vec3(0f, 0, 0), vec3(0f, 0, 0), vec3(0f, 0, 0), vec3(0f, 0, 0)].toArray
+
+  let
+    vertex_shader = ShaderObject.make(soVertex, vertex_shader_path)
+    fragment_shader = ShaderObject.make(soFragment, fragment_shader_path)
+
+  result.program = ProgramObject.make(
+    vertex_shader,
+    fragment_shader,
+    @["vertexPositions", "vertexColors", "modelMatrixVec1", "modelMatrixVec2", "modelMatrixVec3", "modelMatrixVec4"],
+    @["mvpMatrix"],
+  )
+
+  result.use do (shape: var BindedShape[V, V3x, V4x]):
+    shape.usePositions do (shape: var BindedShape[V, V3x, V4x], vbo: var BindedVBO[V3x, float32]):
+      vbo.data = toArray(shape, positions)
+      shape.program["vertexPositions"] = (vbo, 3)
+    shape.useColors do (shape: var BindedShape[V, V3x, V4x], vbo: var BindedVBO[V4x, float32]):
+      vbo.data = toArray(shape, colors)
+      shape.program["vertexColors"] = (vbo, 4)
+
+    shape.program["mvpMatrix"] = identityMatrix()
