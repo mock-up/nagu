@@ -20,9 +20,11 @@ when isMainModule:
     )
     cat = pnm.readPPMFile("assets/cat.ppm")
 
-    shape = Shape.make(
-      [vec3(0f, 0, 0), vec3(0f, 0, 0), vec3(0f, 0, 0), vec3(0f, 0, 0)],
-      [vec3(0f, 0, 0), vec3(0f, 0, 0), vec3(0f, 0, 0), vec3(0f, 0, 0)]
+    shape = Shape[4, 12, 16].make(
+      [vec3(0f, 0, 0), vec3(1f, 0, 0), vec3(1f, 1, 0), vec3(0f, 1, 0)],
+      [vec4(0f, 0, 0, 1), vec4(0f, 0, 0, 1), vec4(0f, 0, 0, 1), vec4(0f, 0, 0, 1)],
+      "assets/shapes/id/id.vert",
+      "assets/shapes/id/id.frag"
     )
   
   sea_tex.use do (texture: var BindedTexture):
