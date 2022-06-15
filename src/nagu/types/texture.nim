@@ -16,7 +16,7 @@ type
     quad*: TextureQuad
     uv*: TextureUV
     elem*: TextureElem
-    model_matrix*: array[4, ModelMatrixVector]
+    model_matrix*: array[4, ModelMatrixVector[16]]
     wrapS, wrapT: TextureWrapParameter
     magFilter: TextureMagFilterParameter
     minFilter: TextureMinFilterParameter
@@ -111,7 +111,7 @@ proc init* (_: typedesc[Texture],
             quad: TextureQuad = nil,
             uv: TextureUV = nil,
             elem: TextureElem = nil,
-            model_matrix: array[4, ModelMatrixVector],
+            model_matrix: array[4, ModelMatrixVector[16]],
             wrapS: TextureWrapParameter = TextureWrapParameter.tInitialValue,
             wrapT: TextureWrapParameter = TextureWrapParameter.tInitialValue,
             magFilter: TextureMagFilterParameter = TextureMagFilterParameter.tInitialValue,

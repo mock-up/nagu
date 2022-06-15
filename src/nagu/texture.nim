@@ -46,7 +46,7 @@ proc useUV* (bindedTexture: var BindedTexture, procedure: proc (texture: var Bin
   procedure(bindedTexture, bindedVBO)
   bindedTexture.uv = bindedVBO.unbind()
 
-proc useModelMatrix* (bindedTexture: var BindedTexture, procedure: proc (texture: var BindedTexture, vbo: var array[4, BindedModelMatrixVector])) =
+proc useModelMatrix* (bindedTexture: var BindedTexture, procedure: proc (texture: var BindedTexture, vbo: var array[4, BindedModelMatrixVector[16]])) =
   discard
   # var
   #   bindedVec1VBO = bindedTexture.model_matrix[0].bind()
@@ -55,7 +55,7 @@ proc useModelMatrix* (bindedTexture: var BindedTexture, procedure: proc (texture
   # めっちゃ難しい。行列に対する操作をしつつbind管理もしなければいけない
   # 仮想的な行列を持って置いて、代入するタイミングで順番にuseModelMatrixVectorを回すのが良いのかも。
 
-proc useModelMatrixVector* (bindedTexture: var BindedTexture, index: range[0..3], procedure: proc (texture: var BindedTexture, vbo: var BindedModelMatrixVector)) =
+proc useModelMatrixVector* (bindedTexture: var BindedTexture, index: range[0..3], procedure: proc (texture: var BindedTexture, vbo: var BindedModelMatrixVector[16])) =
   var bindedVBO = bindedTexture.model_matrix[index].bind()
   procedure(bindedTexture, bindedVBO)
   bindedTexture.model_matrix[index] = bindedVBO.unbind()
@@ -99,11 +99,11 @@ proc `pixels=`* [W, H: static[int], T] (texture: var BindedTexture, data: array[
 
 proc draw* (texture: var BindedTexture) =
   texture.useVAO do (texture: var BindedTexture, vao: var BindedVAO):
-    texture.useElem do (texture: var BindedTexture, vbo: var BindedTextureElem):
-      opengl.glDrawArrays(opengl.GLenum(vdmTriangleFan), 0, 4)
+    # texture.useElem do (texture: var BindedTexture, vbo: var BindedTextureElem):
+    opengl.glDrawArrays(opengl.GLenum(vdmTriangleFan), 0, 4)
 
-      debugOpenGLStatement:
-        echo &"glDrawArrays(vdmTriangleFan, 0, 4)"
+    debugOpenGLStatement:
+      echo &"glDrawArrays(vdmTriangleFan, 0, 4)"
 
 proc pixelStore (texture: var BindedTexture, pname: opengl.GLenum, param: opengl.GLint) =
   opengl.glPixelStorei(pname, param)
@@ -143,7 +143,7 @@ proc setModelMatrix* (texture: var BindedTexture, matrix4v: array[16, float32]) 
       matrix4v[index*4], matrix4v[index*4+1], matrix4v[index*4+2], matrix4v[index*4+3],
       matrix4v[index*4], matrix4v[index*4+1], matrix4v[index*4+2], matrix4v[index*4+3],
     ]
-    texture.useModelMatrixVector(index) do (texture: var BindedTexture, vbo: var BindedModelMatrixVector):
+    texture.useModelMatrixVector(index) do (texture: var BindedTexture, vbo: var BindedModelMatrixVector[16]):
       vbo.data = matrix
       texture.program[&"modelMatrixVec{index+1}"] = (vbo, 4)
 
@@ -166,7 +166,7 @@ proc make* (_: typedesc[Texture],
     quad = TextureQuad.init(),
     uv = TextureUV.init(),
     elem = TextureElem.init(),
-    model_matrix = ModelMatrix.init()
+    model_matrix = ModelMatrix[16].init()
   )
 
   let

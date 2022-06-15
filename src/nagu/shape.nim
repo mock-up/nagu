@@ -94,20 +94,20 @@ func toArray [V, V3x, V4x: static int] (_: BindedShape[V, V3x, V4x], vector: arr
     for elem_index, elem in vec.arr:
       result[vec_index*4 + elem_index] = elem
 
-proc useModelMatrixVector* [V, V3x, V4x: static int] (bindedShape: var BindedShape[V, V3x, V4x], index: range[0..3], procedure: proc (shape: var BindedShape[V, V3x, V4x], vbo: var BindedModelMatrixVector)) =
+proc useModelMatrixVector* [V, V3x, V4x: static int] (bindedShape: var BindedShape[V, V3x, V4x], index: range[0..3], procedure: proc (shape: var BindedShape[V, V3x, V4x], vbo: var BindedModelMatrixVector[V4x])) =
   var bindedVBO = bindedShape.model_matrix[index].bind()
   procedure(bindedShape, bindedVBO)
   bindedShape.model_matrix[index] = bindedVBO.unbind()
 
 proc setModelMatrix* [V, V3x, V4x: static int] (shape: var BindedShape[V, V3x, V4x], matrix4v: array[16, float32]) =
   for index in 0 ..< 4:
-    let matrix = [
-      matrix4v[index*4], matrix4v[index*4+1], matrix4v[index*4+2], matrix4v[index*4+3],
-      matrix4v[index*4], matrix4v[index*4+1], matrix4v[index*4+2], matrix4v[index*4+3],
-      matrix4v[index*4], matrix4v[index*4+1], matrix4v[index*4+2], matrix4v[index*4+3],
-      matrix4v[index*4], matrix4v[index*4+1], matrix4v[index*4+2], matrix4v[index*4+3],
-    ]
-    shape.useModelMatrixVector(index) do (shape: var BindedShape[V, V3x, V4x], vbo: var BindedModelMatrixVector):
+    var matrix: array[V4x, float32]
+    for matrix_gen_index in 0 ..< V:
+      matrix[matrix_gen_index*4] = matrix4v[index*4]
+      matrix[matrix_gen_index*4+1] = matrix4v[index*4+1]
+      matrix[matrix_gen_index*4+2] = matrix4v[index*4+2]
+      matrix[matrix_gen_index*4+3] = matrix4v[index*4+3]
+    shape.useModelMatrixVector(index) do (shape: var BindedShape[V, V3x, V4x], vbo: var BindedModelMatrixVector[V4x]):
       vbo.data = matrix
       shape.program[&"modelMatrixVec{index+1}"] = (vbo, 4)
 
@@ -127,7 +127,7 @@ proc make* [V, V3x, V4x: static int] (
     vao: VAO.init(),
     positions: VBO[V3x, float32].init(),
     colors: VBO[V4x, float32].init(),
-    model_matrix: ModelMatrix.init()
+    model_matrix: ModelMatrix[V4x].init()
   )
   ## FIXME: depend on VBO[16, float32]
   

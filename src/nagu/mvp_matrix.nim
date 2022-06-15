@@ -1,15 +1,15 @@
 import vbo
 
 type
-  ModelMatrixVector* = VBO[16, float32]
-  BindedModelMatrixVector* = BindedVBO[16, float32]
+  ModelMatrixVector* [V: static int] = VBO[V, float32]
+  BindedModelMatrixVector* [V: static int] = BindedVBO[V, float32]
 
-  ModelMatrix* = array[4, ModelMatrixVector]
+  ModelMatrix* [V: static int] = array[4, ModelMatrixVector[V]]
 
-proc init* (_: typedesc[ModelMatrix]): ModelMatrix =
+proc init* [V: static int] (_: typedesc[ModelMatrix[V]]): ModelMatrix[V] =
   result = [
-    ModelMatrixVector.init(),
-    ModelMatrixVector.init(),
-    ModelMatrixVector.init(),
-    ModelMatrixVector.init()
+    ModelMatrixVector[V].init(),
+    ModelMatrixVector[V].init(),
+    ModelMatrixVector[V].init(),
+    ModelMatrixVector[V].init()
   ]
