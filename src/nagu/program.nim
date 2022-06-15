@@ -214,4 +214,4 @@ proc `[]=`* (program: Program | BindedProgram, name: string, matrix4v: array[16,
 proc `[]=`* [I: static int, T] (program: Program | BindedProgram, name: string, data: tuple[vbo: BindedVBO[I ,T], size: int]) =
   let index = opengl.GLuint(program[name])
   opengl.glEnableVertexAttribArray(index)
-  opengl.glVertexAttribPointer(index, opengl.GLint(data.size), opengl.EGL_FLOAT, false, opengl.GLSizei(data.vbo.data.len), cast[pointer](0))
+  opengl.glVertexAttribPointer(index, opengl.GLint(data.size), opengl.EGL_FLOAT, false, opengl.GLSizei(0), cast[pointer](0))
