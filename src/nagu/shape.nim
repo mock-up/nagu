@@ -32,6 +32,17 @@ type
     vertex_num_4x: static int
   ] = ref ShapeObj[true, vertex_num, vertex_num_3x, vertex_num_4x]
 
+proc `$`* [V, V3x, V4x: static int] (shape: Shape[V, V3x, V4x] | BindedShape[V, V3x, V4x]): string =
+  result = &"Shape[{V}, {V3x}, {V4x}]" & "\n"
+  result &= $shape.vao[] & "\n"
+  result &= $shape.positions[] & "\n"
+  result &= $shape.colors[] & "\n"
+  result &= $shape.model_matrix[0][] & "\n"
+  result &= $shape.model_matrix[1][] & "\n"
+  result &= $shape.model_matrix[2][] & "\n"
+  result &= $shape.model_matrix[3][] & "\n"
+  result &= $shape.program[] & "\n"
+
 func toBindedShape [V, V3x, V4x: static int] (shape: Shape[V, V3x, V4x]): BindedShape[V, V3x, V4x] =
   result = BindedShape[V, V3x, V4x](
     vao: shape.vao,
@@ -158,4 +169,4 @@ proc make* [V, V3x, V4x: static int] (
 
 proc draw* [V, V3x, V4x: static int] (shape: var BindedShape[V, V3x, V4x], mode: VAODrawMode) =
   shape.usePositions do (shape: var BindedShape[V, V3x, V4x], vao: var BindedVAO, vbo: var BindedVBO[V3x, float32]):
-    vao.draw(mode)
+    vao.draw(V, mode)

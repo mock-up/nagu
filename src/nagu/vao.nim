@@ -53,11 +53,11 @@ proc make* (_: typedesc[VAO]): VAO =
   ## Initializes and binds VAO.
   result = VAO.init()
 
-proc draw* (vao: BindedVAO, mode: VAODrawMode) =
+proc draw* (vao: BindedVAO, count: uint, mode: VAODrawMode) =
   ## Draws from `vao`.
-  opengl.glDrawArrays(opengl.GLenum(mode), 0, 4)
+  opengl.glDrawArrays(opengl.GLenum(mode), 0, opengl.GLsizei(count))
   debugOpenGLStatement:
-    echo &"glDrawArrays({mode}, 0, 4)"
+    echo &"glDrawArrays({mode}, 0, {count})"
 
 proc delete (vao: VAO) =
   opengl.glDeleteVertexArrays(1, vao.id.addr)
