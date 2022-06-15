@@ -22,6 +22,7 @@ proc unbind (bindedTexture: var BindedTexture): Texture =
 
 proc use* (texture: var Texture, procedure: proc (texture: var BindedTexture)) =
   var bindedTexture = texture.bind()
+  discard bindedTexture.program.bind()
   bindedTexture.procedure()
   texture = bindedTexture.unbind()
 
@@ -172,7 +173,7 @@ proc make* (_: typedesc[Texture],
     vertex_shader = ShaderObject.make(soVertex, vertex_shader_path)
     fragment_shader = ShaderObject.make(soFragment, fragment_shader_path)
 
-  result.program = ProgramObject.make(
+  result.program = Program.make(
     vertex_shader,
     fragment_shader,
     @["vertex", "texCoord0", "modelMatrixVec1", "modelMatrixVec2", "modelMatrixVec3", "modelMatrixVec4"],

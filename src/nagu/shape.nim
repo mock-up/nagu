@@ -12,7 +12,7 @@ type
     positions: VBO[vertex_num_3x, float32] # 本来は 3*V
     colors: VBO[vertex_num_4x, float32] # 本来は 4*V
     model_matrix: array[4, VBO[vertex_num_4x, float32]] # 本来は 4*V
-    program: ProgramObject
+    program: Program
 
   Shape* [
     vertex_num: static int,
@@ -42,6 +42,7 @@ func toBindedShape [V, V3x, V4x: static int] (shape: Shape[V, V3x, V4x]): Binded
 
 proc use* [V, V3x, V4x: static int] (shape: var Shape[V, V3x, V4x], procedure: proc (shape: var BindedShape[V, V3x, V4x])) =
   discard shape.vao.bind()
+  discard shape.program.bind()
   var bindedShape = shape.toBindedShape
   procedure(bindedShape)
   unbind() # TODO: 本当は変更後のBindedVAOを代入する方が良い（ここでは必要ない）
@@ -81,17 +82,20 @@ proc make* [V, V3x, V4x: static int] (
     colors: VBO[V4x, float32].init(),
     model_matrix: ModelMatrix.init()
   )
-
+  ## FIXME: depend on VBO[16, float32]
+  
   let
     vertex_shader = ShaderObject.make(soVertex, vertex_shader_path)
     fragment_shader = ShaderObject.make(soFragment, fragment_shader_path)
 
-  result.program = ProgramObject.make(
+  result.program = Program.make(
     vertex_shader,
     fragment_shader,
     @["vertexPositions", "vertexColors", "modelMatrixVec1", "modelMatrixVec2", "modelMatrixVec3", "modelMatrixVec4"],
     @["mvpMatrix"],
   )
+
+  discard result.program.bind()
 
   result.use do (shape: var BindedShape[V, V3x, V4x]):
     shape.usePositions do (shape: var BindedShape[V, V3x, V4x], vbo: var BindedVBO[V3x, float32]):

@@ -1,7 +1,7 @@
 ## src/nagu/vbo.nim defines the Triangle type and procedures.
 
 from nimgl/opengl import nil
-from program import ProgramObject, mvpMatrix, identityMatrix, index
+from program import Program, mvpMatrix, identityMatrix, index
 from position import Position, map, coord
 from old_vbo import vboRef, VBO, make, init, `:=`, id
 from color import Color, rgb
@@ -141,13 +141,13 @@ proc `/=`* (t: var Triangle, value: float32) =
   t = t.pMap(p => (p.map(v => v / value)))
   t.position_vbo := t.positionArray
 
-proc correspondPartially (program: ProgramObject, vbo: vboRefForTriangle, name: string, size: int) =
+proc correspondPartially (program: Program, vbo: vboRefForTriangle, name: string, size: int) =
   let index = opengl.GLuint(program.index(name))
   opengl.glEnableVertexAttribArray(index)
   opengl.glBindBuffer(opengl.GL_ARRAY_BUFFER, vbo.id)
   opengl.glVertexAttribPointer(index, opengl.GLint(size), opengl.EGL_FLOAT, false, 0, nil)
 
-proc correspond* (program: ProgramObject, t: Triangle, position_name, color_name: string, size: int) =
+proc correspond* (program: Program, t: Triangle, position_name, color_name: string, size: int) =
   ## Ties `t` to `program`.
   program.correspondPartially(t.position_vbo, position_name, size)
   program.correspondPartially(t.color_vbo, color_name, size)

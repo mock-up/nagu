@@ -21,7 +21,7 @@ type
     magFilter: TextureMagFilterParameter
     minFilter: TextureMinFilterParameter
     pixels: pointer
-    program*: ProgramObject
+    program*: Program
     initializedPixels*: bool
   
   Texture* = ref TextureObj[false]
@@ -116,7 +116,7 @@ proc init* (_: typedesc[Texture],
             wrapT: TextureWrapParameter = TextureWrapParameter.tInitialValue,
             magFilter: TextureMagFilterParameter = TextureMagFilterParameter.tInitialValue,
             minFilter: TextureMinFilterParameter = TextureMinFilterParameter.tInitialValue,
-            program: ProgramObject = nil
+            program: Program = nil
            ): Texture =
   result = Texture(
     id: id,
