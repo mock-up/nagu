@@ -17,4 +17,4 @@ init	nagu/vao.html#init,typedesc[VAO]	vao: init(_: typedesc[VAO]): VAO
 unbind	nagu/vao.html#unbind	vao: unbind()	
 use	nagu/vao.html#use,VAO,proc(BindedVAO)	vao: use(vao: var VAO; procedure: proc (vao: var BindedVAO))	
 make	nagu/vao.html#make,typedesc[VAO]	vao: make(_: typedesc[VAO]): VAO	
-draw	nagu/vao.html#draw,BindedVAO,VAODrawMode	vao: draw(vao: BindedVAO; mode: VAODrawMode)	
+draw	nagu/vao.html#draw,BindedVAO,uint,VAODrawMode	vao: draw(vao: BindedVAO; count: uint; mode: VAODrawMode)	

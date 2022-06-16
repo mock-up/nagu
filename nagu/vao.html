@@ -99,6 +99,12 @@ window.addEventListener('DOMContentLoaded', main);
   </div>
   <ul class="simple simple-toc" id="toc-list">
 <li>
+  <a class="reference reference-toplevel" href="#6" id="56">Imports</a>
+  <ul class="simple simple-toc-section">
+    
+  </ul>
+</li>
+<li>
   <a class="reference reference-toplevel" href="#7" id="57">Types</a>
   <ul class="simple simple-toc-section">
       <li><a class="reference" href="#BindedVAO"
@@ -123,8 +129,8 @@ window.addEventListener('DOMContentLoaded', main);
 
   </ul>
   <ul class="simple nested-toc-section">draw
-      <li><a class="reference" href="#draw%2CBindedVAO%2CVAODrawMode"
-    title="draw(vao: BindedVAO; mode: VAODrawMode)">draw(vao: BindedVAO; mode: VAODrawMode)</a></li>
+      <li><a class="reference" href="#draw%2CBindedVAO%2Cuint%2CVAODrawMode"
+    title="draw(vao: BindedVAO; count: uint; mode: VAODrawMode)">draw(vao: BindedVAO; count: uint; mode: VAODrawMode)</a></li>
 
   </ul>
   <ul class="simple nested-toc-section">init
@@ -159,7 +165,12 @@ window.addEventListener('DOMContentLoaded', main);
   <div id="tocRoot"></div>
   
   <p class="module-desc">src/nagu/vao.nim defines the VAO type and procedures related to its for abstracting OpenGL VAO.</p>
-  <div class="section" id="7">
+  <div class="section" id="6">
+<h1><a class="toc-backref" href="#6">Imports</a></h1>
+<dl class="item">
+<a class="reference external" href="utils.html">utils</a>
+</dl></div>
+<div class="section" id="7">
 <h1><a class="toc-backref" href="#7">Types</a></h1>
 <dl class="item">
 <div id="BindedVAO">
@@ -203,8 +214,8 @@ Represents VAO drawing mode.
 
 </dd>
 </div>
-<div id="draw,BindedVAO,VAODrawMode">
-<dt><pre><span class="Keyword">proc</span> <a href="#draw%2CBindedVAO%2CVAODrawMode"><span class="Identifier">draw</span></a><span class="Other">(</span><span class="Identifier">vao</span><span class="Other">:</span> <a href="vao.html#BindedVAO"><span class="Identifier">BindedVAO</span></a><span class="Other">;</span> <span class="Identifier">mode</span><span class="Other">:</span> <a href="vao.html#VAODrawMode"><span class="Identifier">VAODrawMode</span></a><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">]</span><span class="Other">,</span>
+<div id="draw,BindedVAO,uint,VAODrawMode">
+<dt><pre><span class="Keyword">proc</span> <a href="#draw%2CBindedVAO%2Cuint%2CVAODrawMode"><span class="Identifier">draw</span></a><span class="Other">(</span><span class="Identifier">vao</span><span class="Other">:</span> <a href="vao.html#BindedVAO"><span class="Identifier">BindedVAO</span></a><span class="Other">;</span> <span class="Identifier">count</span><span class="Other">:</span> <span class="Identifier">uint</span><span class="Other">;</span> <span class="Identifier">mode</span><span class="Other">:</span> <a href="vao.html#VAODrawMode"><span class="Identifier">VAODrawMode</span></a><span class="Other">)</span> {.<span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">]</span><span class="Other">,</span>
     <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span>.}</pre></dt>
 <dd>
 
@@ -255,7 +266,7 @@ Initializes and binds VAO.
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2022-06-14 10:50:51 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2022-06-16 14:09:49 UTC</small>
       </div>
     </div>
   </div>

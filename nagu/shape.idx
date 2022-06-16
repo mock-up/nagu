@@ -1,14 +1,13 @@
+ShapeObj	nagu/shape.html#ShapeObj	shape: ShapeObj	
 Shape	nagu/shape.html#Shape	shape: Shape	
-`@`	nagu/shape.html#@,array[I,Position]	shape: `@`[I: static int](positions: array[I, Position]): array[3 * I, float32]	
-`@`	nagu/shape.html#@,array[I,Color]	shape: `@`[I: static int](colors: array[I, Color]): array[3 * I, float32]	
-positions	nagu/shape.html#positions,Shape[I]	shape: positions[I: static int](shape: Shape[I]): array[I div 3, Position]	
-colors	nagu/shape.html#colors,Shape[I]	shape: colors[I: static int](shape: Shape[I]): array[I div 3, Color]	
-init	nagu/shape.html#init,typedesc[Shape[I]],array[I,float32],array[I,float32]	shape: init[I: static int](_: typedesc[Shape[I]]; positionsArr: array[I, float32];\n                    colorsArr: array[I, float32]): Shape[I]	
-draw	nagu/shape.html#draw,Shape[I],VAODrawMode	shape: draw[I: static int](shape: Shape[I]; mode: VAODrawMode)	
-pMap	nagu/shape.html#pMap,Shape[I],	shape: pMap[I: static int](shape: var Shape[I]; fn: Position -&gt; Position)	
-cMap	nagu/shape.html#cMap,Shape[I],	shape: cMap[I: static int](shape: Shape[I]; fn: Color -&gt; Color): Shape[I]	
-correspond	nagu/shape.html#correspond,ProgramObject,Shape[I],string,string	shape: correspond[I: static int](program: ProgramObject; shape: Shape[I];\n                          position_name, color_name: string)	
-`+=`	nagu/shape.html#+=,Shape[I],Position	shape: `+=`[I: static int](shape: var Shape[I]; position: Position)	
-`-=`	nagu/shape.html#-=,Shape[I],Position	shape: `-=`[I: static int](shape: var Shape[I]; position: Position)	
-`*=`	nagu/shape.html#*=,Shape[I],Position	shape: `*=`[I: static int](shape: var Shape[I]; position: Position)	
-`/=`	nagu/shape.html#/=,Shape[I],Position	shape: `/=`[I: static int](shape: var Shape[I]; position: Position)	
+BindedShape	nagu/shape.html#BindedShape	shape: BindedShape	
+`$`	nagu/shape.html#$	shape: `$`[V, V3x, V4x: static int](shape: Shape[V, V3x, V4x] |\n    BindedShape[V, V3x, V4x]): string	
+use	nagu/shape.html#use,Shape[V,V3x,V4x],proc(BindedShape[V,V3x,V4x])	shape: use[V, V3x, V4x: static int](shape: var Shape[V, V3x, V4x]; procedure: proc (\n    shape: var BindedShape[V, V3x, V4x]))	
+useVAO	nagu/shape.html#useVAO,BindedShape[V,V3x,V4x],proc(BindedShape[V,V3x,V4x],BindedVAO)	shape: useVAO[V, V3x, V4x: static int](shape: var BindedShape[V, V3x, V4x]; procedure: proc (\n    shape: var BindedShape[V, V3x, V4x]; vao: var BindedVAO))	
+usePositions	nagu/shape.html#usePositions,BindedShape[V,V3x,V4x],proc(BindedShape[V,V3x,V4x],BindedVBO[V3x,float32])	shape: usePositions[V, V3x, V4x: static int](shape: var BindedShape[V, V3x, V4x];\n    procedure: proc (shape: var BindedShape[V, V3x, V4x];\n                     vbo: var BindedVBO[V3x, float32]))	
+usePositions	nagu/shape.html#usePositions,BindedShape[V,V3x,V4x],proc(BindedShape[V,V3x,V4x],BindedVAO,BindedVBO[V3x,float32])	shape: usePositions[V, V3x, V4x: static int](shape: var BindedShape[V, V3x, V4x];\n    procedure: proc (shape: var BindedShape[V, V3x, V4x]; vao: var BindedVAO;\n                     vbo: var BindedVBO[V3x, float32]))	
+useColors	nagu/shape.html#useColors,BindedShape[V,V3x,V4x],proc(BindedShape[V,V3x,V4x],BindedVBO[V4x,float32])	shape: useColors[V, V3x, V4x: static int](shape: var BindedShape[V, V3x, V4x];\n    procedure: proc (shape: var BindedShape[V, V3x, V4x];\n                     vbo: var BindedVBO[V4x, float32]))	
+useModelMatrixVector	nagu/shape.html#useModelMatrixVector,BindedShape[V,V3x,V4x],range[],proc(BindedShape[V,V3x,V4x],BindedModelMatrixVector[V4x])	shape: useModelMatrixVector[V, V3x, V4x: static int](\n    bindedShape: var BindedShape[V, V3x, V4x]; index: range[0 .. 3]; procedure: proc (\n    shape: var BindedShape[V, V3x, V4x]; vbo: var BindedModelMatrixVector[V4x]))	
+setModelMatrix	nagu/shape.html#setModelMatrix,BindedShape[V,V3x,V4x],array[,float32]	shape: setModelMatrix[V, V3x, V4x: static int](shape: var BindedShape[V, V3x, V4x];\n                                        matrix4v: array[16, float32])	
+make	nagu/shape.html#make,typedesc[Shape[V,V3x,V4x]],array[V,Vec3[float32]],array[V,Vec4[float32]],string,string	shape: make[V, V3x, V4x: static int](_: typedesc[Shape[V, V3x, V4x]];\n                              positions: array[V, Vec3[float32]];\n                              colors: array[V, Vec4[float32]];\n                              vertex_shader_path: string;\n                              fragment_shader_path: string): Shape[V, V3x, V4x]	
+draw	nagu/shape.html#draw,BindedShape[V,V3x,V4x],VAODrawMode	shape: draw[V, V3x, V4x: static int](shape: var BindedShape[V, V3x, V4x];\n                              mode: VAODrawMode)	

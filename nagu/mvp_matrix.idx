@@ -1,0 +1,4 @@
+ModelMatrixVector	nagu/mvp_matrix.html#ModelMatrixVector	mvp_matrix: ModelMatrixVector	
+BindedModelMatrixVector	nagu/mvp_matrix.html#BindedModelMatrixVector	mvp_matrix: BindedModelMatrixVector	
+ModelMatrix	nagu/mvp_matrix.html#ModelMatrix	mvp_matrix: ModelMatrix	
+init	nagu/mvp_matrix.html#init,typedesc[ModelMatrix[V]]	mvp_matrix: init[V: static int](_: typedesc[ModelMatrix[V]]): ModelMatrix[V]	

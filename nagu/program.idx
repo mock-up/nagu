@@ -2,7 +2,8 @@ pvkAttrib	nagu/program.html#pvkAttrib	ProgramVariableKind.pvkAttrib
 pvkUniform	nagu/program.html#pvkUniform	ProgramVariableKind.pvkUniform	
 pvkSubroutineUniform	nagu/program.html#pvkSubroutineUniform	ProgramVariableKind.pvkSubroutineUniform	
 ProgramVariableKind	nagu/program.html#ProgramVariableKind	program: ProgramVariableKind	
-ProgramObject	nagu/program.html#ProgramObject	program: ProgramObject	
+Program	nagu/program.html#Program	program: Program	
+BindedProgram	nagu/program.html#BindedProgram	program: BindedProgram	
 ProgramDefect	nagu/program.html#ProgramDefect	program: ProgramDefect	
 ProgramCreationDefect	nagu/program.html#ProgramCreationDefect	program: ProgramCreationDefect	
 ProgramLinkingDefect	nagu/program.html#ProgramLinkingDefect	program: ProgramLinkingDefect	
@@ -10,20 +11,22 @@ ProgramNotExistsActiveUniformDefect	nagu/program.html#ProgramNotExistsActiveUnif
 ProgramNotExistsActiveSubroutineUniformDefect	nagu/program.html#ProgramNotExistsActiveSubroutineUniformDefect	program: ProgramNotExistsActiveSubroutineUniformDefect	
 mvpMatrix	nagu/program.html#mvpMatrix	program: mvpMatrix	
 identityMatrix	nagu/program.html#identityMatrix	program: identityMatrix(): mvpMatrix	
-init	nagu/program.html#init,typedesc[ProgramObject]	program: init(_: typedesc[ProgramObject]): ProgramObject	
-id	nagu/program.html#id,ProgramObject	program: id(program: ProgramObject): opengl.GLuint	
-linked	nagu/program.html#linked,ProgramObject	program: linked(program: ProgramObject): bool	
-index	nagu/program.html#index,ProgramObject,string	program: index(program: ProgramObject; name: string): int	
-attach	nagu/program.html#attach,ProgramObject,ShaderObject	program: attach(program: ProgramObject; shader: ShaderObject): ProgramObject	
-log	nagu/program.html#log,ProgramObject	program: log(program: ProgramObject): string	
-use	nagu/program.html#use,ProgramObject	program: use(program: ProgramObject)	
-link	nagu/program.html#link,ProgramObject	program: link(program: var ProgramObject)	
-registerAttrib	nagu/program.html#registerAttrib,ProgramObject,string	program: registerAttrib(program: var ProgramObject; name: string)	
-registerUniform	nagu/program.html#registerUniform,ProgramObject,string	program: registerUniform(program: var ProgramObject; name: string)	
-registerSubroutineUniform	nagu/program.html#registerSubroutineUniform,ProgramObject,ShaderObjectKind,string	program: registerSubroutineUniform(program: var ProgramObject;\n                          shaderType: ShaderObjectKind; name: string)	
-make	nagu/program.html#make,typedesc[ProgramObject],ShaderObject,ShaderObject	program: make(_: typedesc[ProgramObject]; vertex_shader: ShaderObject;\n     fragment_shader: ShaderObject): ProgramObject	
-make	nagu/program.html#make,typedesc[ProgramObject],ShaderObject,ShaderObject,seq[string],seq[string],seq[]	program: make(_: typedesc[ProgramObject]; vertex_shader: ShaderObject;\n     fragment_shader: ShaderObject; attributes: seq[string] = @[];\n     uniforms: seq[string] = @[];\n     subroutine_uniforms: seq[(ShaderObjectKind, string)] = @[]): ProgramObject	
-`[]`	nagu/program.html#[],ProgramObject,string	program: `[]`(program: ProgramObject; name: string): int	
-`[]=`	nagu/program.html#[]=,ProgramObject,string,int	program: `[]=`(program: ProgramObject; name: string; v1: int)	
-`[]=`	nagu/program.html#[]=,ProgramObject,string,array[,float32]	program: `[]=`(program: ProgramObject; name: string; matrix4v: array[16, float32])	
-`[]=`	nagu/program.html#[]=,ProgramObject,string,tuple[BindedVBO[I,T],int]	program: `[]=`[I: static int; T](program: ProgramObject; name: string;\n                        data: tuple[vbo: BindedVBO[I, T], size: int])	
+init	nagu/program.html#init,typedesc[Program]	program: init(_: typedesc[Program]): Program	
+id	nagu/program.html#id	program: id(program: Program | BindedProgram): opengl.GLuint	
+linked	nagu/program.html#linked	program: linked(program: Program | BindedProgram): bool	
+index	nagu/program.html#index,,string	program: index(program: Program | BindedProgram; name: string): int	
+attach	nagu/program.html#attach,,ShaderObject	program: attach(program: Program | var BindedProgram; shader: ShaderObject)	
+log	nagu/program.html#log	program: log(program: var Program | var BindedProgram): string	
+`bind`	nagu/program.html#bind,Program	program: `bind`(program: var Program): BindedProgram	
+unbind	nagu/program.html#unbind,BindedProgram	program: unbind(program: var BindedProgram): Program	
+use	nagu/program.html#use,Program,proc(BindedProgram)	program: use(program: var Program; procedure: proc (program: var BindedProgram))	
+link	nagu/program.html#link	program: link(program: var Program | var BindedProgram)	
+registerAttrib	nagu/program.html#registerAttrib,,string	program: registerAttrib(program: var Program | var BindedProgram; name: string)	
+registerUniform	nagu/program.html#registerUniform,,string	program: registerUniform(program: var Program | var BindedProgram; name: string)	
+registerSubroutineUniform	nagu/program.html#registerSubroutineUniform,,ShaderObjectKind,string	program: registerSubroutineUniform(program: var Program | var BindedProgram;\n                          shaderType: ShaderObjectKind; name: string)	
+make	nagu/program.html#make,typedesc[Program],ShaderObject,ShaderObject	program: make(_: typedesc[Program]; vertex_shader: ShaderObject;\n     fragment_shader: ShaderObject): Program	
+make	nagu/program.html#make,typedesc[Program],ShaderObject,ShaderObject,seq[string],seq[string],seq[]	program: make(_: typedesc[Program]; vertex_shader: ShaderObject;\n     fragment_shader: ShaderObject; attributes: seq[string] = @[];\n     uniforms: seq[string] = @[];\n     subroutine_uniforms: seq[(ShaderObjectKind, string)] = @[]): Program	
+`[]`	nagu/program.html#[],,string	program: `[]`(program: Program | BindedProgram; name: string): int	
+`[]=`	nagu/program.html#[]=,,string,int	program: `[]=`(program: Program | BindedProgram; name: string; v1: int)	
+`[]=`	nagu/program.html#[]=,,string,array[,float32]	program: `[]=`(program: Program | BindedProgram; name: string;\n      matrix4v: array[16, float32])	
+`[]=`	nagu/program.html#[]=,,string,tuple[BindedVBO[I,T],int]	program: `[]=`[I: static int; T](program: Program | BindedProgram; name: string;\n                        data: tuple[vbo: BindedVBO[I, T], size: int])	

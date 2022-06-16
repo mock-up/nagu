@@ -70,30 +70,22 @@ window.addEventListener('DOMContentLoaded', main);
 <div class="document" id="documentId">
   <div class="container">
     <h1 class="title">Index</h1>
-    Modules: <a href="nagu/color.html">nagu/color</a>, <a href="nagu/glfw.html">nagu/glfw</a>, <a href="nagu/old_vbo.html">nagu/old_vbo</a>, <a href="nagu/opengl.html">nagu/opengl</a>, <a href="nagu/position.html">nagu/position</a>, <a href="nagu/program.html">nagu/program</a>, <a href="nagu/shader.html">nagu/shader</a>, <a href="nagu/shape.html">nagu/shape</a>, <a href="nagu/texture.html">nagu/texture</a>, <a href="nagu/triangle.html">nagu/triangle</a>, <a href="nagu/types/texture.html">nagu/types/texture</a>, <a href="nagu/utils.html">nagu/utils</a>, <a href="nagu/vao.html">nagu/vao</a>, <a href="nagu/vbo.html">nagu/vbo</a>.<br/><p /><h2>API symbols</h2>
+    Modules: <a href="nagu/color.html">nagu/color</a>, <a href="nagu/glfw.html">nagu/glfw</a>, <a href="nagu/mvp_matrix.html">nagu/mvp_matrix</a>, <a href="nagu/opengl.html">nagu/opengl</a>, <a href="nagu/position.html">nagu/position</a>, <a href="nagu/program.html">nagu/program</a>, <a href="nagu/shader.html">nagu/shader</a>, <a href="nagu/shape.html">nagu/shape</a>, <a href="nagu/texture.html">nagu/texture</a>, <a href="nagu/triangle.html">nagu/triangle</a>, <a href="nagu/types/texture.html">nagu/types/texture</a>, <a href="nagu/utils.html">nagu/utils</a>, <a href="nagu/vao.html">nagu/vao</a>, <a href="nagu/vbo.html">nagu/vbo</a>.<br/><p /><h2>API symbols</h2>
 <dl><dt><a name="%60%24%60" href="#%60%24%60"><span>`$`:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="color: `$`(color: Color): string" href="nagu/color.html#%24%2CColor">color: `$`(color: Color): string</a></li>
           <li><a class="reference external"
           data-doc-search-tag="position: `$`(pos: Position): string" href="nagu/position.html#%24%2CPosition">position: `$`(pos: Position): string</a></li>
-          </ul></dd>
-<dt><a name="%60%2A%3D%60" href="#%60%2A%3D%60"><span>`*=`:</span></a></dt><dd><ul class="simple">
-<li><a class="reference external"
-          data-doc-search-tag="shape: `*=`[I: static int](shape: var Shape[I]; position: Position)" href="nagu/shape.html#%2A%3D%2CShape%5BI%5D%2CPosition">shape: `*=`[I: static int](shape: var Shape[I]; position: Position)</a></li>
           <li><a class="reference external"
-          data-doc-search-tag="triangle: `*=`(t: var Triangle; value: float32)" href="nagu/triangle.html#%2A%3D%2CTriangle%2Cfloat32">triangle: `*=`(t: var Triangle; value: float32)</a></li>
+          data-doc-search-tag="shape: `$`[V, V3x, V4x: static int](shape: Shape[V, V3x, V4x] |
+    BindedShape[V, V3x, V4x]): string" href="nagu/shape.html#%24">shape: `$`[V, V3x, V4x: static int](shape: Shape[V, V3x, V4x] |
+    BindedShape[V, V3x, V4x]): string</a></li>
           </ul></dd>
 <dt><a name="%60%2A%60" href="#%60%2A%60"><span>`*`:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="position: `*`(pos: Position; value: float32): Position" href="nagu/position.html#%2A%2CPosition%2Cfloat32">position: `*`(pos: Position; value: float32): Position</a></li>
           <li><a class="reference external"
           data-doc-search-tag="position: `*`(pos1, pos2: Position): Position" href="nagu/position.html#%2A%2CPosition%2CPosition">position: `*`(pos1, pos2: Position): Position</a></li>
-          </ul></dd>
-<dt><a name="%60%2B%3D%60" href="#%60%2B%3D%60"><span>`+=`:</span></a></dt><dd><ul class="simple">
-<li><a class="reference external"
-          data-doc-search-tag="shape: `+=`[I: static int](shape: var Shape[I]; position: Position)" href="nagu/shape.html#%2B%3D%2CShape%5BI%5D%2CPosition">shape: `+=`[I: static int](shape: var Shape[I]; position: Position)</a></li>
-          <li><a class="reference external"
-          data-doc-search-tag="triangle: `+=`(t: var Triangle; value: float32)" href="nagu/triangle.html#%2B%3D%2CTriangle%2Cfloat32">triangle: `+=`(t: var Triangle; value: float32)</a></li>
           </ul></dd>
 <dt><a name="%60%2B%60" href="#%60%2B%60"><span>`+`:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -103,12 +95,6 @@ window.addEventListener('DOMContentLoaded', main);
           <li><a class="reference external"
           data-doc-search-tag="position: `+`(pos1, pos2: Position): Position" href="nagu/position.html#%2B%2CPosition%2CPosition">position: `+`(pos1, pos2: Position): Position</a></li>
           </ul></dd>
-<dt><a name="%60-%3D%60" href="#%60-%3D%60"><span>`-=`:</span></a></dt><dd><ul class="simple">
-<li><a class="reference external"
-          data-doc-search-tag="shape: `-=`[I: static int](shape: var Shape[I]; position: Position)" href="nagu/shape.html#-%3D%2CShape%5BI%5D%2CPosition">shape: `-=`[I: static int](shape: var Shape[I]; position: Position)</a></li>
-          <li><a class="reference external"
-          data-doc-search-tag="triangle: `-=`(t: var Triangle; value: float32)" href="nagu/triangle.html#-%3D%2CTriangle%2Cfloat32">triangle: `-=`(t: var Triangle; value: float32)</a></li>
-          </ul></dd>
 <dt><a name="%60-%60" href="#%60-%60"><span>`-`:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="position: `-`(pos: Position): Position" href="nagu/position.html#-%2CPosition">position: `-`(pos: Position): Position</a></li>
@@ -117,21 +103,11 @@ window.addEventListener('DOMContentLoaded', main);
           <li><a class="reference external"
           data-doc-search-tag="position: `-`(pos1, pos2: Position): Position" href="nagu/position.html#-%2CPosition%2CPosition">position: `-`(pos1, pos2: Position): Position</a></li>
           </ul></dd>
-<dt><a name="%60/%3D%60" href="#%60/%3D%60"><span>`/=`:</span></a></dt><dd><ul class="simple">
-<li><a class="reference external"
-          data-doc-search-tag="shape: `/=`[I: static int](shape: var Shape[I]; position: Position)" href="nagu/shape.html#/%3D%2CShape%5BI%5D%2CPosition">shape: `/=`[I: static int](shape: var Shape[I]; position: Position)</a></li>
-          <li><a class="reference external"
-          data-doc-search-tag="triangle: `/=`(t: var Triangle; value: float32)" href="nagu/triangle.html#/%3D%2CTriangle%2Cfloat32">triangle: `/=`(t: var Triangle; value: float32)</a></li>
-          </ul></dd>
 <dt><a name="%60/%60" href="#%60/%60"><span>`/`:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="position: `/`(pos: Position; value: float32): Position" href="nagu/position.html#/%2CPosition%2Cfloat32">position: `/`(pos: Position; value: float32): Position</a></li>
           <li><a class="reference external"
           data-doc-search-tag="position: `/`(pos1, pos2: Position): Position" href="nagu/position.html#/%2CPosition%2CPosition">position: `/`(pos1, pos2: Position): Position</a></li>
-          </ul></dd>
-<dt><a name="%60%3A%3D%60" href="#%60%3A%3D%60"><span>`:=`:</span></a></dt><dd><ul class="simple">
-<li><a class="reference external"
-          data-doc-search-tag="old_vbo: `:=`[I, T](vbo: var vboRef[I, T]; data: array[I, T])" href="nagu/old_vbo.html#%3A%3D%2CvboRef%5BI%2CT%5D%2Carray%5BI%2CT%5D">old_vbo: `:=`[I, T](vbo: var vboRef[I, T]; data: array[I, T])</a></li>
           </ul></dd>
 <dt><a name="%60%3D%3D%60" href="#%60%3D%3D%60"><span>`==`:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -141,35 +117,45 @@ window.addEventListener('DOMContentLoaded', main);
 <li><a class="reference external"
           data-doc-search-tag="position: `=~`(pos1, pos2: Position): bool" href="nagu/position.html#%3D~%2CPosition%2CPosition">position: `=~`(pos1, pos2: Position): bool</a></li>
           </ul></dd>
-<dt><a name="%60%40%60" href="#%60%40%60"><span>`@`:</span></a></dt><dd><ul class="simple">
-<li><a class="reference external"
-          data-doc-search-tag="shape: `@`[I: static int](colors: array[I, Color]): array[3 * I, float32]" href="nagu/shape.html#%40%2Carray%5BI%2CColor%5D">shape: `@`[I: static int](colors: array[I, Color]): array[3 * I, float32]</a></li>
-          <li><a class="reference external"
-          data-doc-search-tag="shape: `@`[I: static int](positions: array[I, Position]): array[3 * I, float32]" href="nagu/shape.html#%40%2Carray%5BI%2CPosition%5D">shape: `@`[I: static int](positions: array[I, Position]): array[3 * I, float32]</a></li>
-          </ul></dd>
 <dt><a name="%60%5B%5D%3D%60" href="#%60%5B%5D%3D%60"><span>`[]=`:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="program: `[]=`(program: ProgramObject; name: string; matrix4v: array[16, float32])" href="nagu/program.html#%5B%5D%3D%2CProgramObject%2Cstring%2Carray%5B%2Cfloat32%5D">program: `[]=`(program: ProgramObject; name: string; matrix4v: array[16, float32])</a></li>
+          data-doc-search-tag="program: `[]=`(program: Program | BindedProgram; name: string;
+      matrix4v: array[16, float32])" href="nagu/program.html#%5B%5D%3D%2C%2Cstring%2Carray%5B%2Cfloat32%5D">program: `[]=`(program: Program | BindedProgram; name: string;
+      matrix4v: array[16, float32])</a></li>
           <li><a class="reference external"
-          data-doc-search-tag="program: `[]=`(program: ProgramObject; name: string; v1: int)" href="nagu/program.html#%5B%5D%3D%2CProgramObject%2Cstring%2Cint">program: `[]=`(program: ProgramObject; name: string; v1: int)</a></li>
+          data-doc-search-tag="program: `[]=`(program: Program | BindedProgram; name: string; v1: int)" href="nagu/program.html#%5B%5D%3D%2C%2Cstring%2Cint">program: `[]=`(program: Program | BindedProgram; name: string; v1: int)</a></li>
           <li><a class="reference external"
-          data-doc-search-tag="program: `[]=`[I: static int; T](program: ProgramObject; name: string;
-                        data: tuple[vbo: BindedVBO[I, T], size: int])" href="nagu/program.html#%5B%5D%3D%2CProgramObject%2Cstring%2Ctuple%5BBindedVBO%5BI%2CT%5D%2Cint%5D">program: `[]=`[I: static int; T](program: ProgramObject; name: string;
+          data-doc-search-tag="program: `[]=`[I: static int; T](program: Program | BindedProgram; name: string;
+                        data: tuple[vbo: BindedVBO[I, T], size: int])" href="nagu/program.html#%5B%5D%3D%2C%2Cstring%2Ctuple%5BBindedVBO%5BI%2CT%5D%2Cint%5D">program: `[]=`[I: static int; T](program: Program | BindedProgram; name: string;
                         data: tuple[vbo: BindedVBO[I, T], size: int])</a></li>
           </ul></dd>
 <dt><a name="%60%5B%5D%60" href="#%60%5B%5D%60"><span>`[]`:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="program: `[]`(program: ProgramObject; name: string): int" href="nagu/program.html#%5B%5D%2CProgramObject%2Cstring">program: `[]`(program: ProgramObject; name: string): int</a></li>
+          data-doc-search-tag="program: `[]`(program: Program | BindedProgram; name: string): int" href="nagu/program.html#%5B%5D%2C%2Cstring">program: `[]`(program: Program | BindedProgram; name: string): int</a></li>
           </ul></dd>
 <dt><a name="%60bind%60" href="#%60bind%60"><span>`bind`:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
+          data-doc-search-tag="program: `bind`(program: var Program): BindedProgram" href="nagu/program.html#bind%2CProgram">program: `bind`(program: var Program): BindedProgram</a></li>
+          <li><a class="reference external"
           data-doc-search-tag="vao: `bind`(vao: var VAO): BindedVAO" href="nagu/vao.html#bind%2CVAO">vao: `bind`(vao: var VAO): BindedVAO</a></li>
           <li><a class="reference external"
           data-doc-search-tag="vbo: `bind`[I: static int; T](vbo: var VBO[I, T]): BindedVBO[I, T]" href="nagu/vbo.html#bind%2CVBO%5BI%2CT%5D">vbo: `bind`[I: static int; T](vbo: var VBO[I, T]): BindedVBO[I, T]</a></li>
           </ul></dd>
 <dt><a name="attach" href="#attach"><span>attach:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="program: attach(program: ProgramObject; shader: ShaderObject): ProgramObject" href="nagu/program.html#attach%2CProgramObject%2CShaderObject">program: attach(program: ProgramObject; shader: ShaderObject): ProgramObject</a></li>
+          data-doc-search-tag="program: attach(program: Program | var BindedProgram; shader: ShaderObject)" href="nagu/program.html#attach%2C%2CShaderObject">program: attach(program: Program | var BindedProgram; shader: ShaderObject)</a></li>
+          </ul></dd>
+<dt><a name="BindedModelMatrixVector" href="#BindedModelMatrixVector"><span>BindedModelMatrixVector:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="mvp_matrix: BindedModelMatrixVector" href="nagu/mvp_matrix.html#BindedModelMatrixVector">mvp_matrix: BindedModelMatrixVector</a></li>
+          </ul></dd>
+<dt><a name="BindedProgram" href="#BindedProgram"><span>BindedProgram:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="program: BindedProgram" href="nagu/program.html#BindedProgram">program: BindedProgram</a></li>
+          </ul></dd>
+<dt><a name="BindedShape" href="#BindedShape"><span>BindedShape:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="shape: BindedShape" href="nagu/shape.html#BindedShape">shape: BindedShape</a></li>
           </ul></dd>
 <dt><a name="BindedTexture" href="#BindedTexture"><span>BindedTexture:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -179,10 +165,6 @@ window.addEventListener('DOMContentLoaded', main);
 <li><a class="reference external"
           data-doc-search-tag="texture: BindedTextureElem" href="nagu/types/texture.html#BindedTextureElem">texture: BindedTextureElem</a></li>
           </ul></dd>
-<dt><a name="BindedTextureModelMatrixVector" href="#BindedTextureModelMatrixVector"><span>BindedTextureModelMatrixVector:</span></a></dt><dd><ul class="simple">
-<li><a class="reference external"
-          data-doc-search-tag="texture: BindedTextureModelMatrixVector" href="nagu/types/texture.html#BindedTextureModelMatrixVector">texture: BindedTextureModelMatrixVector</a></li>
-          </ul></dd>
 <dt><a name="BindedTextureQuad" href="#BindedTextureQuad"><span>BindedTextureQuad:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="texture: BindedTextureQuad" href="nagu/types/texture.html#BindedTextureQuad">texture: BindedTextureQuad</a></li>
@@ -190,6 +172,10 @@ window.addEventListener('DOMContentLoaded', main);
 <dt><a name="BindedTextureUV" href="#BindedTextureUV"><span>BindedTextureUV:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="texture: BindedTextureUV" href="nagu/types/texture.html#BindedTextureUV">texture: BindedTextureUV</a></li>
+          </ul></dd>
+<dt><a name="BindedTriangle" href="#BindedTriangle"><span>BindedTriangle:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="triangle: BindedTriangle" href="nagu/triangle.html#BindedTriangle">triangle: BindedTriangle</a></li>
           </ul></dd>
 <dt><a name="BindedVAO" href="#BindedVAO"><span>BindedVAO:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -203,19 +189,9 @@ window.addEventListener('DOMContentLoaded', main);
 <li><a class="reference external"
           data-doc-search-tag="glfw: clear(context: var NaguContext; color: Color; alpha: float32 = 0.0&apos;f32)" href="nagu/glfw.html#clear%2CNaguContext%2CColor%2Cfloat32">glfw: clear(context: var NaguContext; color: Color; alpha: float32 = 0.0&apos;f32)</a></li>
           </ul></dd>
-<dt><a name="cMap" href="#cMap"><span>cMap:</span></a></dt><dd><ul class="simple">
-<li><a class="reference external"
-          data-doc-search-tag="shape: cMap[I: static int](shape: Shape[I]; fn: Color -&gt; Color): Shape[I]" href="nagu/shape.html#cMap%2CShape%5BI%5D%2C">shape: cMap[I: static int](shape: Shape[I]; fn: Color -&gt; Color): Shape[I]</a></li>
-          <li><a class="reference external"
-          data-doc-search-tag="triangle: cMap(t: Triangle; fn: Color -&gt; Color): Triangle" href="nagu/triangle.html#cMap%2CTriangle%2C">triangle: cMap(t: Triangle; fn: Color -&gt; Color): Triangle</a></li>
-          </ul></dd>
 <dt><a name="Color" href="#Color"><span>Color:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="color: Color" href="nagu/color.html#Color">color: Color</a></li>
-          </ul></dd>
-<dt><a name="colors" href="#colors"><span>colors:</span></a></dt><dd><ul class="simple">
-<li><a class="reference external"
-          data-doc-search-tag="shape: colors[I: static int](shape: Shape[I]): array[I div 3, Color]" href="nagu/shape.html#colors%2CShape%5BI%5D">shape: colors[I: static int](shape: Shape[I]): array[I div 3, Color]</a></li>
           </ul></dd>
 <dt><a name="compile" href="#compile"><span>compile:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -229,24 +205,8 @@ window.addEventListener('DOMContentLoaded', main);
 <li><a class="reference external"
           data-doc-search-tag="position: coord(pos: Position): tuple[x, y, z: float32]" href="nagu/position.html#coord%2CPosition">position: coord(pos: Position): tuple[x, y, z: float32]</a></li>
           </ul></dd>
-<dt><a name="correspond" href="#correspond"><span>correspond:</span></a></dt><dd><ul class="simple">
-<li><a class="reference external"
-          data-doc-search-tag="old_vbo: correspond[I](program: ProgramObject; vbo: vboRef[I, float32]; name: string;
-              size: int)" href="nagu/old_vbo.html#correspond%2CProgramObject%2CvboRef%5BI%2Cfloat32%5D%2Cstring%2Cint">old_vbo: correspond[I](program: ProgramObject; vbo: vboRef[I, float32]; name: string;
-              size: int)</a></li>
-          <li><a class="reference external"
-          data-doc-search-tag="shape: correspond[I: static int](program: ProgramObject; shape: Shape[I];
-                          position_name, color_name: string)" href="nagu/shape.html#correspond%2CProgramObject%2CShape%5BI%5D%2Cstring%2Cstring">shape: correspond[I: static int](program: ProgramObject; shape: Shape[I];
-                          position_name, color_name: string)</a></li>
-          <li><a class="reference external"
-          data-doc-search-tag="triangle: correspond(program: ProgramObject; t: Triangle;
-           position_name, color_name: string; size: int)" href="nagu/triangle.html#correspond%2CProgramObject%2CTriangle%2Cstring%2Cstring%2Cint">triangle: correspond(program: ProgramObject; t: Triangle;
-           position_name, color_name: string; size: int)</a></li>
-          </ul></dd>
 <dt><a name="data" href="#data"><span>data:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="old_vbo: data[I, T](vbo: vboRef[I, T]): array[I, T]" href="nagu/old_vbo.html#data%2CvboRef%5BI%2CT%5D">old_vbo: data[I, T](vbo: vboRef[I, T]): array[I, T]</a></li>
-          <li><a class="reference external"
           data-doc-search-tag="vbo: data[I: static int; T](vbo: VBO[I, T] | BindedVBO[I, T]): array[I, T]" href="nagu/vbo.html#data">vbo: data[I: static int; T](vbo: VBO[I, T] | BindedVBO[I, T]): array[I, T]</a></li>
           </ul></dd>
 <dt><a name="data%3D" href="#data%3D"><span>data=:</span></a></dt><dd><ul class="simple">
@@ -263,11 +223,13 @@ window.addEventListener('DOMContentLoaded', main);
           </ul></dd>
 <dt><a name="draw" href="#draw"><span>draw:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="shape: draw[I: static int](shape: Shape[I]; mode: VAODrawMode)" href="nagu/shape.html#draw%2CShape%5BI%5D%2CVAODrawMode">shape: draw[I: static int](shape: Shape[I]; mode: VAODrawMode)</a></li>
+          data-doc-search-tag="shape: draw[V, V3x, V4x: static int](shape: var BindedShape[V, V3x, V4x];
+                              mode: VAODrawMode)" href="nagu/shape.html#draw%2CBindedShape%5BV%2CV3x%2CV4x%5D%2CVAODrawMode">shape: draw[V, V3x, V4x: static int](shape: var BindedShape[V, V3x, V4x];
+                              mode: VAODrawMode)</a></li>
           <li><a class="reference external"
           data-doc-search-tag="texture: draw(texture: var BindedTexture)" href="nagu/texture.html#draw%2CBindedTexture">texture: draw(texture: var BindedTexture)</a></li>
           <li><a class="reference external"
-          data-doc-search-tag="vao: draw(vao: BindedVAO; mode: VAODrawMode)" href="nagu/vao.html#draw%2CBindedVAO%2CVAODrawMode">vao: draw(vao: BindedVAO; mode: VAODrawMode)</a></li>
+          data-doc-search-tag="vao: draw(vao: BindedVAO; count: uint; mode: VAODrawMode)" href="nagu/vao.html#draw%2CBindedVAO%2Cuint%2CVAODrawMode">vao: draw(vao: BindedVAO; count: uint; mode: VAODrawMode)</a></li>
           </ul></dd>
 <dt><a name="GLFWDefect" href="#GLFWDefect"><span>GLFWDefect:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -279,9 +241,7 @@ window.addEventListener('DOMContentLoaded', main);
           </ul></dd>
 <dt><a name="id" href="#id"><span>id:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="old_vbo: id[I, T](vbo: vboRef[I, T]): opengl.GLuint" href="nagu/old_vbo.html#id%2CvboRef%5BI%2CT%5D">old_vbo: id[I, T](vbo: vboRef[I, T]): opengl.GLuint</a></li>
-          <li><a class="reference external"
-          data-doc-search-tag="program: id(program: ProgramObject): opengl.GLuint" href="nagu/program.html#id%2CProgramObject">program: id(program: ProgramObject): opengl.GLuint</a></li>
+          data-doc-search-tag="program: id(program: Program | BindedProgram): opengl.GLuint" href="nagu/program.html#id">program: id(program: Program | BindedProgram): opengl.GLuint</a></li>
           <li><a class="reference external"
           data-doc-search-tag="shader: id(shader: ShaderObject): uint" href="nagu/shader.html#id%2CShaderObject">shader: id(shader: ShaderObject): uint</a></li>
           <li><a class="reference external"
@@ -295,45 +255,33 @@ window.addEventListener('DOMContentLoaded', main);
           </ul></dd>
 <dt><a name="index" href="#index"><span>index:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="program: index(program: ProgramObject; name: string): int" href="nagu/program.html#index%2CProgramObject%2Cstring">program: index(program: ProgramObject; name: string): int</a></li>
+          data-doc-search-tag="program: index(program: Program | BindedProgram; name: string): int" href="nagu/program.html#index%2C%2Cstring">program: index(program: Program | BindedProgram; name: string): int</a></li>
           </ul></dd>
 <dt><a name="init" href="#init"><span>init:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="color: init(_: typedesc[Color]; r, g, b: range[0.0 .. 1.0]): Color" href="nagu/color.html#init%2Ctypedesc%5BColor%5D%2Crange%5B%5D%2Crange%5B%5D%2Crange%5B%5D">color: init(_: typedesc[Color]; r, g, b: range[0.0 .. 1.0]): Color</a></li>
           <li><a class="reference external"
-          data-doc-search-tag="old_vbo: init[I, T](_: typedesc[vboRef[I, T]]): vboRef[I, T]" href="nagu/old_vbo.html#init%2Ctypedesc%5BvboRef%5BI%2CT%5D%5D">old_vbo: init[I, T](_: typedesc[vboRef[I, T]]): vboRef[I, T]</a></li>
+          data-doc-search-tag="mvp_matrix: init[V: static int](_: typedesc[ModelMatrix[V]]): ModelMatrix[V]" href="nagu/mvp_matrix.html#init%2Ctypedesc%5BModelMatrix%5BV%5D%5D">mvp_matrix: init[V: static int](_: typedesc[ModelMatrix[V]]): ModelMatrix[V]</a></li>
           <li><a class="reference external"
           data-doc-search-tag="position: init(_: typedesc[Position]; x, y, z: float32): Position" href="nagu/position.html#init%2Ctypedesc%5BPosition%5D%2Cfloat32%2Cfloat32%2Cfloat32">position: init(_: typedesc[Position]; x, y, z: float32): Position</a></li>
           <li><a class="reference external"
-          data-doc-search-tag="program: init(_: typedesc[ProgramObject]): ProgramObject" href="nagu/program.html#init%2Ctypedesc%5BProgramObject%5D">program: init(_: typedesc[ProgramObject]): ProgramObject</a></li>
+          data-doc-search-tag="program: init(_: typedesc[Program]): Program" href="nagu/program.html#init%2Ctypedesc%5BProgram%5D">program: init(_: typedesc[Program]): Program</a></li>
           <li><a class="reference external"
           data-doc-search-tag="shader: init(_: typedesc[ShaderObject]; kind: ShaderObjectKind): ShaderObject" href="nagu/shader.html#init%2Ctypedesc%5BShaderObject%5D%2CShaderObjectKind">shader: init(_: typedesc[ShaderObject]; kind: ShaderObjectKind): ShaderObject</a></li>
           <li><a class="reference external"
-          data-doc-search-tag="shape: init[I: static int](_: typedesc[Shape[I]]; positionsArr: array[I, float32];
-                    colorsArr: array[I, float32]): Shape[I]" href="nagu/shape.html#init%2Ctypedesc%5BShape%5BI%5D%5D%2Carray%5BI%2Cfloat32%5D%2Carray%5BI%2Cfloat32%5D">shape: init[I: static int](_: typedesc[Shape[I]]; positionsArr: array[I, float32];
-                    colorsArr: array[I, float32]): Shape[I]</a></li>
-          <li><a class="reference external"
-          data-doc-search-tag="triangle: init(_: typedesc[Triangle]; p1: Position; c1: Color; p2: Position; c2: Color;
-     p3: Position; c3: Color; x_axis_rotation: float32 = 0.0;
-     y_axis_rotation: float32 = 0.0; z_axis_rotation: float32 = 0.0): Triangle" href="nagu/triangle.html#init%2Ctypedesc%5BTriangle%5D%2CPosition%2CColor%2CPosition%2CColor%2CPosition%2CColor%2Cfloat32%2Cfloat32%2Cfloat32">triangle: init(_: typedesc[Triangle]; p1: Position; c1: Color; p2: Position; c2: Color;
-     p3: Position; c3: Color; x_axis_rotation: float32 = 0.0;
-     y_axis_rotation: float32 = 0.0; z_axis_rotation: float32 = 0.0): Triangle</a></li>
-          <li><a class="reference external"
-          data-doc-search-tag="triangle: init(_: typedesc[Triangle]; p1, p2, p3: Position; color: Color): Triangle" href="nagu/triangle.html#init%2Ctypedesc%5BTriangle%5D%2CPosition%2CPosition%2CPosition%2CColor">triangle: init(_: typedesc[Triangle]; p1, p2, p3: Position; color: Color): Triangle</a></li>
-          <li><a class="reference external"
           data-doc-search-tag="texture: init(_: typedesc[Texture]; id: opengl.GLuint = 0; vao: VAO = nil;
      quad: TextureQuad = nil; uv: TextureUV = nil; elem: TextureElem = nil;
-     model_matrix: array[4, TextureModelMatrixVector];
+     model_matrix: array[4, ModelMatrixVector[16]];
      wrapS: TextureWrapParameter = TextureWrapParameter.tInitialValue;
      wrapT: TextureWrapParameter = TextureWrapParameter.tInitialValue; magFilter: TextureMagFilterParameter = TextureMagFilterParameter.tInitialValue;
     minFilter: TextureMinFilterParameter = TextureMinFilterParameter.tInitialValue;
-     program: ProgramObject = nil): Texture" href="nagu/types/texture.html#init%2Ctypedesc%5BTexture%5D%2Cint%2CVAO%2CTextureQuad%2CTextureUV%2CTextureElem%2Carray%5B%2CTextureModelMatrixVector%5D%2CTextureWrapParameter%2CTextureWrapParameter%2CTextureMagFilterParameter%2CTextureMinFilterParameter%2CProgramObject">texture: init(_: typedesc[Texture]; id: opengl.GLuint = 0; vao: VAO = nil;
+     program: Program = nil): Texture" href="nagu/types/texture.html#init%2Ctypedesc%5BTexture%5D%2Cint%2CVAO%2CTextureQuad%2CTextureUV%2CTextureElem%2Carray%5B%2CModelMatrixVector%5B%5D%5D%2CTextureWrapParameter%2CTextureWrapParameter%2CTextureMagFilterParameter%2CTextureMinFilterParameter%2CProgram">texture: init(_: typedesc[Texture]; id: opengl.GLuint = 0; vao: VAO = nil;
      quad: TextureQuad = nil; uv: TextureUV = nil; elem: TextureElem = nil;
-     model_matrix: array[4, TextureModelMatrixVector];
+     model_matrix: array[4, ModelMatrixVector[16]];
      wrapS: TextureWrapParameter = TextureWrapParameter.tInitialValue;
      wrapT: TextureWrapParameter = TextureWrapParameter.tInitialValue; magFilter: TextureMagFilterParameter = TextureMagFilterParameter.tInitialValue;
     minFilter: TextureMinFilterParameter = TextureMinFilterParameter.tInitialValue;
-     program: ProgramObject = nil): Texture</a></li>
+     program: Program = nil): Texture</a></li>
           <li><a class="reference external"
           data-doc-search-tag="vao: init(_: typedesc[VAO]): VAO" href="nagu/vao.html#init%2Ctypedesc%5BVAO%5D">vao: init(_: typedesc[VAO]): VAO</a></li>
           <li><a class="reference external"
@@ -345,11 +293,11 @@ window.addEventListener('DOMContentLoaded', main);
           </ul></dd>
 <dt><a name="link" href="#link"><span>link:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="program: link(program: var ProgramObject)" href="nagu/program.html#link%2CProgramObject">program: link(program: var ProgramObject)</a></li>
+          data-doc-search-tag="program: link(program: var Program | var BindedProgram)" href="nagu/program.html#link">program: link(program: var Program | var BindedProgram)</a></li>
           </ul></dd>
 <dt><a name="linked" href="#linked"><span>linked:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="program: linked(program: ProgramObject): bool" href="nagu/program.html#linked%2CProgramObject">program: linked(program: ProgramObject): bool</a></li>
+          data-doc-search-tag="program: linked(program: Program | BindedProgram): bool" href="nagu/program.html#linked">program: linked(program: Program | BindedProgram): bool</a></li>
           </ul></dd>
 <dt><a name="load" href="#load"><span>load:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -357,7 +305,7 @@ window.addEventListener('DOMContentLoaded', main);
           </ul></dd>
 <dt><a name="log" href="#log"><span>log:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="program: log(program: ProgramObject): string" href="nagu/program.html#log%2CProgramObject">program: log(program: ProgramObject): string</a></li>
+          data-doc-search-tag="program: log(program: var Program | var BindedProgram): string" href="nagu/program.html#log">program: log(program: var Program | var BindedProgram): string</a></li>
           <li><a class="reference external"
           data-doc-search-tag="shader: log(shader: ShaderObject): string" href="nagu/shader.html#log%2CShaderObject">shader: log(shader: ShaderObject): string</a></li>
           </ul></dd>
@@ -373,31 +321,33 @@ window.addEventListener('DOMContentLoaded', main);
           </ul></dd>
 <dt><a name="make" href="#make"><span>make:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="old_vbo: make[I: static[int]; T](_: typedesc[VBO]; data: array[I, T]): vboRef[I, T]" href="nagu/old_vbo.html#make%2Ctypedesc%5BVBO%5D%2Carray%5BI%2CT%5D">old_vbo: make[I: static[int]; T](_: typedesc[VBO]; data: array[I, T]): vboRef[I, T]</a></li>
+          data-doc-search-tag="program: make(_: typedesc[Program]; vertex_shader: ShaderObject;
+     fragment_shader: ShaderObject): Program" href="nagu/program.html#make%2Ctypedesc%5BProgram%5D%2CShaderObject%2CShaderObject">program: make(_: typedesc[Program]; vertex_shader: ShaderObject;
+     fragment_shader: ShaderObject): Program</a></li>
           <li><a class="reference external"
-          data-doc-search-tag="program: make(_: typedesc[ProgramObject]; vertex_shader: ShaderObject;
-     fragment_shader: ShaderObject): ProgramObject" href="nagu/program.html#make%2Ctypedesc%5BProgramObject%5D%2CShaderObject%2CShaderObject">program: make(_: typedesc[ProgramObject]; vertex_shader: ShaderObject;
-     fragment_shader: ShaderObject): ProgramObject</a></li>
-          <li><a class="reference external"
-          data-doc-search-tag="program: make(_: typedesc[ProgramObject]; vertex_shader: ShaderObject;
+          data-doc-search-tag="program: make(_: typedesc[Program]; vertex_shader: ShaderObject;
      fragment_shader: ShaderObject; attributes: seq[string] = @[];
      uniforms: seq[string] = @[];
-     subroutine_uniforms: seq[(ShaderObjectKind, string)] = @[]): ProgramObject" href="nagu/program.html#make%2Ctypedesc%5BProgramObject%5D%2CShaderObject%2CShaderObject%2Cseq%5Bstring%5D%2Cseq%5Bstring%5D%2Cseq%5B%5D">program: make(_: typedesc[ProgramObject]; vertex_shader: ShaderObject;
+     subroutine_uniforms: seq[(ShaderObjectKind, string)] = @[]): Program" href="nagu/program.html#make%2Ctypedesc%5BProgram%5D%2CShaderObject%2CShaderObject%2Cseq%5Bstring%5D%2Cseq%5Bstring%5D%2Cseq%5B%5D">program: make(_: typedesc[Program]; vertex_shader: ShaderObject;
      fragment_shader: ShaderObject; attributes: seq[string] = @[];
      uniforms: seq[string] = @[];
-     subroutine_uniforms: seq[(ShaderObjectKind, string)] = @[]): ProgramObject</a></li>
+     subroutine_uniforms: seq[(ShaderObjectKind, string)] = @[]): Program</a></li>
           <li><a class="reference external"
           data-doc-search-tag="shader: make(_: typedesc[ShaderObject]; kind: ShaderObjectKind; path: string): ShaderObject" href="nagu/shader.html#make%2Ctypedesc%5BShaderObject%5D%2CShaderObjectKind%2Cstring">shader: make(_: typedesc[ShaderObject]; kind: ShaderObjectKind; path: string): ShaderObject</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="shape: make[V, V3x, V4x: static int](_: typedesc[Shape[V, V3x, V4x]];
+                              positions: array[V, Vec3[float32]];
+                              colors: array[V, Vec4[float32]];
+                              vertex_shader_path: string;
+                              fragment_shader_path: string): Shape[V, V3x, V4x]" href="nagu/shape.html#make%2Ctypedesc%5BShape%5BV%2CV3x%2CV4x%5D%5D%2Carray%5BV%2CVec3%5Bfloat32%5D%5D%2Carray%5BV%2CVec4%5Bfloat32%5D%5D%2Cstring%2Cstring">shape: make[V, V3x, V4x: static int](_: typedesc[Shape[V, V3x, V4x]];
+                              positions: array[V, Vec3[float32]];
+                              colors: array[V, Vec4[float32]];
+                              vertex_shader_path: string;
+                              fragment_shader_path: string): Shape[V, V3x, V4x]</a></li>
           <li><a class="reference external"
           data-doc-search-tag="texture: make(_: typedesc[Texture]; position: Position = Position.init(0, 0, 0);
      vertex_shader_path: string; fragment_shader_path: string): Texture" href="nagu/texture.html#make%2Ctypedesc%5BTexture%5D%2CPosition%2Cstring%2Cstring">texture: make(_: typedesc[Texture]; position: Position = Position.init(0, 0, 0);
      vertex_shader_path: string; fragment_shader_path: string): Texture</a></li>
-          <li><a class="reference external"
-          data-doc-search-tag="triangle: make(_: typedesc[Triangle]; p1: Position; c1: Color; p2: Position; c2: Color;
-     p3: Position; c3: Color): Triangle" href="nagu/triangle.html#make%2Ctypedesc%5BTriangle%5D%2CPosition%2CColor%2CPosition%2CColor%2CPosition%2CColor">triangle: make(_: typedesc[Triangle]; p1: Position; c1: Color; p2: Position; c2: Color;
-     p3: Position; c3: Color): Triangle</a></li>
-          <li><a class="reference external"
-          data-doc-search-tag="triangle: make(_: typedesc[Triangle]; p1, p2, p3: Position; color: Color): Triangle" href="nagu/triangle.html#make%2Ctypedesc%5BTriangle%5D%2CPosition%2CPosition%2CPosition%2CColor">triangle: make(_: typedesc[Triangle]; p1, p2, p3: Position; color: Color): Triangle</a></li>
           <li><a class="reference external"
           data-doc-search-tag="vao: make(_: typedesc[VAO]): VAO" href="nagu/vao.html#make%2Ctypedesc%5BVAO%5D">vao: make(_: typedesc[VAO]): VAO</a></li>
           </ul></dd>
@@ -416,6 +366,14 @@ window.addEventListener('DOMContentLoaded', main);
           data-doc-search-tag="texture: minFilter=(texture: var BindedTexture;
            min_filter_param: TextureMinFilterParameter)" href="nagu/types/texture.html#minFilter%3D%2CBindedTexture%2CTextureMinFilterParameter">texture: minFilter=(texture: var BindedTexture;
            min_filter_param: TextureMinFilterParameter)</a></li>
+          </ul></dd>
+<dt><a name="ModelMatrix" href="#ModelMatrix"><span>ModelMatrix:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="mvp_matrix: ModelMatrix" href="nagu/mvp_matrix.html#ModelMatrix">mvp_matrix: ModelMatrix</a></li>
+          </ul></dd>
+<dt><a name="ModelMatrixVector" href="#ModelMatrixVector"><span>ModelMatrixVector:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="mvp_matrix: ModelMatrixVector" href="nagu/mvp_matrix.html#ModelMatrixVector">mvp_matrix: ModelMatrixVector</a></li>
           </ul></dd>
 <dt><a name="mvpMatrix" href="#mvpMatrix"><span>mvpMatrix:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -449,12 +407,6 @@ window.addEventListener('DOMContentLoaded', main);
           <li><a class="reference external"
           data-doc-search-tag="texture: pixels=(texture: var BindedTexture; width, height: uint; data: pointer)" href="nagu/texture.html#pixels%3D%2CBindedTexture%2Cuint%2Cuint%2Cpointer">texture: pixels=(texture: var BindedTexture; width, height: uint; data: pointer)</a></li>
           </ul></dd>
-<dt><a name="pMap" href="#pMap"><span>pMap:</span></a></dt><dd><ul class="simple">
-<li><a class="reference external"
-          data-doc-search-tag="shape: pMap[I: static int](shape: var Shape[I]; fn: Position -&gt; Position)" href="nagu/shape.html#pMap%2CShape%5BI%5D%2C">shape: pMap[I: static int](shape: var Shape[I]; fn: Position -&gt; Position)</a></li>
-          <li><a class="reference external"
-          data-doc-search-tag="triangle: pMap(t: Triangle; fn: Position -&gt; Position): Triangle" href="nagu/triangle.html#pMap%2CTriangle%2C">triangle: pMap(t: Triangle; fn: Position -&gt; Position): Triangle</a></li>
-          </ul></dd>
 <dt><a name="pollEventsAndSwapBuffers" href="#pollEventsAndSwapBuffers"><span>pollEventsAndSwapBuffers:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="glfw: pollEventsAndSwapBuffers(context: NaguContext)" href="nagu/glfw.html#pollEventsAndSwapBuffers%2CNaguContext">glfw: pollEventsAndSwapBuffers(context: NaguContext)</a></li>
@@ -463,13 +415,9 @@ window.addEventListener('DOMContentLoaded', main);
 <li><a class="reference external"
           data-doc-search-tag="position: Position" href="nagu/position.html#Position">position: Position</a></li>
           </ul></dd>
-<dt><a name="positionArray" href="#positionArray"><span>positionArray:</span></a></dt><dd><ul class="simple">
+<dt><a name="Program" href="#Program"><span>Program:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="triangle: positionArray(t: Triangle): triangleArray" href="nagu/triangle.html#positionArray%2CTriangle">triangle: positionArray(t: Triangle): triangleArray</a></li>
-          </ul></dd>
-<dt><a name="positions" href="#positions"><span>positions:</span></a></dt><dd><ul class="simple">
-<li><a class="reference external"
-          data-doc-search-tag="shape: positions[I: static int](shape: Shape[I]): array[I div 3, Position]" href="nagu/shape.html#positions%2CShape%5BI%5D">shape: positions[I: static int](shape: Shape[I]): array[I div 3, Position]</a></li>
+          data-doc-search-tag="program: Program" href="nagu/program.html#Program">program: Program</a></li>
           </ul></dd>
 <dt><a name="ProgramCreationDefect" href="#ProgramCreationDefect"><span>ProgramCreationDefect:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -491,10 +439,6 @@ window.addEventListener('DOMContentLoaded', main);
 <li><a class="reference external"
           data-doc-search-tag="program: ProgramNotExistsActiveUniformDefect" href="nagu/program.html#ProgramNotExistsActiveUniformDefect">program: ProgramNotExistsActiveUniformDefect</a></li>
           </ul></dd>
-<dt><a name="ProgramObject" href="#ProgramObject"><span>ProgramObject:</span></a></dt><dd><ul class="simple">
-<li><a class="reference external"
-          data-doc-search-tag="program: ProgramObject" href="nagu/program.html#ProgramObject">program: ProgramObject</a></li>
-          </ul></dd>
 <dt><a name="ProgramVariableKind" href="#ProgramVariableKind"><span>ProgramVariableKind:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="program: ProgramVariableKind" href="nagu/program.html#ProgramVariableKind">program: ProgramVariableKind</a></li>
@@ -513,17 +457,17 @@ window.addEventListener('DOMContentLoaded', main);
           </ul></dd>
 <dt><a name="registerAttrib" href="#registerAttrib"><span>registerAttrib:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="program: registerAttrib(program: var ProgramObject; name: string)" href="nagu/program.html#registerAttrib%2CProgramObject%2Cstring">program: registerAttrib(program: var ProgramObject; name: string)</a></li>
+          data-doc-search-tag="program: registerAttrib(program: var Program | var BindedProgram; name: string)" href="nagu/program.html#registerAttrib%2C%2Cstring">program: registerAttrib(program: var Program | var BindedProgram; name: string)</a></li>
           </ul></dd>
 <dt><a name="registerSubroutineUniform" href="#registerSubroutineUniform"><span>registerSubroutineUniform:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="program: registerSubroutineUniform(program: var ProgramObject;
-                          shaderType: ShaderObjectKind; name: string)" href="nagu/program.html#registerSubroutineUniform%2CProgramObject%2CShaderObjectKind%2Cstring">program: registerSubroutineUniform(program: var ProgramObject;
+          data-doc-search-tag="program: registerSubroutineUniform(program: var Program | var BindedProgram;
+                          shaderType: ShaderObjectKind; name: string)" href="nagu/program.html#registerSubroutineUniform%2C%2CShaderObjectKind%2Cstring">program: registerSubroutineUniform(program: var Program | var BindedProgram;
                           shaderType: ShaderObjectKind; name: string)</a></li>
           </ul></dd>
 <dt><a name="registerUniform" href="#registerUniform"><span>registerUniform:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="program: registerUniform(program: var ProgramObject; name: string)" href="nagu/program.html#registerUniform%2CProgramObject%2Cstring">program: registerUniform(program: var ProgramObject; name: string)</a></li>
+          data-doc-search-tag="program: registerUniform(program: var Program | var BindedProgram; name: string)" href="nagu/program.html#registerUniform%2C%2Cstring">program: registerUniform(program: var Program | var BindedProgram; name: string)</a></li>
           </ul></dd>
 <dt><a name="rgb" href="#rgb"><span>rgb:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -531,6 +475,10 @@ window.addEventListener('DOMContentLoaded', main);
           </ul></dd>
 <dt><a name="setModelMatrix" href="#setModelMatrix"><span>setModelMatrix:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
+          data-doc-search-tag="shape: setModelMatrix[V, V3x, V4x: static int](shape: var BindedShape[V, V3x, V4x];
+                                        matrix4v: array[16, float32])" href="nagu/shape.html#setModelMatrix%2CBindedShape%5BV%2CV3x%2CV4x%5D%2Carray%5B%2Cfloat32%5D">shape: setModelMatrix[V, V3x, V4x: static int](shape: var BindedShape[V, V3x, V4x];
+                                        matrix4v: array[16, float32])</a></li>
+          <li><a class="reference external"
           data-doc-search-tag="texture: setModelMatrix(texture: var BindedTexture; matrix4v: array[16, float32])" href="nagu/texture.html#setModelMatrix%2CBindedTexture%2Carray%5B%2Cfloat32%5D">texture: setModelMatrix(texture: var BindedTexture; matrix4v: array[16, float32])</a></li>
           <li><a class="reference external"
           data-doc-search-tag="texture: setModelMatrix(texture: var BindedTexture; matrix4v: Mat4[float32])" href="nagu/texture.html#setModelMatrix%2CBindedTexture%2CMat4%5Bfloat32%5D">texture: setModelMatrix(texture: var BindedTexture; matrix4v: Mat4[float32])</a></li>
@@ -562,6 +510,10 @@ window.addEventListener('DOMContentLoaded', main);
 <dt><a name="Shape" href="#Shape"><span>Shape:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="shape: Shape" href="nagu/shape.html#Shape">shape: Shape</a></li>
+          </ul></dd>
+<dt><a name="ShapeObj" href="#ShapeObj"><span>ShapeObj:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="shape: ShapeObj" href="nagu/shape.html#ShapeObj">shape: ShapeObj</a></li>
           </ul></dd>
 <dt><a name="soFragment" href="#soFragment"><span>soFragment:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -607,10 +559,6 @@ window.addEventListener('DOMContentLoaded', main);
 <li><a class="reference external"
           data-doc-search-tag="texture: TextureMinFilterParameter" href="nagu/types/texture.html#TextureMinFilterParameter">texture: TextureMinFilterParameter</a></li>
           </ul></dd>
-<dt><a name="TextureModelMatrixVector" href="#TextureModelMatrixVector"><span>TextureModelMatrixVector:</span></a></dt><dd><ul class="simple">
-<li><a class="reference external"
-          data-doc-search-tag="texture: TextureModelMatrixVector" href="nagu/types/texture.html#TextureModelMatrixVector">texture: TextureModelMatrixVector</a></li>
-          </ul></dd>
 <dt><a name="TextureQuad" href="#TextureQuad"><span>TextureQuad:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="texture: TextureQuad" href="nagu/types/texture.html#TextureQuad">texture: TextureQuad</a></li>
@@ -651,6 +599,8 @@ window.addEventListener('DOMContentLoaded', main);
           </ul></dd>
 <dt><a name="unbind" href="#unbind"><span>unbind:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
+          data-doc-search-tag="program: unbind(program: var BindedProgram): Program" href="nagu/program.html#unbind%2CBindedProgram">program: unbind(program: var BindedProgram): Program</a></li>
+          <li><a class="reference external"
           data-doc-search-tag="vao: unbind()" href="nagu/vao.html#unbind">vao: unbind()</a></li>
           <li><a class="reference external"
           data-doc-search-tag="vbo: unbind[I: static int; T](vbo: var BindedVBO[I, T]): VBO[I, T]" href="nagu/vbo.html#unbind%2CBindedVBO%5BI%2CT%5D">vbo: unbind[I: static int; T](vbo: var BindedVBO[I, T]): VBO[I, T]</a></li>
@@ -669,7 +619,11 @@ window.addEventListener('DOMContentLoaded', main);
           </ul></dd>
 <dt><a name="use" href="#use"><span>use:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="program: use(program: ProgramObject)" href="nagu/program.html#use%2CProgramObject">program: use(program: ProgramObject)</a></li>
+          data-doc-search-tag="program: use(program: var Program; procedure: proc (program: var BindedProgram))" href="nagu/program.html#use%2CProgram%2Cproc%28BindedProgram%29">program: use(program: var Program; procedure: proc (program: var BindedProgram))</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="shape: use[V, V3x, V4x: static int](shape: var Shape[V, V3x, V4x]; procedure: proc (
+    shape: var BindedShape[V, V3x, V4x]))" href="nagu/shape.html#use%2CShape%5BV%2CV3x%2CV4x%5D%2Cproc%28BindedShape%5BV%2CV3x%2CV4x%5D%29">shape: use[V, V3x, V4x: static int](shape: var Shape[V, V3x, V4x]; procedure: proc (
+    shape: var BindedShape[V, V3x, V4x]))</a></li>
           <li><a class="reference external"
           data-doc-search-tag="texture: use(texture: var Texture; procedure: proc (texture: var BindedTexture))" href="nagu/texture.html#use%2CTexture%2Cproc%28BindedTexture%29">texture: use(texture: var Texture; procedure: proc (texture: var BindedTexture))</a></li>
           <li><a class="reference external"
@@ -678,6 +632,14 @@ window.addEventListener('DOMContentLoaded', main);
           data-doc-search-tag="vbo: use[I: static int; T](vbo: var VBO[I, T];
                       procedure: proc (vbo: var BindedVBO[I, T]))" href="nagu/vbo.html#use%2CVBO%5BI%2CT%5D%2Cproc%28BindedVBO%5BI%2CT%5D%29">vbo: use[I: static int; T](vbo: var VBO[I, T];
                       procedure: proc (vbo: var BindedVBO[I, T]))</a></li>
+          </ul></dd>
+<dt><a name="useColors" href="#useColors"><span>useColors:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="shape: useColors[V, V3x, V4x: static int](shape: var BindedShape[V, V3x, V4x];
+    procedure: proc (shape: var BindedShape[V, V3x, V4x];
+                     vbo: var BindedVBO[V4x, float32]))" href="nagu/shape.html#useColors%2CBindedShape%5BV%2CV3x%2CV4x%5D%2Cproc%28BindedShape%5BV%2CV3x%2CV4x%5D%2CBindedVBO%5BV4x%2Cfloat32%5D%29">shape: useColors[V, V3x, V4x: static int](shape: var BindedShape[V, V3x, V4x];
+    procedure: proc (shape: var BindedShape[V, V3x, V4x];
+                     vbo: var BindedVBO[V4x, float32]))</a></li>
           </ul></dd>
 <dt><a name="useElem" href="#useElem"><span>useElem:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -688,18 +650,36 @@ window.addEventListener('DOMContentLoaded', main);
 <dt><a name="useModelMatrix" href="#useModelMatrix"><span>useModelMatrix:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
           data-doc-search-tag="texture: useModelMatrix(bindedTexture: var BindedTexture; procedure: proc (
-    texture: var BindedTexture;
-    vbo: var array[4, BindedTextureModelMatrixVector]))" href="nagu/texture.html#useModelMatrix%2CBindedTexture%2Cproc%28BindedTexture%2Carray%5B%2CBindedTextureModelMatrixVector%5D%29">texture: useModelMatrix(bindedTexture: var BindedTexture; procedure: proc (
-    texture: var BindedTexture;
-    vbo: var array[4, BindedTextureModelMatrixVector]))</a></li>
+    texture: var BindedTexture; vbo: var array[4, BindedModelMatrixVector[16]]))" href="nagu/texture.html#useModelMatrix%2CBindedTexture%2Cproc%28BindedTexture%2Carray%5B%2CBindedModelMatrixVector%5B%5D%5D%29">texture: useModelMatrix(bindedTexture: var BindedTexture; procedure: proc (
+    texture: var BindedTexture; vbo: var array[4, BindedModelMatrixVector[16]]))</a></li>
           </ul></dd>
 <dt><a name="useModelMatrixVector" href="#useModelMatrixVector"><span>useModelMatrixVector:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
+          data-doc-search-tag="shape: useModelMatrixVector[V, V3x, V4x: static int](
+    bindedShape: var BindedShape[V, V3x, V4x]; index: range[0 .. 3]; procedure: proc (
+    shape: var BindedShape[V, V3x, V4x]; vbo: var BindedModelMatrixVector[V4x]))" href="nagu/shape.html#useModelMatrixVector%2CBindedShape%5BV%2CV3x%2CV4x%5D%2Crange%5B%5D%2Cproc%28BindedShape%5BV%2CV3x%2CV4x%5D%2CBindedModelMatrixVector%5BV4x%5D%29">shape: useModelMatrixVector[V, V3x, V4x: static int](
+    bindedShape: var BindedShape[V, V3x, V4x]; index: range[0 .. 3]; procedure: proc (
+    shape: var BindedShape[V, V3x, V4x]; vbo: var BindedModelMatrixVector[V4x]))</a></li>
+          <li><a class="reference external"
           data-doc-search-tag="texture: useModelMatrixVector(bindedTexture: var BindedTexture; index: range[0 .. 3];
     procedure: proc (texture: var BindedTexture;
-                     vbo: var BindedTextureModelMatrixVector))" href="nagu/texture.html#useModelMatrixVector%2CBindedTexture%2Crange%5B%5D%2Cproc%28BindedTexture%2CBindedTextureModelMatrixVector%29">texture: useModelMatrixVector(bindedTexture: var BindedTexture; index: range[0 .. 3];
+                     vbo: var BindedModelMatrixVector[16]))" href="nagu/texture.html#useModelMatrixVector%2CBindedTexture%2Crange%5B%5D%2Cproc%28BindedTexture%2CBindedModelMatrixVector%5B%5D%29">texture: useModelMatrixVector(bindedTexture: var BindedTexture; index: range[0 .. 3];
     procedure: proc (texture: var BindedTexture;
-                     vbo: var BindedTextureModelMatrixVector))</a></li>
+                     vbo: var BindedModelMatrixVector[16]))</a></li>
+          </ul></dd>
+<dt><a name="usePositions" href="#usePositions"><span>usePositions:</span></a></dt><dd><ul class="simple">
+<li><a class="reference external"
+          data-doc-search-tag="shape: usePositions[V, V3x, V4x: static int](shape: var BindedShape[V, V3x, V4x];
+    procedure: proc (shape: var BindedShape[V, V3x, V4x]; vao: var BindedVAO;
+                     vbo: var BindedVBO[V3x, float32]))" href="nagu/shape.html#usePositions%2CBindedShape%5BV%2CV3x%2CV4x%5D%2Cproc%28BindedShape%5BV%2CV3x%2CV4x%5D%2CBindedVAO%2CBindedVBO%5BV3x%2Cfloat32%5D%29">shape: usePositions[V, V3x, V4x: static int](shape: var BindedShape[V, V3x, V4x];
+    procedure: proc (shape: var BindedShape[V, V3x, V4x]; vao: var BindedVAO;
+                     vbo: var BindedVBO[V3x, float32]))</a></li>
+          <li><a class="reference external"
+          data-doc-search-tag="shape: usePositions[V, V3x, V4x: static int](shape: var BindedShape[V, V3x, V4x];
+    procedure: proc (shape: var BindedShape[V, V3x, V4x];
+                     vbo: var BindedVBO[V3x, float32]))" href="nagu/shape.html#usePositions%2CBindedShape%5BV%2CV3x%2CV4x%5D%2Cproc%28BindedShape%5BV%2CV3x%2CV4x%5D%2CBindedVBO%5BV3x%2Cfloat32%5D%29">shape: usePositions[V, V3x, V4x: static int](shape: var BindedShape[V, V3x, V4x];
+    procedure: proc (shape: var BindedShape[V, V3x, V4x];
+                     vbo: var BindedVBO[V3x, float32]))</a></li>
           </ul></dd>
 <dt><a name="useQuad" href="#useQuad"><span>useQuad:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -715,6 +695,10 @@ window.addEventListener('DOMContentLoaded', main);
           </ul></dd>
 <dt><a name="useVAO" href="#useVAO"><span>useVAO:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
+          data-doc-search-tag="shape: useVAO[V, V3x, V4x: static int](shape: var BindedShape[V, V3x, V4x]; procedure: proc (
+    shape: var BindedShape[V, V3x, V4x]; vao: var BindedVAO))" href="nagu/shape.html#useVAO%2CBindedShape%5BV%2CV3x%2CV4x%5D%2Cproc%28BindedShape%5BV%2CV3x%2CV4x%5D%2CBindedVAO%29">shape: useVAO[V, V3x, V4x: static int](shape: var BindedShape[V, V3x, V4x]; procedure: proc (
+    shape: var BindedShape[V, V3x, V4x]; vao: var BindedVAO))</a></li>
+          <li><a class="reference external"
           data-doc-search-tag="texture: useVAO(bindedTexture: var BindedTexture;
        procedure: proc (texture: var BindedTexture; vao: var BindedVAO))" href="nagu/texture.html#useVAO%2CBindedTexture%2Cproc%28BindedTexture%2CBindedVAO%29">texture: useVAO(bindedTexture: var BindedTexture;
        procedure: proc (texture: var BindedTexture; vao: var BindedVAO))</a></li>
@@ -729,13 +713,7 @@ window.addEventListener('DOMContentLoaded', main);
           </ul></dd>
 <dt><a name="VBO" href="#VBO"><span>VBO:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
-          data-doc-search-tag="old_vbo: VBO" href="nagu/old_vbo.html#VBO">old_vbo: VBO</a></li>
-          <li><a class="reference external"
           data-doc-search-tag="vbo: VBO" href="nagu/vbo.html#VBO">vbo: VBO</a></li>
-          </ul></dd>
-<dt><a name="vboRef" href="#vboRef"><span>vboRef:</span></a></dt><dd><ul class="simple">
-<li><a class="reference external"
-          data-doc-search-tag="old_vbo: vboRef" href="nagu/old_vbo.html#vboRef">old_vbo: vboRef</a></li>
           </ul></dd>
 <dt><a name="VBOTarget" href="#VBOTarget"><span>VBOTarget:</span></a></dt><dd><ul class="simple">
 <li><a class="reference external"
@@ -906,7 +884,7 @@ window.addEventListener('DOMContentLoaded', main);
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2022-06-14 10:50:52 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2022-06-16 14:09:50 UTC</small>
       </div>
     </div>
   </div>
