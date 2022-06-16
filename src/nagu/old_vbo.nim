@@ -1,7 +1,7 @@
 ## src/nagu/vbo.nim defines the VBO type and procedures related to its for abstracting OpenGL VBO.
 
 from nimgl/opengl import nil
-from program import ProgramObject
+from program import Program
 
 type
   vboObj [I: static[int]; T] = object
@@ -42,7 +42,7 @@ proc make* [I: static[int]; T] (_: typedesc[VBO], data: array[I, T]): vboRef[I, 
   result.data = data
   result := result.data
 
-proc correspond* [I] (program: ProgramObject, vbo: vboRef[I, float32], name: string, size: int) =
+proc correspond* [I] (program: Program, vbo: vboRef[I, float32], name: string, size: int) =
   ## Ties `vbo` to `program`.
   let index = opengl.GLuint(program.nameToIndex[name])
   opengl.glEnableVertexAttribArray(index)

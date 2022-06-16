@@ -13,13 +13,15 @@ type
     pvkUniform,
     pvkSubroutineUniform
 
-  ProgramObjectObj = object
+  ProgramObj [binded: static bool] = object
     id: opengl.GLuint
     linked: bool
     nameToIndex*: Table[string, tuple[index: int, kind: ProgramVariableKind]]
   
-  ProgramObject* = ref ProgramObjectObj
+  Program* = ref ProgramObj[false]
     ## The ProgramObject type representations OpenGL program object.
+  
+  BindedProgram* = ref ProgramObj[true]
 
   ProgramDefect* = object of OpenGLDefect
     ## Raised by something with OpenGL programs.
@@ -46,44 +48,45 @@ func identityMatrix*: mvpMatrix = [
 ]
   ## Matrix which value does not change when applied.
 
-proc init* (_: typedesc[ProgramObject]): ProgramObject =
+proc init* (_: typedesc[Program]): Program =
   ## Initializes ProgramObject.
   let program = opengl.glCreateProgram()
   if program == opengl.GLuint(0):
     raise newException(ProgramCreationDefect, "Failed to create the program for some reason.")
-  result = ProgramObject(
+  result = Program(
     id: program,
     linked: false,
     nameToIndex: initTable[string, (int, ProgramVariableKind)]()
   )
 
-func id* (program: ProgramObject): opengl.GLuint =
+func id* (program: Program | BindedProgram): opengl.GLuint =
   ## Gets id of `program`.
   result = program.id
 
-func linked* (program: ProgramObject): bool =
+func linked* (program: Program | BindedProgram): bool =
   ## Gets `program` linked or not.
   result = program.linked
 
-func index* (program: ProgramObject, name: string): int =
+func index* (program: Program | BindedProgram, name: string): int =
   ## Queries `program` for `name` and corresponding index.
   result = program.nameToIndex[name].index
 
-proc attach* (program: ProgramObject, shader: ShaderObject): ProgramObject =
+# FIXME: Programを消す
+proc attach* (program: Program | var BindedProgram, shader: ShaderObject) =
   ## Attach `shader` to `program`.
-  result = program
-  when defined(debuggingOpenGL):
+  debugOpenGLStatement:
     echo &"glAttachShader({program.id}, {shader.id})"
   opengl.glAttachShader(program.id, opengl.GLuint(shader.id))
 
-proc successLink (program: ProgramObject): bool =
+proc successLink (program: Program | BindedProgram): bool =
   var status: opengl.GLint
   opengl.glGetProgramiv(program.id, opengl.GL_LINK_STATUS, status.addr)
-  when defined(debuggingOpenGL):
+  debugOpenGLStatement:
     echo &"glGetProgramiv({program.id}, GL_LINK_STATUS, {status})"
   result = status == opengl.GLint(opengl.GL_TRUE)
 
-proc log* (program: ProgramObject): string =
+# FIXME: PRogramを消す
+proc log* (program: var Program | var BindedProgram): string =
   ## Gets logs about OpenGL programs.
   var log_length: opengl.GLint
   opengl.glGetProgramiv(program.id, opengl.GL_INFO_LOG_LENGTH, log_length.addr)
@@ -94,16 +97,44 @@ proc log* (program: ProgramObject): string =
     opengl.glGetProgramInfoLog(program.id, log_length, written_length.addr, log)
     result = $log
 
-proc use* (program: ProgramObject) =
+func toBindedProgram (program: Program): BindedProgram =
+  result = BindedProgram(
+    id: program.id,
+    linked: program.linked,
+    nameToIndex: program.nameToIndex
+  )
+
+func toProgram (program: BindedProgram): Program =
+  result = Program(
+    id: program.id,
+    linked: program.linked,
+    nameToIndex: program.nameToIndex
+  )
+
+proc `bind`* (program: var Program): BindedProgram =
   ## Use `program` if it is linked.
   if program.linked:
-    when defined(debuggingOpenGL):
+    debugOpenGLStatement:
       echo &"glUseProgram({program.id})"
     opengl.glUseProgram(program.id)
+    result = program.toBindedProgram
 
-proc link* (program: var ProgramObject) =
+proc unbind* (program: var BindedProgram): Program =
+  opengl.glUseProgram(0)
+  debugOpenGLStatement:
+    echo "glUseProgram(0)"
+  result = program.toProgram
+
+proc use* (program: var Program, procedure: proc (program: var BindedProgram)) =
+  ## Use `program` if it is linked.
+  var bindedProgram = program.bind()
+  procedure(bindedProgram)
+  program = bindedProgram.unbind()
+
+# FIXME: Programを消す
+proc link* (program: var Program | var BindedProgram) =
   ## Links `program`.
-  when defined(debuggingOpenGL):
+  debugOpenGLStatement:
     echo &"glLinkProgram({program.id})"
   opengl.glLinkProgram(program.id)
   if program.successLink:
@@ -111,62 +142,67 @@ proc link* (program: var ProgramObject) =
   else:
     raise newException(ProgramLinkingDefect, "Failed to link shader program: " & program.log)
 
-proc registerAttrib* (program: var ProgramObject, name: string) =
+# FIXME: Programを消す
+proc registerAttrib* (program: var Program | var BindedProgram, name: string) =
   ## Register an attrib variable named `name` in `program`
   let index = program.nameToIndex.len
   program.nameToIndex[name] = (index, pvkAttrib)
-  when defined(debuggingOpenGL):
+  debugOpenGLStatement:
     echo &"glBindAttribLocation({program.id}, {index}, {name})"
   opengl.glBindAttribLocation(program.id, opengl.GLuint(index), name)
 
-proc registerUniform* (program: var ProgramObject, name: string) =
+# FIXME: Programを消す
+proc registerUniform* (program: var Program | var BindedProgram, name: string) =
   ## Register a uniform variable named `name` in `program`
   let index = opengl.glGetUniformLocation(program.id, name).int
   if index == -1:
     raise newException(ProgramNotExistsActiveUniformDefect, &"Active Uniform variable {name} does not exist in GLSL.")
   program.nameToIndex[name] = (index, pvkUniform)
 
-proc registerSubroutineUniform* (program: var ProgramObject, shaderType: ShaderObjectKind, name: string) =
+# FIXME: Programを消す
+proc registerSubroutineUniform* (program: var Program | var BindedProgram, shaderType: ShaderObjectKind, name: string) =
   let index = opengl.glGetSubroutineUniformLocation(program.id, shaderType.convertGLExpression, name).int
   if index == -1:
     raise newException(ProgramNotExistsActiveSubroutineUniformDefect, &"Active Subroutine-Uniform variable {name} does not exist in GLSL.")
   program.nameToIndex[name] = (index, pvkSubroutineUniform)
 
-proc make* (_: typedesc[ProgramObject], vertex_shader: ShaderObject, fragment_shader: ShaderObject): ProgramObject =
+proc make* (_: typedesc[Program], vertex_shader: ShaderObject, fragment_shader: ShaderObject): Program =
   ## Makes a program linking `vertex_shader` and `fragment_shader`.
-  result = ProgramObject
+  result = Program
             .init()
             .attach(vertex_shader)
             .attach(fragment_shader)
   result.link()
-  result.use()
 
-proc make* (_: typedesc[ProgramObject], vertex_shader: ShaderObject, fragment_shader: ShaderObject, attributes: seq[string] = @[], uniforms: seq[string] = @[], subroutine_uniforms: seq[(ShaderObjectKind, string)] = @[]): ProgramObject =
+proc make* (_: typedesc[Program], vertex_shader: ShaderObject, fragment_shader: ShaderObject, attributes: seq[string] = @[], uniforms: seq[string] = @[], subroutine_uniforms: seq[(ShaderObjectKind, string)] = @[]): Program =
   ## Makes a program linking `vertex_shader` and `fragment_shader`; registering `attributes` and `uniforms`.
-  result = ProgramObject
+  result = Program
             .init()
-            .attach(vertex_shader)
-            .attach(fragment_shader)
+  result.attach(vertex_shader)
+  result.attach(fragment_shader)
   for attribute in attributes:
     result.registerAttrib(attribute)
   result.link()
-  result.use()
-  for uniform in uniforms:
-    result.registerUniform(uniform)
-  for (shader_kind, subroutine_uniform) in subroutine_uniforms:
-    result.registerSubroutineUniform(shader_kind, subroutine_uniform)
+  result.use do (program: var BindedProgram):
+    for uniform in uniforms:
+      program.registerUniform(uniform)
+    for (shader_kind, subroutine_uniform) in subroutine_uniforms:
+      program.registerSubroutineUniform(shader_kind, subroutine_uniform)
 
-proc `[]`* (program: ProgramObject, name: string): int =
+# FIXME: Programを消す
+proc `[]`* (program: Program | BindedProgram, name: string): int =
   result = program.nameToIndex[name].index
 
-proc `[]=`* (program: ProgramObject, name: string, v1: int) =
+# FIXME: Programを消す
+proc `[]=`* (program: Program | BindedProgram, name: string, v1: int) =
   let index = program[name]
   opengl.glUniform1i(opengl.GLint(index), opengl.GLint(v1))
 
   debugOpenGLStatement:
     echo &"glUniform1i({index}, {v1})"
 
-proc `[]=`* (program: ProgramObject, name: string, matrix4v: array[16, float32]) =
+# FIXME: Programを消す
+proc `[]=`* (program: Program | BindedProgram, name: string, matrix4v: array[16, float32]) =
   let index = program[name]
   var matrix4v = matrix4v
   opengl.glUniformMatrix4fv(opengl.GLint(index), 1, opengl.GLboolean(false), matrix4v[0].addr)
@@ -174,7 +210,8 @@ proc `[]=`* (program: ProgramObject, name: string, matrix4v: array[16, float32])
   debugOpenGLStatement:
     echo &"glUniformMatrix4fv(index, 1, false, {matrix4v})"
 
-proc `[]=`* [I: static int, T] (program: ProgramObject, name: string, data: tuple[vbo: BindedVBO[I ,T], size: int]) =
+# FIXME: Programを消す
+proc `[]=`* [I: static int, T] (program: Program | BindedProgram, name: string, data: tuple[vbo: BindedVBO[I ,T], size: int]) =
   let index = opengl.GLuint(program[name])
   opengl.glEnableVertexAttribArray(index)
-  opengl.glVertexAttribPointer(index, opengl.GLint(data.size), opengl.EGL_FLOAT, false, opengl.GLSizei(data.vbo.data.len), cast[pointer](0))
+  opengl.glVertexAttribPointer(index, opengl.GLint(data.size), opengl.EGL_FLOAT, false, opengl.GLSizei(0), cast[pointer](0))

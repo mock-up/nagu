@@ -1,5 +1,5 @@
 from nimgl/opengl import nil
-import ../vao, ../vbo, ../program
+import ../vao, ../vbo, ../program, ../utils, ../mvp_matrix
 import strformat
 
 type
@@ -9,8 +9,6 @@ type
   BindedTextureUV* = BindedVBO[8, float32]
   TextureElem* = VBO[6, uint8]
   BindedTextureElem* = BindedVBO[6, uint8]
-  TextureModelMatrixVector* = VBO[16, float32]
-  BindedTextureModelMatrixVector* = BindedVBO[16, float32]
 
   TextureObj [binded: static bool] = object
     id: opengl.GLuint
@@ -18,12 +16,12 @@ type
     quad*: TextureQuad
     uv*: TextureUV
     elem*: TextureElem
-    model_matrix*: array[4, TextureModelMatrixVector]
+    model_matrix*: array[4, ModelMatrixVector[16]]
     wrapS, wrapT: TextureWrapParameter
     magFilter: TextureMagFilterParameter
     minFilter: TextureMinFilterParameter
     pixels: pointer
-    program*: ProgramObject
+    program*: Program
     initializedPixels*: bool
   
   Texture* = ref TextureObj[false]
@@ -91,7 +89,7 @@ func magFilter* (texture: AllTextures): TextureMagFilterParameter = texture.magF
 func minFilter* (texture: AllTextures): TextureMinFilterParameter = texture.minFilter
 
 proc assignParameterBoiler (texture: var BindedTexture, name: opengl.GLenum, param: opengl.GLint) =
-  when defined(debuggingOpenGL):
+  debugOpenGLStatement:
     echo &"glTexParameteri(opengl.GL_TEXTURE_2D, {name.repr}, {param.repr})"
   opengl.glTexParameteri(opengl.GL_TEXTURE_2D, name, param)
 
@@ -113,12 +111,12 @@ proc init* (_: typedesc[Texture],
             quad: TextureQuad = nil,
             uv: TextureUV = nil,
             elem: TextureElem = nil,
-            model_matrix: array[4, TextureModelMatrixVector],
+            model_matrix: array[4, ModelMatrixVector[16]],
             wrapS: TextureWrapParameter = TextureWrapParameter.tInitialValue,
             wrapT: TextureWrapParameter = TextureWrapParameter.tInitialValue,
             magFilter: TextureMagFilterParameter = TextureMagFilterParameter.tInitialValue,
             minFilter: TextureMinFilterParameter = TextureMinFilterParameter.tInitialValue,
-            program: ProgramObject = nil
+            program: Program = nil
            ): Texture =
   result = Texture(
     id: id,
