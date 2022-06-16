@@ -3,7 +3,7 @@ import glm
 import std/strformat
 
 type
-  ShapeObj [
+  ShapeObj* [
     binded: static bool,
     vertex_num: static int,
     vertex_num_3x: static int,
