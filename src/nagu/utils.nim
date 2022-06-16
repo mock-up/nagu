@@ -7,7 +7,7 @@ proc getFileNameAndLine: tuple[path: string, line: int] =
   result = ($last_stack_trace.filename, last_stack_trace.line)
 
 template debugOpenGLStatement* (body: untyped): untyped =
-  let (path, line) = getFileNameAndLine()
   when defined(debuggingOpenGL):
+    let (path, line) = getFileNameAndLine()
     stdout.write path & "(" & $line & ") "
     body
